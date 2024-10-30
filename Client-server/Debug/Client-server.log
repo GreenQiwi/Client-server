@@ -1,0 +1,3 @@
+﻿Client-server.obj : error LNK2019: unresolved external symbol _Pa_Initialize referenced in function _main
+Client-server.obj : error LNK2019: unresolved external symbol _Pa_Terminate referenced in function _main
+D:\prog\Client-server\Debug\Client-server.exe : fatal error LNK1120: 2 unresolved externals

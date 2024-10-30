@@ -1,0 +1,8 @@
+﻿  Client-server.cpp
+D:\prog\Client-server\Client-server\Client-server.cpp(25,50): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+  Generating code
+  1 of 431 functions ( 0.2%) were compiled, the rest were copied from previous compilation.
+    0 functions were new in current compilation
+    0 functions had inline decision re-evaluated but remain unchanged
+  Finished generating code
+  Client-server.vcxproj -> D:\prog\Client-server\x64\Release\Client-server.exe

@@ -1,8 +1,8 @@
 ﻿  Client-server.cpp
-D:\prog\Client-server\Client-server\Client-server.cpp(25,50): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
-  Generating code
-  1 of 431 functions ( 0.2%) were compiled, the rest were copied from previous compilation.
-    0 functions were new in current compilation
-    0 functions had inline decision re-evaluated but remain unchanged
-  Finished generating code
+  Please define _WIN32_WINNT or _WIN32_WINDOWS appropriately. For example:
+  - add -D_WIN32_WINNT=0x0601 to the compiler command line; or
+  - add _WIN32_WINNT=0x0601 to your project's Preprocessor Definitions.
+  Assuming _WIN32_WINNT=0x0601 (i.e. Windows 7 target).
+D:\prog\Client-server\Client-server\Client-server.cpp(35,50): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+  LINK : /LTCG specified but no code generation required; remove /LTCG from the link command line to improve linker performance
   Client-server.vcxproj -> D:\prog\Client-server\x64\Release\Client-server.exe

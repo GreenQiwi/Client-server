@@ -18,6 +18,7 @@ using tcp = asio::ip::tcp;
 #define NUMBER_OF_CHANNELS  1
 #define MAX_FILE_SIZE 1024 * 1024  
 
+//threadpool
 class AudioStorage {
 public:
     std::vector<float> audiodata;

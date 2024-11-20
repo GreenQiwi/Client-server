@@ -1,0 +1,11 @@
+﻿  Server.cpp
+  Please define _WIN32_WINNT or _WIN32_WINDOWS appropriately. For example:
+  - add -D_WIN32_WINNT=0x0601 to the compiler command line; or
+  - add _WIN32_WINNT=0x0601 to your project's Preprocessor Definitions.
+  Assuming _WIN32_WINNT=0x0601 (i.e. Windows 7 target).
+  Generating code
+  3303 of 4191 functions (78.8%) were compiled, the rest were copied from previous compilation.
+    47 functions were new in current compilation
+    142 functions had inline decision re-evaluated but remain unchanged
+  Finished generating code
+  Server.vcxproj -> D:\prog\Client-server\x64\Release\Server.exe

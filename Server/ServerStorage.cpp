@@ -27,40 +27,95 @@ std::string ServerStorage::generateFilename()
 	return oss.str();
 }
 
-void ServerStorage::deleteFiles(const std::string& directory, std::size_t maxSize, std::ofstream& log)
+void ServerStorage::addFile(const std::string& filename, const std::string& file)
 {
-    std::vector<std::filesystem::path> files;
-    size_t size = 0;
+    std::ofstream out(file, std::ios::app);
+    if (!out.is_open()) {
+        throw std::runtime_error("Failed to open associations file.");
+    }
 
-    for (const auto& file : std::filesystem::directory_iterator(directory))
+    auto now = std::chrono::system_clock::now();
+    std::time_t time_now = std::chrono::system_clock::to_time_t(now);
+
+    std::ofstream log("log.txt", std::ios::app);
+    if (log.is_open()) {
+        log << "[ADD] " << filename << " added with timestamp " << time_now << "\n";
+    }
+
+    out << filename << " " << time_now << "\n";
+    out.close();
+}
+
+std::map<std::string, std::time_t> ServerStorage::readAssociations(const std::string& file) 
+{
+    std::map<std::string, std::time_t> associations;
+
+    std::ifstream in(file);
+    if (!in.is_open()) 
     {
-        if (file.is_regular_file() && file.path().filename().string().find("audio_part_") == 0)
-        {
-            files.push_back(file.path());
-            size += std::filesystem::file_size(file.path());
+        throw std::runtime_error("Failed to open associations file.");
+    }
+
+    std::string filename;
+    std::time_t timestamp;
+
+    while (in >> filename >> timestamp) {
+        associations[filename] = timestamp;
+    }
+
+    in.close();
+    return associations;
+}
+
+void ServerStorage::writeAssociations(const std::map<std::string, std::time_t>& associations, const std::string& file) 
+{
+    std::ofstream out(file);
+    if (!out.is_open()) 
+    {
+        throw std::runtime_error("Failed to open associations file.");
+    }
+
+    for (const auto& [filename, timestamp] : associations) {
+        out << filename << " " << timestamp << "\n";
+    }
+
+    out.close();
+}
+
+void ServerStorage::deleteFiles(const std::string& directory, std::size_t maxSize, const std::string& file)
+{
+    std::map<std::string, std::time_t> associations = readAssociations(file);
+
+    std::size_t size = getStorageSize(directory);
+
+    if (size <= maxSize) {
+        return; 
+    }   
+
+    std::ofstream log("log.txt", std::ios::app);
+    if (!log.is_open()) {
+        throw std::runtime_error("Failed to open log file.");
+    }
+
+    for (const auto& [filename, timestamp] : associations) {
+        std::filesystem::path filePath = directory + "/" + filename;
+
+        if (std::filesystem::exists(filePath)) {
+            std::size_t fileSize = std::filesystem::file_size(filePath);
+
+            std::filesystem::remove(filePath);
+            size -= fileSize;
+
+            log << "[DELETE] " << filename << " (" << fileSize << " bytes) deleted to maintain storage size.\n";
+
+            associations.erase(filename);
+
+            if (size <= maxSize) {
+                break;
+            }
         }
     }
 
-    if (size <= maxSize)
-    {
-        return;
-    }
-
-    std::sort(std::begin(files), std::end(files), [](std::filesystem::path a, std::filesystem::path b)
-        {
-            return a.filename().string() < b.filename().string();
-        }
-    );
-
-    for (auto file : files)
-    {
-        size -= std::filesystem::file_size(file);
-        std::filesystem::remove(file);
-        log << file.filename() << " is deleted\n";
-
-        if (size <= maxSize)
-        {
-            break;
-        }
-    }
+    writeAssociations(associations, file);
+    log << "[INFO] Date associations updated.\n";
 }

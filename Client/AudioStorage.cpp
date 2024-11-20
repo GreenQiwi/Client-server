@@ -15,19 +15,30 @@ AudioStorage::~AudioStorage()
 
 void AudioStorage::initRecord()
 {
-    Pa_Initialize();
-
-    AudioStorage data;
-    PaStream* stream;
+    PaError err = Pa_Initialize();
+    if (err != paNoError) 
+    {
+        throw std::runtime_error("PortAudio initialization failed: " + std::string(Pa_GetErrorText(err)));
+    }
 
     PaStreamParameters inputParams;
     inputParams.device = Pa_GetDefaultInputDevice();
+    if (inputParams.device == paNoDevice) 
+    {
+        throw std::runtime_error("No default input device available.");
+    }
+
+    const PaDeviceInfo* deviceInfo = Pa_GetDeviceInfo(inputParams.device);
+    if (!deviceInfo) {
+        throw std::runtime_error("Failed to get device info.");
+    }
+
     inputParams.channelCount = NUMBER_OF_CHANNELS;
     inputParams.sampleFormat = paFloat32;
-    inputParams.suggestedLatency = Pa_GetDeviceInfo(inputParams.device)->defaultLowInputLatency;
+    inputParams.suggestedLatency = deviceInfo->defaultLowInputLatency;
     inputParams.hostApiSpecificStreamInfo = nullptr;
 
-    if (Pa_OpenStream(
+    err = Pa_OpenStream(
         &stream,
         &inputParams,
         nullptr,
@@ -40,24 +51,31 @@ void AudioStorage::initRecord()
                 static_cast<AudioStorage*>(userData)->parseAudio(input, frames);
                 return paContinue;
         },
-        &data
-    ) != paNoError) {
-        std::cerr << "Failed to open stream." << std::endl;
+        this);
+
+    if (err != paNoError) 
+    {
+        throw std::runtime_error("Failed to open stream: " + std::string(Pa_GetErrorText(err)));
     }
 }
 
 void AudioStorage::startRecord()
 {
-    Pa_StartStream(stream);
+    if (Pa_StartStream(stream) != paNoError) 
+    {
+        throw std::runtime_error("Failed to start stream");
+    }
     std::cout << "Recording... Press 'q' to stop." << std::endl;
 }
 
 void AudioStorage::stopRecord() {
-    if (!audiodata.empty()) {
+    if (!audiodata.empty()) 
+    {
         sendFile();
     }
 
-    if (Pa_StopStream(stream) != paNoError) {
+    if (Pa_StopStream(stream) != paNoError) 
+    {
         throw std::runtime_error("Failed to stop stream.");
     }
     std::cout << "Recording stopped." << std::endl;

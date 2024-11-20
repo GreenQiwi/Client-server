@@ -4,13 +4,15 @@
 #include <fstream>
 #include <vector>
 #include <string>
-#include <chrono>
-#include <iomanip>
-#include <sstream>
+#include <map>
 
 class ServerStorage {
 public:
 	static std::size_t getStorageSize(const std::string& directory);
 	static std::string generateFilename();
-	static void deleteFiles(const std::string& directory, std::size_t maxSize, std::ofstream& log);
+	static void deleteFiles(const std::string& directory, std::size_t maxSize, const std::string& file);
+	static void addFile(const std::string& filename, const std::string& file);
+private:
+	static std::map<std::string, std::time_t> readAssociations(const std::string& file);
+	static void writeAssociations(const std::map<std::string, std::time_t>& associations, const std::string& file);
 };

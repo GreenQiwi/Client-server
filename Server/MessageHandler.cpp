@@ -1,43 +1,42 @@
 #include "MessageHandler.hpp"
 
 const int MAX_SIZE = 10 * 1024 * 1024;
+const std::string DATE_FILE = "./storage/file_dates.txt";
 
 void MessageHandler::handleRequest(beast::tcp_stream& stream, beast::flat_buffer& buffer)
 {
-    try
-    {
+    try {
         http::request<http::string_body> req;
         http::request_parser<http::string_body> parser{ std::move(req) };
-        parser.body_limit(2 * 1024 * 1024);
+        parser.body_limit(2 * 1024 * 1024); 
         http::read(stream, buffer, parser);
         req = parser.release();
 
-        std::cout << "Request method: " << req.method_string() << std::endl;
-        std::cout << "Request target: " << req.target() << std::endl;
-        std::cout << "HTTP version: " << req.version() << std::endl;
         std::ofstream log("log.txt", std::ios::app);
 
         std::size_t fileSize = req.body().size();
         std::size_t directorySize = ServerStorage::getStorageSize("./storage");
 
-        if (directorySize + fileSize > MAX_SIZE)
-        {
-            ServerStorage::deleteFiles("./storage", MAX_SIZE, log);
-        }
+        log << "[INFO] Incoming request with file size: " << fileSize << " bytes.\n";
 
+        if (directorySize + fileSize > MAX_SIZE) {
+            log << "[INFO] Storage size exceeded. Deleting old files.\n";
+            ServerStorage::deleteFiles("./storage", MAX_SIZE, DATE_FILE);
+        }
 
         std::string filename = ServerStorage::generateFilename();
 
         std::ofstream outFile(filename, std::ios::binary);
-        if (!outFile.is_open())
-        {
-            std::cerr << "Error opening file" << std::endl;
-            return;
+        if (!outFile.is_open()) {
+            throw std::runtime_error("Failed to open file for writing.");
         }
+
         outFile.write(req.body().data(), req.body().size());
         outFile.close();
 
-        log << filename << " is saved.\n";
+        log << "[SAVE] " << filename << " saved to storage.\n";
+
+        ServerStorage::addFile(std::filesystem::path(filename).filename().string(), DATE_FILE);
 
         http::response<http::string_body> res{ http::status::ok, req.version() };
         res.set(http::field::server, "AudioServer");
@@ -46,8 +45,13 @@ void MessageHandler::handleRequest(beast::tcp_stream& stream, beast::flat_buffer
         res.prepare_payload();
         http::write(stream, res);
     }
-    catch (const std::exception& ex)
+    catch (const std::exception& ex) 
     {
         std::cerr << "Handling request failed. " << ex.what() << std::endl;
+
+        std::ofstream log("log.txt", std::ios::app);
+        if (log.is_open()) {
+            log << "[ERROR] Handling request failed: " << ex.what() << "\n";
+        }
     }
 }

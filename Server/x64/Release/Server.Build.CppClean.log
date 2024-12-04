@@ -1,8 +1,11 @@
 d:\prog\client-server\server\x64\release\vc143.pdb
+d:\prog\client-server\server\x64\release\serverstorage.obj
 d:\prog\client-server\server\x64\release\server.obj
+d:\prog\client-server\server\x64\release\messagehandler.obj
+d:\prog\client-server\x64\release\server.exe
+d:\prog\client-server\x64\release\server.pdb
 d:\prog\client-server\server\x64\release\server.ipdb
 d:\prog\client-server\server\x64\release\server.iobj
-d:\prog\client-server\x64\release\server.pdb
 d:\prog\client-server\server\x64\release\server.tlog\cl.command.1.tlog
 d:\prog\client-server\server\x64\release\server.tlog\cl.items.tlog
 d:\prog\client-server\server\x64\release\server.tlog\cl.read.1.tlog

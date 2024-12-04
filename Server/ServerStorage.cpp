@@ -2,6 +2,10 @@
 
 std::size_t ServerStorage::getStorageSize(const std::string& directory)
 {
+    if (!std::filesystem::exists(directory)) {
+        std::filesystem::create_directory(directory);
+    }
+
 	std::size_t size = 0;
 	for (const auto& file : std::filesystem::directory_iterator(directory))
 	{
@@ -11,23 +15,25 @@ std::size_t ServerStorage::getStorageSize(const std::string& directory)
 	return size;
 }
 
-std::string ServerStorage::generateFilename()
+std::string ServerStorage::generateFilename(const std::string& sessionDir)
 {
-	auto now = std::chrono::system_clock::now();
-	std::time_t time_now = std::chrono::system_clock::to_time_t(now);
+    std::filesystem::path dir = "./storage/" + sessionDir;
 
-	std::tm time_info;
-	localtime_s(&time_info, &time_now);
+    auto now = std::chrono::system_clock::now();
+    std::time_t time_now = std::chrono::system_clock::to_time_t(now);
 
-	std::ostringstream oss;
-	oss << "./storage/audio_part_"
-		<< std::put_time(&time_info, "%Y%m%d%H%M%S")
-		<< ".wav";
+    std::tm time_info;
+    localtime_s(&time_info, &time_now);
 
-	return oss.str();
+    std::ostringstream oss;
+    oss << dir.string() + "/audio_part_"
+        << std::put_time(&time_info, "%Y%m%d%H%M%S")
+        << ".wav";
+
+    return oss.str();
 }
 
-void ServerStorage::addFile(const std::string& filename, const std::string& file)
+void ServerStorage::addFile(const std::string & filename, const std::string & file, const std::string & sessionDir)
 {
     std::ofstream out(file, std::ios::app);
     if (!out.is_open()) {
@@ -42,11 +48,11 @@ void ServerStorage::addFile(const std::string& filename, const std::string& file
         log << "[ADD] " << filename << " added with timestamp " << time_now << "\n";
     }
 
-    out << filename << " " << time_now << "\n";
+    out << sessionDir + "/" + filename << " " << time_now << "\n";
     out.close();
 }
 
-std::map<std::string, std::time_t> ServerStorage::readAssociations(const std::string& file) 
+std::map<std::string, std::time_t> ServerStorage::readAssociations(const std::string& file)
 {
     std::map<std::string, std::time_t> associations;
 
@@ -67,7 +73,7 @@ std::map<std::string, std::time_t> ServerStorage::readAssociations(const std::st
     return associations;
 }
 
-void ServerStorage::writeAssociations(const std::map<std::string, std::time_t>& associations, const std::string& file) 
+void ServerStorage::writeAssociations(const std::map<std::string, std::time_t>& associations, const std::string& file)
 {
     std::ofstream out(file);
     if (!out.is_open()) 
@@ -98,7 +104,7 @@ void ServerStorage::deleteFiles(const std::string& directory, std::size_t maxSiz
     }
 
     for (const auto& [filename, timestamp] : associations) {
-        std::filesystem::path filePath = directory + "/" + filename;
+        std::filesystem::path filePath = "./storage/" + filename;
 
         if (std::filesystem::exists(filePath)) {
             std::size_t fileSize = std::filesystem::file_size(filePath);

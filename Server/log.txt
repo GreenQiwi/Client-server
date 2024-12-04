@@ -118,3 +118,614 @@
 [INFO] Incoming request with file size: 426028 bytes.
 [INFO] Storage size exceeded. Deleting old files.
 [SAVE] ./storage/audio_part_20241120160858.wav saved to storage.
+[ADD] audio_part_20241126000405.wav added with timestamp 1732568645
+[INFO] Incoming request with file size: 1048620 bytes.
+[INFO] Storage size exceeded. Deleting old files.
+[SAVE] ./storage/audio_part_20241126000405.wav saved to storage.
+[DELETE] audio_part_20241120142740.wav (1048620 bytes) deleted to maintain storage size.
+[INFO] Date associations updated.
+[ADD] audio_part_20241126000410.wav added with timestamp 1732568650
+[INFO] Incoming request with file size: 1048620 bytes.
+[INFO] Storage size exceeded. Deleting old files.
+[SAVE] ./storage/audio_part_20241126000410.wav saved to storage.
+[DELETE] audio_part_20241120142746.wav (1048620 bytes) deleted to maintain storage size.
+[INFO] Date associations updated.
+[ADD] audio_part_20241126000416.wav added with timestamp 1732568656
+[INFO] Incoming request with file size: 1048620 bytes.
+[INFO] Storage size exceeded. Deleting old files.
+[SAVE] ./storage/audio_part_20241126000416.wav saved to storage.
+[DELETE] audio_part_20241120142752.wav (1048620 bytes) deleted to maintain storage size.
+[INFO] Date associations updated.
+[ADD] audio_part_20241127002617.wav added with timestamp 1732656377
+[INFO] Incoming request with file size: 44 bytes.
+[INFO] Storage size exceeded. Deleting old files.
+[SAVE] ./storage/audio_part_20241127002617.wav saved to storage.
+[ADD] audio_part_20241127002845.wav added with timestamp 1732656525
+[INFO] Incoming request with file size: 44 bytes.
+[SAVE] ./storage/audio_part_20241127002845.wav saved to storage.
+[ADD] audio_part_20241127003441.wav added with timestamp 1732656881
+[INFO] Incoming request with file size: 0 bytes.
+[SAVE] ./storage/audio_part_20241127003441.wav saved to storage.
+[ADD] audio_part_20241127003905.wav added with timestamp 1732657145
+[INFO] Incoming request with file size: 44 bytes.
+[SAVE] ./storage/audio_part_20241127003905.wav saved to storage.
+[ADD] audio_part_20241127133229.wav added with timestamp 1732703549
+[INFO] Incoming request with file size: 0 bytes.
+[SAVE] ./storage/audio_part_20241127133229.wav saved to storage.
+[ADD] audio_part_20241127133850.wav added with timestamp 1732703930
+[INFO] Incoming request with file size: 1048620 bytes.
+[INFO] Storage size exceeded. Deleting old files.
+[SAVE] ./storage/audio_part_20241127133850.wav saved to storage.
+[DELETE] audio_part_20241120142758.wav (1048620 bytes) deleted to maintain storage size.
+[INFO] Date associations updated.
+[ADD] audio_part_20241127133957.wav added with timestamp 1732703997
+[INFO] Incoming request with file size: 1048620 bytes.
+[INFO] Storage size exceeded. Deleting old files.
+[SAVE] ./storage/audio_part_20241127133957.wav saved to storage.
+[ADD] audio_part_20241127135947.wav added with timestamp 1732705187
+[INFO] Incoming request with file size: 1048620 bytes.
+[SAVE] ./storage/audio_part_20241127135947.wav saved to storage.
+[ADD] audio_part_20241127140240.wav added with timestamp 1732705364
+[INFO] Incoming request with file size: 1048620 bytes.
+[SAVE] ./storage/audio_part_20241127140240.wav saved to storage.
+[ADD] audio_part_20241127141139.wav added with timestamp 1732705899
+[INFO] Incoming request with file size: 1048620 bytes.
+[SAVE] ./storage/audio_part_20241127141139.wav saved to storage.
+[ADD] audio_part_20241127141828.wav added with timestamp 1732706308
+[INFO] Incoming request with file size: 1048620 bytes.
+[SAVE] ./storage/audio_part_20241127141828.wav saved to storage.
+[ADD] audio_part_20241127141834.wav added with timestamp 1732706314
+[INFO] Incoming request with file size: 1048620 bytes.
+[SAVE] ./storage/audio_part_20241127141834.wav saved to storage.
+[ADD] audio_part_20241127141840.wav added with timestamp 1732706320
+[INFO] Incoming request with file size: 1048620 bytes.
+[SAVE] ./storage/audio_part_20241127141840.wav saved to storage.
+[ADD] audio_part_20241127141846.wav added with timestamp 1732706326
+[INFO] Incoming request with file size: 1048620 bytes.
+[SAVE] ./storage/audio_part_20241127141846.wav saved to storage.
+[ADD] audio_part_20241203204855.wav added with timestamp 1733248135
+[INFO] Incoming request with file size: 1048620 bytes.
+[SAVE] ./storage/audio_part_20241203204855.wav saved to storage.
+[ADD] audio_part_20241203204901.wav added with timestamp 1733248141
+[INFO] Incoming request with file size: 1048620 bytes.
+[SAVE] ./storage/audio_part_20241203204901.wav saved to storage.
+[ADD] audio_part_20241203204907.wav added with timestamp 1733248147
+[INFO] Incoming request with file size: 1048620 bytes.
+[INFO] Storage size exceeded. Deleting old files.
+[SAVE] ./storage/audio_part_20241203204907.wav saved to storage.
+[DELETE] audio_part_20241127135947.wav (1048620 bytes) deleted to maintain storage size.
+[INFO] Date associations updated.
+[ADD] audio_part_20241203204913.wav added with timestamp 1733248153
+[INFO] Incoming request with file size: 1048620 bytes.
+[INFO] Storage size exceeded. Deleting old files.
+[SAVE] ./storage/audio_part_20241203204913.wav saved to storage.
+[DELETE] audio_part_20241127140240.wav (1048620 bytes) deleted to maintain storage size.
+[INFO] Date associations updated.
+[ADD] audio_part_20241203204919.wav added with timestamp 1733248159
+[INFO] Incoming request with file size: 1048620 bytes.
+[INFO] Storage size exceeded. Deleting old files.
+[SAVE] ./storage/audio_part_20241203204919.wav saved to storage.
+[DELETE] audio_part_20241127141139.wav (1048620 bytes) deleted to maintain storage size.
+[INFO] Date associations updated.
+[ADD] audio_part_20241203204925.wav added with timestamp 1733248165
+[INFO] Incoming request with file size: 1048620 bytes.
+[INFO] Storage size exceeded. Deleting old files.
+[SAVE] ./storage/audio_part_20241203204925.wav saved to storage.
+[DELETE] audio_part_20241127141828.wav (1048620 bytes) deleted to maintain storage size.
+[INFO] Date associations updated.
+[ADD] audio_part_20241203204931.wav added with timestamp 1733248171
+[INFO] Incoming request with file size: 1048620 bytes.
+[INFO] Storage size exceeded. Deleting old files.
+[SAVE] ./storage/audio_part_20241203204931.wav saved to storage.
+[DELETE] audio_part_20241127141834.wav (1048620 bytes) deleted to maintain storage size.
+[INFO] Date associations updated.
+[ADD] audio_part_20241203211221.wav added with timestamp 1733249541
+[INFO] Incoming request with file size: 1048620 bytes.
+[INFO] Storage size exceeded. Deleting old files.
+[SAVE] ./storage/audio_part_20241203211221.wav saved to storage.
+[DELETE] audio_part_20241127141840.wav (1048620 bytes) deleted to maintain storage size.
+[INFO] Date associations updated.
+[ADD] audio_part_20241203211227.wav added with timestamp 1733249547
+[INFO] Incoming request with file size: 1048620 bytes.
+[INFO] Storage size exceeded. Deleting old files.
+[SAVE] ./storage/audio_part_20241203211227.wav saved to storage.
+[DELETE] audio_part_20241127141846.wav (1048620 bytes) deleted to maintain storage size.
+[INFO] Date associations updated.
+[ADD] audio_part_20241203214109.wav added with timestamp 1733251269
+[INFO] Incoming request with file size: 1048620 bytes.
+[INFO] Storage size exceeded. Deleting old files.
+[SAVE] ./storage/audio_part_20241203214109.wav saved to storage.
+[DELETE] audio_part_20241203204855.wav (1048620 bytes) deleted to maintain storage size.
+[INFO] Date associations updated.
+[ADD] audio_part_20241203214115.wav added with timestamp 1733251275
+[INFO] Incoming request with file size: 1048620 bytes.
+[INFO] Storage size exceeded. Deleting old files.
+[SAVE] ./storage/audio_part_20241203214115.wav saved to storage.
+[DELETE] audio_part_20241203204901.wav (1048620 bytes) deleted to maintain storage size.
+[INFO] Date associations updated.
+[ADD] audio_part_20241203233138.wav added with timestamp 1733257898
+[INFO] Incoming request with file size: 1048620 bytes.
+[INFO] Storage size exceeded. Deleting old files.
+[SAVE] ./storage/audio_part_20241203233138.wav saved to storage.
+[DELETE] audio_part_20241203204907.wav (1048620 bytes) deleted to maintain storage size.
+[INFO] Date associations updated.
+[ADD] audio_part_20241203233144.wav added with timestamp 1733257904
+[INFO] Incoming request with file size: 1048620 bytes.
+[INFO] Storage size exceeded. Deleting old files.
+[SAVE] ./storage/audio_part_20241203233144.wav saved to storage.
+[DELETE] audio_part_20241203204913.wav (1048620 bytes) deleted to maintain storage size.
+[INFO] Date associations updated.
+[ADD] audio_part_20241204113111.wav added with timestamp 1733301071
+[INFO] Incoming request with file size: 1048620 bytes.
+[INFO] Storage size exceeded. Deleting old files.
+[SAVE] ./storage/audio_part_20241204113111.wav saved to storage.
+[DELETE] audio_part_20241203204919.wav (1048620 bytes) deleted to maintain storage size.
+[INFO] Date associations updated.
+[ADD] audio_part_20241204113117.wav added with timestamp 1733301077
+[INFO] Incoming request with file size: 1048620 bytes.
+[INFO] Storage size exceeded. Deleting old files.
+[SAVE] ./storage/audio_part_20241204113117.wav saved to storage.
+[DELETE] audio_part_20241203204925.wav (1048620 bytes) deleted to maintain storage size.
+[INFO] Date associations updated.
+[ADD] audio_part_20241204113122.wav added with timestamp 1733301082
+[INFO] Incoming request with file size: 1048620 bytes.
+[INFO] Storage size exceeded. Deleting old files.
+[SAVE] ./storage/audio_part_20241204113122.wav saved to storage.
+[DELETE] audio_part_20241203204931.wav (1048620 bytes) deleted to maintain storage size.
+[INFO] Date associations updated.
+[ADD] audio_part_20241204113128.wav added with timestamp 1733301088
+[INFO] Incoming request with file size: 1048620 bytes.
+[INFO] Storage size exceeded. Deleting old files.
+[SAVE] ./storage/audio_part_20241204113128.wav saved to storage.
+[DELETE] audio_part_20241203211221.wav (1048620 bytes) deleted to maintain storage size.
+[INFO] Date associations updated.
+[ADD] audio_part_20241204113134.wav added with timestamp 1733301094
+[INFO] Incoming request with file size: 1048620 bytes.
+[INFO] Storage size exceeded. Deleting old files.
+[SAVE] ./storage/audio_part_20241204113134.wav saved to storage.
+[DELETE] audio_part_20241203211227.wav (1048620 bytes) deleted to maintain storage size.
+[INFO] Date associations updated.
+[ADD] audio_part_20241204113140.wav added with timestamp 1733301100
+[INFO] Incoming request with file size: 1048620 bytes.
+[INFO] Storage size exceeded. Deleting old files.
+[SAVE] ./storage/audio_part_20241204113140.wav saved to storage.
+[DELETE] audio_part_20241203214109.wav (1048620 bytes) deleted to maintain storage size.
+[INFO] Date associations updated.
+[ADD] audio_part_20241204113146.wav added with timestamp 1733301106
+[INFO] Incoming request with file size: 1048620 bytes.
+[INFO] Storage size exceeded. Deleting old files.
+[SAVE] ./storage/audio_part_20241204113146.wav saved to storage.
+[DELETE] audio_part_20241203214115.wav (1048620 bytes) deleted to maintain storage size.
+[INFO] Date associations updated.
+[ADD] audio_part_20241204113152.wav added with timestamp 1733301112
+[INFO] Incoming request with file size: 1048620 bytes.
+[INFO] Storage size exceeded. Deleting old files.
+[SAVE] ./storage/audio_part_20241204113152.wav saved to storage.
+[DELETE] audio_part_20241203233138.wav (1048620 bytes) deleted to maintain storage size.
+[INFO] Date associations updated.
+[ADD] audio_part_20241204113158.wav added with timestamp 1733301118
+[INFO] Incoming request with file size: 1048620 bytes.
+[INFO] Storage size exceeded. Deleting old files.
+[SAVE] ./storage/audio_part_20241204113158.wav saved to storage.
+[DELETE] audio_part_20241203233144.wav (1048620 bytes) deleted to maintain storage size.
+[INFO] Date associations updated.
+[ADD] audio_part_20241204113204.wav added with timestamp 1733301124
+[INFO] Incoming request with file size: 1048620 bytes.
+[INFO] Storage size exceeded. Deleting old files.
+[SAVE] ./storage/audio_part_20241204113204.wav saved to storage.
+[DELETE] audio_part_20241204113111.wav (1048620 bytes) deleted to maintain storage size.
+[INFO] Date associations updated.
+[ADD] audio_part_20241204113210.wav added with timestamp 1733301130
+[INFO] Incoming request with file size: 1048620 bytes.
+[INFO] Storage size exceeded. Deleting old files.
+[SAVE] ./storage/audio_part_20241204113210.wav saved to storage.
+[DELETE] audio_part_20241204113117.wav (1048620 bytes) deleted to maintain storage size.
+[INFO] Date associations updated.
+[ADD] audio_part_20241204113216.wav added with timestamp 1733301136
+[INFO] Incoming request with file size: 1048620 bytes.
+[INFO] Storage size exceeded. Deleting old files.
+[SAVE] ./storage/audio_part_20241204113216.wav saved to storage.
+[DELETE] audio_part_20241204113122.wav (1048620 bytes) deleted to maintain storage size.
+[INFO] Date associations updated.
+[ADD] audio_part_20241204113220.wav added with timestamp 1733301140
+[INFO] Incoming request with file size: 737324 bytes.
+[INFO] Storage size exceeded. Deleting old files.
+[SAVE] ./storage/audio_part_20241204113220.wav saved to storage.
+[INFO] Incoming request with file size: 1048620 bytes.
+[INFO] Storage size exceeded. Deleting old files.
+[INFO] Incoming request with file size: 1048620 bytes.
+[INFO] Storage size exceeded. Deleting old files.
+[INFO] Incoming request with file size: 1048620 bytes.
+[INFO] Storage size exceeded. Deleting old files.
+[INFO] Incoming request with file size: 1048620 bytes.
+[INFO] Storage size exceeded. Deleting old files.
+[INFO] Incoming request with file size: 1048620 bytes.
+[INFO] Storage size exceeded. Deleting old files.
+[INFO] Incoming request with file size: 1048620 bytes.
+[INFO] Storage size exceeded. Deleting old files.
+[INFO] Incoming request with file size: 1048620 bytes.
+[INFO] Storage size exceeded. Deleting old files.
+[INFO] Incoming request with file size: 1048620 bytes.
+[INFO] Storage size exceeded. Deleting old files.
+[INFO] Incoming request with file size: 1048620 bytes.
+[INFO] Storage size exceeded. Deleting old files.
+[INFO] Incoming request with file size: 1048620 bytes.
+[INFO] Storage size exceeded. Deleting old files.
+[INFO] Incoming request with file size: 1048620 bytes.
+[INFO] Storage size exceeded. Deleting old files.
+[INFO] Incoming request with file size: 1048620 bytes.
+[INFO] Storage size exceeded. Deleting old files.
+[INFO] Incoming request with file size: 1048620 bytes.
+[INFO] Storage size exceeded. Deleting old files.
+[ADD] audio_part_20241204120855.wav added with timestamp 1733303335
+[INFO] Incoming request with file size: 1048620 bytes.
+[INFO] Storage size exceeded. Deleting old files.
+[SAVE] ./storage/1733303335/audio_part_20241204120855.wav saved to storage.
+[ADD] audio_part_20241204120901.wav added with timestamp 1733303341
+[INFO] Incoming request with file size: 1048620 bytes.
+[INFO] Storage size exceeded. Deleting old files.
+[SAVE] ./storage/1733303341/audio_part_20241204120901.wav saved to storage.
+[ADD] audio_part_20241204120907.wav added with timestamp 1733303347
+[INFO] Incoming request with file size: 1048620 bytes.
+[INFO] Storage size exceeded. Deleting old files.
+[SAVE] ./storage/1733303347/audio_part_20241204120907.wav saved to storage.
+[ADD] audio_part_20241204120913.wav added with timestamp 1733303353
+[INFO] Incoming request with file size: 1048620 bytes.
+[INFO] Storage size exceeded. Deleting old files.
+[SAVE] ./storage/1733303353/audio_part_20241204120913.wav saved to storage.
+[ADD] audio_part_20241204121541.wav added with timestamp 1733303741
+[INFO] Incoming request with file size: 1048620 bytes.
+[INFO] Storage size exceeded. Deleting old files.
+[SAVE] ./storage/audio_part_20241204121541.wav saved to storage.
+[DELETE] audio_part_20241204113128.wav (1048620 bytes) deleted to maintain storage size.
+[INFO] Date associations updated.
+[ADD] audio_part_20241204121547.wav added with timestamp 1733303747
+[INFO] Incoming request with file size: 1048620 bytes.
+[INFO] Storage size exceeded. Deleting old files.
+[SAVE] ./storage/audio_part_20241204121547.wav saved to storage.
+[DELETE] audio_part_20241204113134.wav (1048620 bytes) deleted to maintain storage size.
+[INFO] Date associations updated.
+[ADD] audio_part_20241204121553.wav added with timestamp 1733303753
+[INFO] Incoming request with file size: 1048620 bytes.
+[INFO] Storage size exceeded. Deleting old files.
+[SAVE] ./storage/audio_part_20241204121553.wav saved to storage.
+[DELETE] audio_part_20241204113140.wav (1048620 bytes) deleted to maintain storage size.
+[INFO] Date associations updated.
+[ADD] audio_part_20241204122713.wav added with timestamp 1733304433
+[INFO] Incoming request with file size: 1048620 bytes.
+[INFO] Storage size exceeded. Deleting old files.
+[SAVE] ./storage/1733304433/audio_part_20241204122713.wav saved to storage.
+[ADD] audio_part_20241204122719.wav added with timestamp 1733304439
+[INFO] Incoming request with file size: 1048620 bytes.
+[INFO] Storage size exceeded. Deleting old files.
+[SAVE] ./storage/1733304439/audio_part_20241204122719.wav saved to storage.
+[ADD] audio_part_20241204122725.wav added with timestamp 1733304445
+[INFO] Incoming request with file size: 1048620 bytes.
+[INFO] Storage size exceeded. Deleting old files.
+[SAVE] ./storage/1733304445/audio_part_20241204122725.wav saved to storage.
+[ADD] audio_part_20241204123022.wav added with timestamp 1733304622
+[INFO] Incoming request with file size: 1048620 bytes.
+[INFO] Storage size exceeded. Deleting old files.
+[SAVE] ./storage/1733304622/audio_part_20241204123022.wav saved to storage.
+[ADD] audio_part_20241204123028.wav added with timestamp 1733304628
+[INFO] Incoming request with file size: 1048620 bytes.
+[INFO] Storage size exceeded. Deleting old files.
+[SAVE] ./storage/1733304628/audio_part_20241204123028.wav saved to storage.
+[ADD] audio_part_20241204132021.wav added with timestamp 1733307621
+[INFO] Incoming request with file size: 1048620 bytes.
+[INFO] Storage size exceeded. Deleting old files.
+[SAVE] ./storage/default/audio_part_20241204132021.wav saved to storage.
+[INFO] Incoming request with file size: 1048620 bytes.
+[INFO] Storage size exceeded. Deleting old files.
+[SAVE] n _ R u s s i a . 1 2 5 1               Ç[H¬ 2    orag¤               àqó*g  °@ô*g  .wav         Ã[T¬ 3 €1733304445/audio_part_20241204122725.wav                Ï[P¬ 4 €                                                        Ë[\¬ 5 €                                                        ×[X¬ 6 €                                                        Ó[d¬ 7 €                                                        ß[`¬ 8 €1733303347/audio_part_20241204120907.wav                Û[l¬ 9 €1733303335/audio_part_20241204120855.wav                ç[h¬ : €default/audio_part_20241204132021.wav                   ã[t¬ ; €                                                        ï[p¬ < €                                                        ë[|¬ = €                                                                                                                        Ğ!óº´ 0¼ö*g  €“ö*g     ÀĞàğõåØö; L         Óö*g  Àÿÿÿÿÿÿ_ M O N E T A R ş[€¬C   Ôº  üº  àº  äº  ôº  ôº  äº  ôº  ìº   »  »  »  »  »  "»  $»  0»  4»  @»  ,»  4»  0»  ,»  <»  ,»  B»  2»  4»  *»  .»  4»  4»  H»  F»  .»  <»  J»  P»  J»  H»  >»  <»  P»  øº  ìº  »  »  üº  »  üº  »  »   »  »  »  
+»  ôº   »  ğº  
+»  »  »  
+»  ğº  
+»  »  »  »  0»  ,»  2»  (»  &»  (»  üº  »  »  »  
+»  »  »  »  üº  »  »  »   »  üº   »  èº  ôº  àº  üº  ğº  Ğº  Èº  Èº  Øº  äº   »  Ôº  Äº  
+»   »  àº  »  »  »  »  Ôº  ìº  ğº  èº  Èº  Üº  Ìº  »  »  ìº  Äº  èº  Àº  Àº  Àº  Èº  Èº  Ìº  èº         ™[¡¬  €                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        ¸[Â¬  €                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        [[ã¬  €                                        [ Zaµ  Pó*g  ›ö*g                                                                                                                                                                                                                                                                                                                                                                                                                                                                          z[¬  €                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        %[-¬  €                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        ÄXN¬  €e n - U S                                                                                                                                                                 r u - R U                                                                                                                                                                   n                                                                                                                                                                                 çXo¬  €                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        †Xˆ­  €                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        ¡X©­ 	 €                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        @XÊ­ 
+ €                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        cXë­  €                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        X­  €                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        -X5­  €                                                                                                                                                                                                                                                                                                                           Ì´  ğ ó*g  ğ ó*g  ` ó*g  ` ó*g   ğö*g                                                                                                                                                                 ÌYV­                    ( ( ( ( (                                     H                „ „ „ „ „ „ „ „ „ „                                        ‚ ‚ ‚ ‚ ‚ ‚                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   Ğ"ó¹· ğ¼ö*g  €“ö*g     ÀĞàğÅXôu s        °óö*g   €øÿÿÿÿ1 2 5 1 ; L C _ ùY€¬Y  €E = R u s s i a n _ R u s s i a . 1 2 5 1 ; L C _ M O N E T A R Y = R u „Y¬i €€ô*g  ô*g  €ô*g    ; L C  ô*g                  €Y‰¬  €4!Pg    ƒYŠ¬a €1 2 5 1 ; L C _ T I M E = R u s s i a n _ R u s s i a . 1 2 5 1         Y—¬  €üö*g   ô*g  °ÿö*g           Fö*g  ‹Y’¬  €               ½Pg    •Yœ¬  €°õö*g  `ô*g  ğô*g          ô*g                         .!Pg    Y™¬  €a u d i o _ p a r t _ 2 ’Y›¬4 €2 0 4 1 1 3 2 1 6 . w a v               ŸY¦¬  €úö*g  õö*g  Àşö*g           ô*g                         w Pg    šY£¬  €        ¥Y¬¬  €                                                        ¡Y¨¬  €                                                                        ¬Yµ¬  €                                                                        «Y²¬ 
+ €a u d i o _ p a r t _ 2 0 2 4 1 2 0 4 1 1 3 1 4 6 . w a ·Y¾¬  €        ¶Y¿¬  €                                                                        ½YÄ¬  €a u d i o _ p a r t _ 2 0 2 4 1 2 0 4 1 ¾YÇ¬2 €4 . w a v               ¸YÁ¬  €                                                                        GYÎ¬  €                        AYÈ¬  €                                        BYË¬  €                                                                        IYĞ¬  €        HYÑ¬ 	 €                                                        TYİ¬  €                                                                        SYÚ¬ 
+ €a u d i o _ p a r t _ 2 0 2 4 1 2 0 4 1 1 3 1 5 8 . w a v               ^Yç¬  €€ô*g  °ÿö*g  €ô*g           Kö*g                  ZYã¬  €ÉPg    eYì¬  €€ô*g  °õö*g  €ô*g    Xaµ   ô*g                         q Pg    `Yé¬  €                                        mYô¬  €                        oYö¬  €                                                                        jYó¬  €a u d i o _ p a r t _ 2 tYı¬4 €2 0 4 1 2 1 5 5 3 . w a v               qYø¬  €                                                                        |Y¬  €        Y¬  €                                                        {Y¬  €                                                                        Y¬  ”P A T H E X T = . C O M ; . E X E ; . B A T ; . C M D ; . V B S ; . V B E ; . J S ; . J S E ; . W S F ; . W S H ; . M S C               	Y¬  V i s u a l S t u d i o D i r = C : \ U s e r s \ G r e e n Q i w i \ D o c u m e n t s \ V i s u a l   S t u d i o   2 0 2 2           Y¬  €                        Y¬  €                                                                        Y ¬   €                        Y"¬  €                                        $Y-¬ ! €                                                                        #Y*¬ " €        "Y+¬  €                                                        .Y7¬ # €€ô*g  °õö*g  €ô*g          ô*g                         } Pg    5Y<¬  €                                                                        0Y9¬ % €a u d i o _ p a r t _ 2 0 2 4 1 2 0 4 1 2 1 5 4 1 . w a <YE¬  €        ?YF¬ & €€ô*g  Àôö*g  Àùö*g          Kö*g                         ÃPg    :YC¬ ' €a u d i o _ p a r t _ 2 0 2 4 1 2 0 4 1 ÇFN¬2 €0 . w a v               ÁFH¬ ( €                                                                        ÌFU¬ ) €                        ÎFW¬  €                                        ËFR¬ * €                                                                        ÖF_¬ + €a u d i ÑFX¬p €r t _ 2 0 2 4 1 2 0 4 1 1 3 1 5 2 . w a v               İFd¬ , €a u d i o _ p a r t _ 2 0 2 4 1 2 0 4 1 2 1 5 4 7 . w a v               ØFa¬  €                                                                        çFn¬ . €                                                        ãFj¬  €        âFk¬ / €                                                                        éFp¬ 0 €                                                                        ôF}¬ 1 €                                                                                                        Ğ"ó¹´ p½ö*g  €:÷*g     ÀĞàğ5™ô\   2       À÷*g    À€ ıÿC l i e n t - s øF€¬v  €P÷*g  Ğ÷*g  `÷*g   2 4 1  Iö*g                         rPg    ‡F¬T €a u d i o _ p a r t _ 2 0 2 4 1 2 0 4 1 1 3 2 1 0 . w a v   d l l   g   ‚FŠ¬S €E G E _ G A M E _ A S S E M B L I E S = D : / S t e a m / s t e a m a p ‰F—¬/ € ÷*g  P÷*g  ÷*g    rt_202 Íö*g                         w Pg    ”Fœ¬S €a u d i o _ p a r t _ 2 0 2 4 1 2 0 4 1 1 3 1 4 6 . w a v   s t e a m a “F™¬s €c o m m o n / B e s i e g e / B e s i e g e _ D a t a \ M a n a g e d / F¦¬o €a u d i o _ p a r t _ 2 0 2 4 1 2 0 4 1 1 3 1 5 2 . w a v   d l l   o m ¥F£¬n €F i l e s   C o m m o n P r o g r a m F i l e s ( x 8 6 ) = C : \ P r o  F¨¬a €`÷*g   ÷*g  `÷*g   C o m  Ñö*g                         'Pg    ¯Fµ¬m	 €°÷*g  ÷*g  @÷*g   a m    Iö*g                         ÉPg    ªF²¬P
+ €a u d i o _ p a r t _ 2 0 2 4 1 2 0 4 1 1 3 1 5 8 . w a v   n =   C O M ±F¿¬T €`÷*g  à÷*g  `÷*g    - I P  Æö*g                         4!Pg    ¼FÄ¬w €\ s y s t e m 3 2 \ c m d . e x e   D r i v e r D a t a = C : \ W i n d »FÁ¬s €\ ? ? \ D : \ p r o g \ C l i e n t - s e r v e r \ S e r v e r \ n   X FFÎ¬L €D I A G N O S T I C S _ S O U R C E _ I N F O = 1   F P S _ B R O W S E MFË¬A €`÷*g  Ğ÷*g  `÷*g   2 4 1  Ğö*g                         } Pg    HFĞ¬_ €a u d i o _ p a r t _ 2 0 2 4 1 2 0 4 1 1 3 1 5 2 . w a v   a u l t   G WFİ¬x €C o n f i g U s e d I n S e s s i o n = 3   G I T _ L F S _ P A T H = D RFÚ¬p €o g \ G i t   L F S   H O M E D R I V E = C :   H O M E P A T H = \ U s YFç¬s € ÷*g  `÷*g  °÷*g   A L A  Äö*g                         9Pg    dFì¬i €a u d i o _ p a r t _ 2 0 2 4 1 2 0 4 1 2 1 5 4 1 . w a v   D E S K T O cFé¬I €6 K F H U   M S B u i l d L o a d M i c r o s o f t T a r g e t s R e a nFö¬n ˆ ö*g  Àö*g   |ö*g  ö*g  Ğö*g     S S     = login: default
+uFó¬e 8Yå?ö        ÀÓö*g  ÀÓö*g  ÀÓö*g  ÀÕö*g  ÀÕö*g  ÿÿÿÿÿÿÿÿi n d o pFø¬_ €@÷*g  °÷*g  ÷*g   2 4 1  Hö*g                         Pg    F¬i €`÷*g  °÷*g  `÷*g    a \ j  Iö*g                         ÃPg    zF¬t €a u d i o _ p a r t _ 2 0 2 4 1 2 0 4 1 1 3 2 1 6 . w a v   d l l   \ W F¬m €a u d i o _ p a r t _ 2 0 2 4 1 2 0 4 1 1 3 2 2 0 . w a v   e r S h e l F¬v €`÷*g  Ğ	÷*g  ğ÷*g   s \ S  Éö*g                         -Pg    F¬o €`÷*g  Ğ÷*g  `÷*g   n e t  Hö*g                         ~Pg    F¬r €`÷*g  `÷*g  `÷*g   S T E  Hö*g                         ŠPg    F¬w ŠF             ÷*g  Ğ÷*g          P                              F ¬C  €`÷*g  ÷*g  `÷*g   s \ N  Hö*g                         ”Pg    'F-¬I! €a u d i o _ p a r t _ 2 0 2 4 1 2 0 4 1 1 3 2 2 0 . w a v   ) \ N V I D "F*¬ " €a u d i o _ p a r t _ 2 0 2 4 1 2 0 4 1 1 3 2 1 6 . w a v   r s \ G r e )F7¬Q# €à÷*g  P÷*g  ğ÷*g    c a l  Mö*g                         xPg    4F<¬;$ €a u d i o _ p a r t _ 2 0 2 4 1 2 0 4 1 1 3 1 5 8 . w a v   l \ G i t H 3F9¬D% €s k t o p \ b i n ; C : \ U s e r s \ G r e e n Q i w i \ . d o t n e t >FF¬o& €l s   P A T H E X T = . C O M ; . E X E ; . B A T ; . C M D ; . V B S ; ÅGC¬B' €à÷*g  `÷*g  °÷*g    F ; .  Hö*g                         ½Pg    ÀGH¬t( €`÷*g  Ğ	÷*g  @÷*g  C : \ U s e r s \ G r e e n Q i w i \ A p p D ÏGU¬a) €P÷*g  Ğ	÷*g  `÷*g    f t \  Gö*g                         „Pg    ÊGR¬6* €`÷*g  Ğ÷*g  `÷*g   . c o  Êö*g                         q Pg    ÑG_¬C+ €Ğ÷*g  °÷*g  Ğ÷*g   C E S  Ãö*g                         .!Pg    ÜGd¬a, ŠF               ÷*g  à÷*g          P                               ÛGa¬M- €`÷*g   ÷*g  `÷*g   V E L  Ñö*g                         3Pg    æGn¬=. €`÷*g  °÷*g  `÷*g    S T E  Òö*g                         å,Pg    íGk¬F/ €a u d i o _ p a r t _ 2 0 2 4 1 2 0 4 1 2 1 5 5 3 . w a v   l e s ( x 8 èGp¬=0 ”V S _ P e r f _ S e s s i o n _ G C H e a p C o u n t = 2               ÷G}¬P1 €a u d i o _ p a r t _ 2 0 2 4 1 2 0 4 1 2 1 5 4 7 . w a v   o g r a m   F i l e s \ W i n d o w s P o w Ÿ#ûÿ´ 8                   H÷*g  Ğ÷*g  H÷*g  ğKö*g  ÷*g   ÷*g                           <÷*g                  è              h÷*g                        ˆ             `÷*g  ²   @ 	                                                                                                  x     (      ğ÷*g  ø÷*g           r u - R U                                                                           X÷*g                  e n - U S   e n - A U   e n - C A   e n - G B   e n - H K   e n - I E   e n - N Z   e n - S G   a r - S A   p t - B R   z h - T W   z h - C N   z h - H K   z h - S G   c s - C Z   d a - D K   e l - G R   e s - A R   e s - C L   e s - C O   e s - E S   e s - M X   e s - U S   f i - F I   f r - B E   f r - C A   f r - C H   f r - F R   d e - A T   d e - C H   d e - D E   h e - I L   h u - H U   i t - I T   j a - J P   k o - K R   n l - B E   n l - N L   n b - N O   p l - P L   p t - P T   r u - R U   s v - S E   t r - T R   b g - B G   h r - H R   e t - E E   l v - L V   l t - L T   r o - R O   s r - L a t n - C S   s r - L a t n - R S   s k - S K   s l - S I   t h - T H   u k - U A   f y - N L   q p s - p l o c   q p s - p l o c m   q p s - L a t n - x - s h                 °#ûĞDµ  í*g           0                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     ë#û‹kµ                       @ t z r e s . d l l , - 1 8 3 2       ¸Ûá¡           °Ë:tı  	 R T Z   2   ( 78<0)   ı  p<ó*g  ™T     0/ó*g  8İá¡     @ t z r e s . d l l , - 1 8 3 1   ı                            R T Z   2   ( ;5B>)                                       À7                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              È#û¨0µ ƒ‚ƒ„…†‡ˆ‰š‹œŸ‘’“”•–—˜™š›œŸ ¢¢¼¤´¦§¸©º«¬­®¿°±³³´µ¶·¸¹º»¼¾¾¿àáâãäåæçèéêëìíîïğñòóôõö÷øùúûüışÿàáâãäåæçèéêëìíîïğñòóôõö÷øùúûüış  	
+ !"#$%&'()*+,-./0123456789:;<=>?@abcdefghijklmnopqrstuvwxyz[\]^_`abcdefghijklmnopqrstuvwxyz{|}~ƒ‚ƒ„…†‡ˆ‰š‹œŸ‘’“”•–—˜™š›œŸ ¢¢¼¤´¦§¸©º«¬­®¿°±³³´µ¶·¸¹º»¼¾¾¿àáâãäåæçèéêëìíîïğñòóôõö÷øùúûüışÿàáâãäåæçèéêëìíîïğñòóôõö÷øùúûüışÿ        È#û¨µ €‚„…†‡ˆ‰Š‹Œ€‘’“”•–—˜™Š›Œ ¡¡£¤¥¦§¨©ª«¬­®¯°±²²¥µ¶·¨¹ª»£½½¯ÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏĞÑÒÓÔÕÖ×ØÙÚÛÜİŞßÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏĞÑÒÓÔÕÖ×ØÙÚÛÜİŞ  	
+ !"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`ABCDEFGHIJKLMNOPQRSTUVWXYZ{|}~€‚„…†‡ˆ‰Š‹Œ€‘’“”•–—˜™Š›Œ ¡¡£¤¥¦§¨©ª«¬­®¯°±²²¥µ¶·¨¹ª»£½½¯ÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏĞÑÒÓÔÕÖ×ØÙÚÛÜİŞßÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏĞÑÒÓÔÕÖ×ØÙÚÛÜİŞß        ü#ûœµ  Áö*g   Âö*g  à¿ö*g   Àö*g   Áö*g  PÀö*g  Âö*g  À§ö*g  `§ö*g  Àö*g  àÂö*g  °Áö*g   Àö*g  ÀÀö*g  0Âö*g  ğÀö*g  °ôõ*g  Ğôõ*g  àòõ*g  €òõ*g  0òõ*g  Àñõ*g  Ğñõ*g  Pòõ*g   óõ*g  Pôõ*g  pÂö*g  °Âö*g   òõ*g  àñõ*g  ôõ*g  °ñõ*g  €óõ*g  òõ*g  À¥ö*g  @ôõ*g   òõ*g  `ôõ*g   ôõ*g  Pô*g   ©ö*g  àªö*g  àŸö*g        àÀö*g  °¿ö*g  `Âö*g  @Àö*g  ÀÁö*g  °Àö*g   Âö*g   ¨ö*g   ¤ö*g  À©ö*g   ¦ö*g  à¨ö*g  `¤ö*g  à©ö*g  Âö*g  Àóõ*g  Àôõ*g  `óõ*g   ôõ*g  pòõ*g   óõ*g  ğôõ*g  óõ*g  ğóõ*g  @óõ*g  pôõ*g   ªö*g  `¦ö*g  À¨ö*g  À£ö*g  òõ*g  Àªö*g   ªö*g   ©ö*g  `¨ö*g  @©ö*g  €ªö*g   ¨ö*g  ô*g  € ö*g   ªö*g  ĞGö*g  à¥ö*g  €Âö*g          P#ó8'µ         °ö*g         ¥ùô¡   )       P(÷*g       şÿÿ (÷*g         CD€¬ö  €       áä?ö          ö*g  Ğåá¡   LDƒ¬L €HTTP/1.1 200  R X(÷*g  pG÷*g  F       ID¬g € (÷*g   `æ?ö                          JD‰¬a €_ R u s s i a . 1 2 5 1 ; L C _ T I M E WD”¬u €s i a n _ R u s s i a . 1 2 5 1         PD—¬g €œ               °(÷*g   (÷*g   `æ?ö  ]D’¬  €        °(÷*g          ÿÿÿÿÿÿÿÿx      ^D¬ €@«ö*g  °ö*g                          [D˜¬  €                                        dD›¬ 	 €                        m  mµ  Pó*g  aD¦¬g
+ €                                        bD¡¬  €                                        oD¬¬  €                                        hD¯¬  €                        a  aµ  Pó*g  uDª¬g €r v i c e H u b L o g S e s s i o n K e vDµ¬0 €A B F 2 8 0   S E S S I O N N A M E = C sD°¬s €1 7 3 3 3 0 4 4 3 3   i v e = C :   S y |D³¬e €R o o t = C : \ W i n d o w s   T E M P yD¾¬: €U s e r s \ G R E E N Q ~ 1 \ A p p D a zD¹¬\ €o c a l \ T e m p   T h r e a d e d W a DÄ¬D €a l o g D p i C o n t e x t = - 4   T M  DÇ¬C €\ U s e r s \ G R E E N Q ~ 1 \ A p p D DÂ¬a €L o c a l \ T e m p   U S E R D O M A I DÍ¬D €S K T O P - I P 6 K F H U   U S E R D O DÈ¬I €_ R O A M I N G P R O F I L E = D E S K DË¬P €I P 6 K F H U   U S E R N A M E = G r e DÖ¬Q €. / s t o r a g e   F I L E = C : \ U s DÑ¬s €G r e e n Q i w i   V i s u a l S t u d DÜ¬D €r = C : \ U s e r s \ G r e e n Q i w i Dß¬o €u m e n t s \ V i s u a l   S t u d i o %DÚ¬0 €2   V i s u a l S t u d i o E d i t i o &Då¬M €c r o s o f t   V i s u a l   S t u d i #Dà¬C  €. / s t o r a g e \       V i s u a l S ,Dã¬d! €o V e r s i o n = 1 7 . 0   V S A P P I )Dî¬a" €Pó*g  `>÷*g  r a m   F i l e s \ M i *Dé¬o# €o f t   V i s u a l   S t u d i o \ 2 0 7Dô¬\$ €o m m u n i t y \ C o m m o n 7 \ I D E 0D÷¬V% €A P P I D N A M E = d e v e n v . e x e =Dò¬S& €A N G = 1 0 3 3   V s P e r M o n i t o >Dı¬p' €A w a r e n e s s E n a b l e d . 2 1 4 ;Dø¬=( €R U E   V S S K U E D I T I O N = C o m m u n i t y   V ß#ú¾‹µ  °ö*g  peó*g  r o g \ C l i e n t - s e r v e r \ S e r v e r \ s t o r a g e \ f i l e _ d a t e s . t x t   1 2 0 4   µ  °ö*g  0ó*g  = C : \    µ  Àö*g  à™ó*g  D E B U G _ H E A P = 1                 ñ#û‘µ ô*g   ö*g  €“ö*g  0”ö*g  °Õõ*g  àô*g  Èõ*g  `ô*g  ÀKö*g  Àô*g   ô*g  ÀÊõ*g  àö*g   Ùõ*g  @ö*g   ô*g  ğô*g  àFö*g  `ô*g   İõ*g  ô*g  Àö*g  àô*g  àö*g  Hö*g  3÷*g  @üö*g  €7÷*g  àô*g  ›ö*g  PFö*g   ô*g  `ô*g  pô*g  @ö*g  €ô*g  p8÷*g  `ô*g  Ğô*g  Gö*g  Kö*g   ô*g   ö*g  `ô*g   ö*g   ô*g  €ö*g  0Kö*g  Pô*g  Ğüö*g  P9÷*g   ô*g  Ğ9÷*g  `ô*g  €©ö*g  @ö*g  0Åö*g  à÷*g  `ö*g  @Mö*g  €Lö*g                  –#ûö*µ P a t h = C : \ P r o g r a m   F i l e s   ( x 8 6 ) \ C o m m o n   F i l e s \ O r a c l e \ J a v a \ j a v a p a t h ; C : \ W i n d o w s \ s y s t e m 3 2 ; C : \ W i n d o w s ; C : \ W i n d o w s \ S y s t e m 3 2 \ W b e m ; C : \ W i n d o w s \ S y s t e m 3 2 \ W i n d o w s P o w e r S h e l l \ v 1 . 0 \ ; C : \ W i n d o w s \ S y s t e m 3 2 \ O p e n S S H \ ; C : \ P r o g r a m   F i l e s \ d o t n e t \ ; D : \ p r o g \ G i t \ c m d ; D : \ p r o g \ G i t   L F S ; C : \ P r o g r a m   F i l e s   ( x 8 6 ) \ W i n d o w s   K i t s \ 1 0 \ W i n d o w s   P e r f o r m a n c e   T o o l k i t \ ; C : \ P r o g r a m   F i l e s \ N V I D I A   C o r p o r a t i o n \ N V I D I A   N v D L I S R ; C : \ P r o g r a m   F i l e s   ( x 8 6 ) \ N V I D I A   C o r p o r a t i o n \ P h y s X \ C o m m o n ; C : \ U s e r s \ G r e e n Q i w i \ A p p D a t a \ L o c a l \ M i c r o s o f t \ W i n d o w s A p p s ; C : \ U s e r s \ G r e e n Q i w i \ A p p D a t a \ L o c a l \ G i t H u b D e s k t o p \ b i n ; C : \ U s e r s \ G r e e n Q i w i \ . d o t n e t \ t o o l s         Ş#û¾Mµ P k g D e f A p p l i c a t i o n C o n f i g F i l e = C : \ U s e r s \ G r e e n Q i w i \ A p p D a t a \ L o c a l \ M i c r o s o f t \ V i s u a l S t u d i o \ 1 7 . 0 _ c 2 7 5 6 b 3 0 \ d e v e n v . e x e . c o n f i g   ß#û¿µ 
+P S M o d u l e P a t h = C : \ P r o g r a m   F i l e s \ W i n d o w s P o w e r S h e l l \ M o d u l e s ; C : \ W i n d o w s \ s y s t e m 3 2 \ W i n d o w s P o w e r S h e l l \ v 1 . 0 \ M o d u l e s     Ù#û¹µ 
+V i s u a l S t u d i o E d i t i o n = M i c r o s o f t   V i s u a l   S t u d i o   C o m m u n i t y   2 0 2 2     Ú#ûºµ V S A P P I D D I R = C : \ P r o g r a m   F i l e s \ M i c r o s o f t   V i s u a l   S t u d i o \ 2 0 2 2 \ C o m m u n i t y \ C o m m o n 7 \ I D E \           Ë#û«µ                r u                                                                                                                                                                                     J   îW\ ´Ğ ±á     ırı   Yşrı  3ırı  @'ırı  P¢sı  €‡sı  Ø7+g  öë7+g  Úş7+g  ¼8+g  „%+g  „%+g                  8+g  Œ”8+g                                                          ß#û¿µ 
+Ö              ÷*g  `<÷*g         @   B 1 A 0 7 F 7 8                 	   	                                                                                                                                 Ç#û§µ °œö*g     ã     ã  ã      «ö*g           «ö*g                  4Ìö*g          0Ìö*g          tÈö*g          pÈö*g          ôÏö*g          ğÏö*g          tÍö*g          pÍö*g          ´Íö*g          °Íö*g  €Àö*g  ĞÂö*g  0Áö*g   ?÷*g  Ãö*g  ®œö*g  °"÷*g  @$÷*g  P%÷*g          `Áö*g   Áö*g  àÁö*g  ğÁö*g  €Áö*g  Û#û»µ à)Õrı  ö*g  l      p              °LÒrı   CKM    r v e r \ s t o r a g e \ f i l                     t   p5ô*g                      g          Û#û» µ  Ãö*g   Âö*g  pÁö*g  ğÂö*g  0Àö*g  pÀö*g   Ãö*g  ĞÁö*g  Áö*g  0Ãö*g    Áö*g  Ğ¿ö*g  @Ãö*g  PÁö*g   Àö*g  À¿ö*g  ĞÀö*g  PÂö*g  Ğ"ó¹ µ          (÷*g         %	©ô021.)       Ğ?÷*g       şÿÿ 1733307621
+    ;E€¬   €                                                                                        ÁB¬  €                                                                                        ÏB”¬  €. / s t o r a g e \ f i l e _ d a t e s . t x t   1 2 0 4 1 2 1 5 5 3 . w a v           ÕB’¬  €                                                                                        ÓB˜¬  €                                                                                        ÙB¦¬  €                                                                                        çB¬¬  €Ğåá¡   €ö*g  ö*g                            F   Content-Length: 70
+            íBª¬  €                                                                                        ëB°¬  €                                                                                        ñB¾¬ 	 €                                                                                        ÿBÄ¬ 
+ €                                                                                        …BÂ¬  €                                                                                        ƒBÈ¬  €                                                                                        ‰BÖ¬  €                                                                                        —BÜ¬  €                                                                                        BÚ¬  €                                                                                        ›Bà¬  €. / s t o r a g e \ f i l e _ d a t e s . t x t   1 2 0 4 1 2 1 5 5 3 . w a v           ¡Bî¬  €                                                                                        ¯Bô¬  €                                                                                        µBò¬  €                                                                                        ³Bø¬  €@rå?ö          Ù±ª6FÛ³          ¡       .     ÷*g                          ö*g  ¹B¬  €                                                                                        GB¬  €                                                                                        MB
+¬  €                                                                                        KB¬  €                                                                                        QB¬  €                                                                                        _B$¬  €                                                                                        eB"¬  €                                                                                        cB(¬  €                                                                                        iB6¬  €                                                                                        wB<¬  €                                                                                        }B:¬  €                                                                                        {B@¬   €                                                                                        BN¬ ! €                                                                                        BT¬ " €                                                                                        BR¬ # €                                                                                        BX¬ $ €                                                                                        Bf¬ % €                                                                                        'Bl¬ & €                                                                                        -Bj¬ ' €                                                                                        +Bp¬ ( €                                                                                                                                                                                        Ó"ú³´  Pó*g  °ö*g    J»  P»  J»  H»  >»  <»  P»                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               [ADD] audio_part_20241204140433.wav added with timestamp 1733310273
+[INFO] Incoming request with file size: 1048620 bytes.
+[INFO] Storage size exceeded. Deleting old files.
+[SAVE] ./storage/qwerty/audio_part_20241204140433.wav saved to storage.
+[INFO] Incoming request with file size: 1048620 bytes.
+[INFO] Storage size exceeded. Deleting old files.
+[SAVE] 3 2 \ W b e m ; C : \ W õPl¼d" ”   R u s s i a n _ R u s s i a . 1 2 5 1   e r S h e l ñPp¼v#    \ ; h              àqoöµ  °@pöµ   2 \ O p e n ıPt¼H$ €; C : \ P r o g r a m   F i l e s \ d o t n e t \ ; D : ùPx¼r% €./storage/qwerty/audio_part_20241204140433.wav  S ; C : Q|¼r& €g r a m   F i l e s   ( x 8 6 ) \ W i n d o w s   K i t Q@¼1' €. / s t o r a g e \   7 3 3 3 0 4 6 2 8   T o o l k i t QD¼C( ”   R u s s i a n _ R u s s i a . 1 2 5 1   C o r p o r 	QH¼i) €1733304433/audio_part_20241204122713.wav  r o g r a m   QL¼l* €s   ( x 8 6 ) \ N V I D I A   C o r p o r a t i o n \ P QP¼s+ €. / s t o r a g e \   7 3 3 3 0 4 6 2 8   n Q i w i \ A QT¼D, €t a \ L o c a l \ M i c r o s o f t \ W i n d o w s A p QX¼;- €: \ U s e r s \ G r e e n Q i w i \ A p p D a t a \ L o %Q\¼l. €G i t H u b D e s k t o p \ b i n ; C : \ U s e r s \ G !Q ¼e/ €Q i w i \ . d o t n e t \ t o o l s   P A T H E X T = . -Q$¼M0 €1733303347/audio_part_20241204120907.wav  V B E ; . J S )Q(¼J1 €1733304445/audio_part_20241204122725.wav  e f A p p l i 5Q,¼t2 €o n C o n f i g F i l e = C : \ U s e r s \ G r e e n Q 1Q0¼i3 €A p p D a t a \ L o c a l \ M i c r o s o f t \ V i s u =Q4¼S4 €u d i o \ 1 7 . 0 _ c 2 7 5 6 b 3 0 \ d e v e n v . e x 9Q8¼c5 €n f i g   P R O C E S S O R _ A R C H I T E C T U R E = EQ<¼D6 €4   P R O C E S S O R _ I D E N T I F I E R = A M D 6 4 AQ ¼a7 €i l y   2 5   M o d e l   3 3   S t e p p i n g   2 ,   MQ¼t8 €. / s t o r a g e / f i l e _ d a t e s . t x t   2 5   IQ¼O9 ”   R u s s i a n _ R u s s i a . 1 2 5 1   o g r a m D UQ¼a: ”   R u s s i a n _ R u s s i a . 1 2 5 1   F i l e s = QQ¼\; €1733303341/audio_part_20241204120901.wav  t x t   ( x 8 ]Q¼=< €qwerty/audio_part_20241204140433.wav  6 )   P r o g r a YQ¼6= €3 2 = C : \ P r o g r a m   F i l e s   P S M o d u l e P a t h = C : \ P r o g r a m   F i l e s \ W i n d o w s P o w Cb5ªí    H0            h((((                  H„„„„„„„„„„‚‚‚‚‚‚    H0         kb5=šì €‚„…†‡ˆ‰Š‹Œ€‘’“”•–—˜™Š›Œ ¡¡£¤¥¦§¨©ª«¬­®¯°±²²¥µ¶·¨¹ª»£½½¯ÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏĞÑÒÓÔÕÖ×ØÙÚÛÜİŞßÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏĞÑÒÓÔÕÖ×ØÙÚÛÜİŞ  	
+ !"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`ABCDEFGHIJKLMNOPQRSTUVWXYZ{|}~€‚„…†‡ˆ‰Š‹Œ€‘’“”•–—˜™Š›Œ ¡¡£¤¥¦§¨©ª«¬­®¯°±²²¥µ¶·¨¹ª»£½½¯ÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏĞÑÒÓÔÕÖ×ØÙÚÛÜİŞßÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏĞÑÒÓÔÕÖ×ØÙÚÛÜİŞß        _b5	²ì Âröµ  0Ãröµ   Âröµ  PÀröµ  0Áröµ  àÁröµ  PÁröµ   «röµ  `©röµ  0Àröµ  ĞÀröµ  pÀröµ   Âröµ  0Âröµ  `Áröµ   Âröµ  óqöµ  àôqöµ  Pòqöµ  pòqöµ  àóqöµ  `óqöµ  óqöµ  Àôqöµ   ñqöµ  ñqöµ  Áröµ  @Âröµ  @óqöµ  €ôqöµ  Póqöµ  ôqöµ   ôqöµ  °òqöµ   ¤röµ   ôqöµ  ğôqöµ  Àñqöµ  ğñqöµ  @pöµ  @¥röµ  €¥röµ  ĞŸröµ        ĞÂröµ  Âröµ  ÀÁröµ  @Áröµ  ĞÁröµ  ğÂröµ  PÂröµ   £röµ   §röµ  Àªröµ  €©röµ   ©röµ   ©röµ  €£röµ   Ãröµ   óqöµ   òqöµ  ôqöµ  €ñqöµ  òqöµ  Ğòqöµ  póqöµ  €óqöµ  Ğôqöµ  `ñqöµ  àñqöµ  À£röµ   ªröµ  à¤röµ  À¦röµ   ôqöµ   ¤röµ  `¥röµ   ªröµ  @ªröµ  À¥röµ  à¨röµ   ¥röµ  €pöµ   ¢röµ   ¥röµ  pGröµ   ¦röµ  ÀÀröµ          sc=,†ì          ’röµ         ”ƒ’433.)        şröµ       şÿÿ 1733310273
+    åQä¼   €                                                                                        ãQê¼  €                                                                                        éQğ¼  €                                                                                        ÷Qö¼  €                                                                                        ıQü¼  €                                                                                        ûQÂ¼  €                                                                                        NÈ¼  €                                                                                        NÎ¼  €                                                                                        NÔ¼  €                                                                                        NÚ¼ 	 €                                                                                        N ¼ 
+ €                                                                                        'N¦¼  €@rå?ö          fŞxL<FÛ           ¯       .     söµ                          röµ  -N¬¼  €                                                                                        +N²¼  €                                                                                        1N¸¼  €                                                                                        ?N¾¼  €                                                                                        EN„¼  €                                                                                        CNŠ¼  €. / s t o r a g e \ q w e r t y   t e s . t x t   1 2 0 4 1 2 1 5 5 3 . w a v           IN¼  €                                                                                        WN–¼  €                                                                                        ]Nœ¼  €                                                                                        [Nb¼  €                                                                                        aNh¼  €                                                                                        oNn¼  €                                                                                        uNt¼  €                                                                                        sNz¼  €                                                                                        yN@¼  €                                                                                        ‡NF¼  €Àå8Ô¯    röµ  0röµ                            F   Content-Length: 69
+            NL¼  €                                                                                        ‹NR¼  €                                                                                        ‘NX¼  €                                                                                        ŸN^¼  €. / s t o r a g e \ q w e r t y   t e s . t x t   1 2 0 4 1 2 1 5 5 3 . w a v           ¥N$¼   €                                                                                        £N*¼ ! €                                                                                        ©N0¼ " €                                                                                        ·N6¼ # €                                                                                        ½N<¼ $ €                                                                                        »N¼ % €                                                                                        ÁN¼ & €                                                                                        ÏN¼ ' €                                                                                        ÕN¼ ( €@rå?ö          fŞxL<FÛ           ¯       .     söµ                          röµ                                                                                                  -b4zªí  ğGsöµ  À’röµ   å8Ô¯   øå8Ô¯     B F 2  å8Ô¯     S S I `söµ         tÜä?ö         áä?ö         Àröµ  Àå8Ô¯   s t e m HTTP/1.1 200  \ söµ   söµ  E       psöµ   söµ   `æ?ö                          t a \ L o c a l \ T e m p   T h r e a d e d W a i t D i a l o g D p i C o n t e x t = -     T M psöµ  ›               psöµ   söµ   `æ?ö                  psöµ    p   U ÿÿÿÿÿÿÿÿx      E  E±ì  @«röµ  °röµ  6 K F H U   U S E R D O M A I N _ R O A M I N G P R O F I L E = D E S K T O P - I P 6 K F H U   U S E R N A M E = G r e e n Q i w i   U S E R P R O F I L E = C : \ U s e r s \ G r e e n Q i w i   V i s u a l S t u d i o D i r = C : \ U s e r s \ G r e e n Q i w i \ D o c u m e n t s \ V i s u a l   S t u d i o   2 0 2 2   V i s u a l S t u d i o E d i t i o n = M i c r o s o f t   V i s u a l   S t u d i o   C o m m u n i t y   2 0 2 2   V i s u a l S t u d i o V e r s i o n = 1 7 . 0   V S A P P I D D I R = C : \ P r o g r a m   F i l e s \ M i c r o s o f t   V i s u a l   S t u d i o \ 2 0 2 2 \ C o m m u n i t y \ C o m m o n 7 \ I D E \   V S A P P I D N A M E = d e v e n v . e x e   V S L A N G = 1 0 3 3   V s P e r M o n i t o r D p i A w a r e n e s s E n a b l e d . 2 1 4 5 6 = T R U E   V S S K U E D I T I O N = C o m m u n i t y   V S _ P e r f _ S e s s i o n _ G C H e a p C o u n t = 2   W E B V I E W 2 _ D E F A U L T _ B A C K G R O U N D _ C O L O R = f f f f f f   w i n d i r = C : \ W i n d o w s   _ N O _ D E B U G _ H E A P = 1                 sc=,ôì 0½röµ  PÌröµ     ÀĞàğ”m£    2        söµ   ! üÿ                EOä¼   8Yå?ö        °röµ  °röµ  °röµ  °’röµ  °’röµ  ÿÿÿÿÿÿÿÿ        BOé¼  € söµ   söµ  psöµ          Iröµ                         ½Pg    OOî¼  €@söµ  0"söµ  @söµ           ìröµ                         4!Pg    TOó¼  €@söµ  psöµ  @söµ          òröµ                         3Pg    QOø¼  €a u d i o _ p a r t _ 2 0 2 4 1 2 0 4 1 1 3 2 2 0 . w a v               ^Oı¼  €@söµ   söµ  @söµ   t_2024 Lröµ                         ŠPg    [OÂ¼  €@söµ  psöµ  @söµ          Jröµ                         ÃPg    `OÇ¼  €                                                                        mOÌ¼  €  söµ  0söµ  psöµ    s \ S  Iröµ                         „Pg    jOÑ¼ 	 €\ ? ? \ D : \ p r o g \ C l i e n t - s e r v e r \ S e r v e r \ 3     wOÖ¼ 
+ €C : \ W i n d o w s \ S Y S T E M 3 2 \ t z r e s . d l l               |OÛ¼  €                                                                        yO ¼  €                                                                        †O¥¼  €psöµ  @söµ   söµ          îröµ                         9Pg    ƒOª¼  €a u d i o _ p a r t _ 2 0 2 4 1 2 0 4 1 1 3 1 5 8 . w a v               ˆO¯¼  €@söµ   söµ  @söµ          Iröµ                         ~Pg    •O´¼  €0"söµ    söµ  Ğsöµ           Jröµ                         xPg    ’O¹¼  €°söµ  0söµ  söµ          õröµ                         -Pg    ŸO¾¼  €                                                                        ¤Oƒ¼  €\ ? ? \ C : \ W i n d o w s \ S Y S T E M 3 2 \ t z r e s . d l l       ¡Oˆ¼  ˆÀröµ  àröµ   |röµ  röµ  ğröµ               login: qwerty
+ ®O¼  €a u d i o _ p a r t _ 2 0 2 4 1 2 0 4 1 1 3 2 0 4 . w a v   d l l       «O’¼  €°söµ  psöµ  €söµ           Lröµ                         Pg    °O—¼  €a u d i o _ p a r t _ 2 0 2 4 1 2 0 4 1 2 1 5 5 3 . w a v               ½Oœ¼  ŠF              ğÍröµ  àsöµ          P                               ºOa¼  €a u d i o _ p a r t _ 2 0 2 4 1 2 0 4 1 1 3 2 2 0 . w a v               ÇOf¼  €°söµ  0söµ  @!söµ                                                ÌOk¼  €                                                                        ÉOp¼  €                                                                        ÖOu¼  ŠF            ğÍröµ  psöµ          P                              ÓOz¼  €@söµ   söµ  @söµ   2 4 1  Iröµ                         ”Pg    ØO¼  €                                                                        åOD¼   €a u d i o _ p a r t _ 2 0 2 4 1 2 0 4 1 1 3 2 1 6 . w a v               âOI¼ ! € söµ  psöµ  P söµ           Jröµ                         ÉPg    ïON¼ " ”V S _ P e r f _ S e s s i o n _ G C H e a p C o u n t = 2               ôOS¼ # €@söµ  `söµ  @söµ          ğröµ                         q Pg    ñOX¼ $ €söµ    söµ  ğ söµ           èröµ                         w Pg    şO]¼ % €@söµ  psöµ  @söµ          êröµ                         'Pg    ûO"¼ & €`söµ   söµ   söµ          çröµ                         .!Pg     L'¼ ' €@söµ  psöµ  @!söµ          ìröµ                         å,Pg    L,¼ ( €a u d i o _ p a r t _ 2 0 2 4 1 2 0 4 1 1 3 1 4 6 . w a v               
+L1¼ ) €@söµ  `söµ  @söµ          òröµ                         } Pg    L6¼ * €@söµ  P söµ  @söµ    2 4 1  õröµ                         A7Pg    L;¼ + €a u d i o _ p a r t _ 2 0 2 4 1 2 0 4 1 1 3 1 4 6 . w a v               L ¼ , €a u d i o _ p a r t _ 2 0 2 4 1 2 0 4 1 4 0 4 3 3 . w a v               &L¼ - €Àsöµ   söµ  @söµ   2 4 1  Hröµ                         rPg    #L
+¼ . €a u d i o _ p a r t _ 2 0 2 4 1 2 0 4 1 2 1 5 4 1 . w a v               (L¼ / €                                                                        5L¼ 0 €a u d i o _ p a r t _ 2 0 2 4 1 2 0 4 1 2 1 5 4 7 . w a v               2L¼ 1 €a u d i o _ p a r t _ 2 0 2 4 1 2 0 4 1 2 1 5 4 1 . w a v                                               yb4.ªí  À’röµ  ÀÕröµ  r o g \ C l i e n t - s e r v e r \ S e r v e r \ s t o r a g e \ a u d i o _ p a r t _ 2 0 2 4 1 2 0 4 1 1 3 2 2 0 . w a v   3 3 . w a v   T E M 3 2   b5E ì  Œöµ           0                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |b5*Êì 
+Ö             ğÍröµ  à*söµ         @   B 1 A 0 7 F 7 8                 	   	                                                                                                                                 Hb5¥ì                       @ t z r e s . d l l , - 1 8 3 2       ¨Û8Ô¯           °Ë:tı  	 R T Z   2   ( 78<0)   ı  p<oöµ  ™T     0/oöµ  (İ8Ô¯     @ t z r e s . d l l , - 1 8 3 1   ı                            R T Z   2   ( ;5B>)                                       äT                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              yb5/‘ì °Àröµ  €Âröµ  pÂröµ   Áröµ  Ãröµ  À¿röµ  ğÀröµ  @Àröµ   Áröµ  Ğ¿röµ     Áröµ  °Âröµ  €Àröµ   Àröµ  `Àröµ  Áröµ  °Áröµ  pÁröµ                  sc=, ì 0¾röµ  àsöµ     ÀĞàğ”QS0433        0söµ     şÿÿÿÿ                Mä¼   €                                                                                                                                                        Mî¼  €\ ? ? \ D : \ p r o g \ C l i e n t - s e r v e r \ S e r v e r \ s t o r a g e \ a u d i o _ p a r t _ 2 0 2 4 1 2 0 4 1 2 1 5 4 7 . w a v             Mø¼  €                                                                                                                                                        MÂ¼  €\ ? ? \ D : \ p r o g \ C l i e n t - s e r v e r \ S e r v e r \ s t o r a g e \ a u d i o _ p a r t _ 2 0 2 4 1 2 0 4 1 1 3 2 0 4 . w a v             -MÌ¼  €                                                                                                                                                        7MÖ¼  €\ ? ? \ D : \ p r o g \ C l i e n t - s e r v e r \ S e r v e r \ s t o r a g e \ a u d i o _ p a r t _ 2 0 2 4 1 2 0 4 1 1 3 1 4 6 . w a v             9M ¼  €                                                                                                                                                        CMª¼  €\ ? ? \ D : \ p r o g \ C l i e n t - s e r v e r \ S e r v e r \ s t o r a g e \ a u d i o _ p a r t _ 2 0 2 4 1 2 0 4 1 1 3 1 5 8 . w a v             UM´¼  €\ ? ? \ D : \ p r o g \ C l i e n t - s e r v e r \ S e r v e r \ s t o r a g e \ a u d i o _ p a r t _ 2 0 2 4 1 2 0 4 1 2 1 5 5 3 . w a v             _M¾¼ 	 €                                                                                                                                                        aMˆ¼ 
+ €                                                                                                                                                        kM’¼  €                                                                                                                                                        }Mœ¼  €                                                                                                                                                        ‡Mf¼  €                                                                                                                                                        ‰Mp¼  €                                                                                                                                                        “Mz¼  €                                                                                                                                                        ¥MD¼  €                                                                                                                                                        ¯MN¼  €\ ? ? \ D : \ p r o g \ C l i e n t - s e r v e r \ S e r v e r \ s t o r a g e \ a u d i o _ p a r t _ 2 0 2 4 1 2 0 4 1 2 1 5 4 7 . w a v             ±MX¼  €\ ? ? \ D : \ p r o g \ C l i e n t - s e r v e r \ S e r v e r \ s t o r a g e \ a u d i o _ p a r t _ 2 0 2 4 1 2 0 4 1 2 1 5 5 3 . w a v             »M"¼  €\ ? ? \ D : \ p r o g \ C l i e n t - s e r v e r \ S e r v e r \ s t o r a g e \ a u d i o _ p a r t _ 2 0 2 4 1 2 0 4 1 1 3 2 1 0 . w a v             ÍM,¼  €                                                                                                                                                        ×M6¼  €                                                                                                                                                        ÙM ¼  €\ ? ? \ D : \ p r o g \ C l i e n t - s e r v e r \ S e r v e r \ s t o r a g e \ a u d i o _ p a r t _ 2 0 2 4 1 2 0 4 1 1 3 2 2 0 . w a v             ãM
+¼  €                                                                                                                                                        õM¼  €\ ? ? \ D : \ p r o g \ C l i e n t - s e r v e r \ S e r v e r \ s t o r a g e \ a u d i o _ p a r t _ 2 0 2 4 1 2 0 4 1 2 1 5 4 1 . w a v                                             ób=­ªí         àsöµ         ¤AÃ0412)       @söµ       şÿÿ303341/audio_parJä¼2  €04120901.wav 1733303341
+1733303347/audioJç¼t €241204120907.wav 1733303347
+1733303353/aJê¼_ €t_20241204120913.wav 1733303353
+audio_paJí¼0 €204113146.wav 1733301106
+audio_part_2024
+Jğ¼1 €52.wav 1733301112
+audio_part_20241204113Jó¼w €1733301118
+audio_part_20241204113204.wavJö¼3 €124
+audio_part_20241204113210.wav 173330Jù¼
+ €io_part_20241204113216.wav 1733301136
+auJü¼p €_20241204113220.wav 1733301140
+audio_parJÿ¼2	 €04121541.wav 1733303741
+audio_part_20241$JÂ¼2
+ €7.wav 1733303747
+audio_part_202412041215'JÅ¼a €733303753
+1733304433/audio_part_20241204"JÈ¼1 €av 1733304433
+1733304439/audio_part_2024-JË¼1 €19.wav 1733304439
+1733304445/audio_part_(JÎ¼1 €122725.wav 1733304445
+1733304622/audio_p+JÑ¼2 €1204123022.wav 1733304622
+1733304628/aud6JÔ¼a €20241204123028.wav 1733304628
+default/au1J×¼p €_20241204132021.wav 1733307621
+qwerty/au<JÚ¼p €_20241204140433.wav 1733310273
+0433.wav ?Jİ¼3 €73
+                                    :J ¼  €                                        EJ£¼  €                                        @J¦¼  €                                        CJ©¼  €                                        NJ¬¼  €                                        IJ¯¼  €                                        TJ²¼  €                                        WJµ¼  €                                        RJ¸¼  €                                        ]J»¼  €                                        XJ¾¼  €                                        [J¼  €                                        fJ„¼   €                                        aJ‡¼ ! €                                        lJŠ¼ " €                                        oJ¼ # €. / s t o r a g e                       jJ¼ $ €. / s t o r a g e \                     uJ“¼ % €1 7 3 3 3 0 4 4 3 3                     pJ–¼ & €                                        sJ™¼ ' €                                        ~Jœ¼ ( €                                                        `4Y*ì  Poöµ  àsöµ    ¹   ¹  `¹   9  @9   ¹  Ğ¹                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            } |ªí  Poöµ  àsöµ                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             [ADD] audio_part_20241204141014.wav added with timestamp 1733310621
+[INFO] Incoming request with file size: 1048620 bytes.
+[INFO] Storage size exceeded. Deleting old files.
+[SAVE] ./storage/qwerty/audio_part_20241204141014.wav saved to storage.
+[ADD] audio_part_20241204141057.wav added with timestamp 1733310662
+[INFO] Incoming request with file size: 1048620 bytes.
+[INFO] Storage size exceeded. Deleting old files.
+[SAVE] ./storage/qwerty/audio_part_20241204141057.wav saved to storage.
+[ADD] audio_part_20241204141112.wav added with timestamp 1733310675
+[INFO] Incoming request with file size: 1048620 bytes.
+[INFO] Storage size exceeded. Deleting old files.
+[SAVE] ./storage/qwerty/audio_part_20241204141112.wav saved to storage.
+[ADD] audio_part_20241204141121.wav added with timestamp 1733310681
+[INFO] Incoming request with file size: 1048620 bytes.
+[INFO] Storage size exceeded. Deleting old files.
+[SAVE] ./storage/qwerty/audio_part_20241204141121.wav saved to storage.
+[ADD] audio_part_20241204141122.wav added with timestamp 1733310682
+[INFO] Incoming request with file size: 176172 bytes.
+[SAVE] ./storage/qwerty/audio_part_20241204141122.wav saved to storage.
+[ADD] audio_part_20241204141300.wav added with timestamp 1733310780
+[INFO] Incoming request with file size: 1048620 bytes.
+[INFO] Storage size exceeded. Deleting old files.
+[SAVE] ./storage/qwerf/audio_part_20241204141300.wav saved to storage.
+[ADD] audio_part_20241204141304.wav added with timestamp 1733310784
+[INFO] Incoming request with file size: 1048620 bytes.
+[INFO] Storage size exceeded. Deleting old files.
+[SAVE] ./storage/qwertywerrw/audio_part_20241204141304.wav saved to storage.
+[ADD] audio_part_20241204141306.wav added with timestamp 1733310786
+[INFO] Incoming request with file size: 1048620 bytes.
+[INFO] Storage size exceeded. Deleting old files.
+[SAVE] ./storage/qwerf/audio_part_20241204141306.wav saved to storage.
+[ADD] audio_part_20241204141310.wav added with timestamp 1733310790
+[INFO] Incoming request with file size: 1048620 bytes.
+[INFO] Storage size exceeded. Deleting old files.
+[SAVE] ./storage/qwertywerrw/audio_part_20241204141310.wav saved to storage.
+[ADD] audio_part_20241204141312.wav added with timestamp 1733310792
+[INFO] Incoming request with file size: 1048620 bytes.
+[INFO] Storage size exceeded. Deleting old files.
+[SAVE] ./storage/qwerf/audio_part_20241204141312.wav saved to storage.
+[ADD] audio_part_20241204141316.wav added with timestamp 1733310796
+[INFO] Incoming request with file size: 1048620 bytes.
+[INFO] Storage size exceeded. Deleting old files.
+[SAVE] ./storage/qwertywerrw/audio_part_20241204141316.wav saved to storage.
+[INFO] Incoming request with file size: 1048620 bytes.
+[INFO] Storage size exceeded. Deleting old files.
+[INFO] Incoming request with file size: 1048620 bytes.
+[INFO] Storage size exceeded. Deleting old files.
+[INFO] Incoming request with file size: 1048620 bytes.
+[INFO] Storage size exceeded. Deleting old files.
+[INFO] Incoming request with file size: 1048620 bytes.
+[INFO] Storage size exceeded. Deleting old files.
+[INFO] Incoming request with file size: 1048620 bytes.
+[INFO] Storage size exceeded. Deleting old files.
+[ADD] audio_part_20241204144220.wav added with timestamp 1733312540
+[INFO] Incoming request with file size: 1048620 bytes.
+[SAVE] ./storage/qw/audio_part_20241204144220.wav saved to storage.
+[ADD] audio_part_20241204144226.wav added with timestamp 1733312546
+[INFO] Incoming request with file size: 1048620 bytes.
+[SAVE] ./storage/qw/audio_part_20241204144226.wav saved to storage.
+[ADD] audio_part_20241204144232.wav added with timestamp 1733312552
+[INFO] Incoming request with file size: 1048620 bytes.
+[SAVE] ./storage/qw/audio_part_20241204144232.wav saved to storage.
+[ADD] audio_part_20241204144238.wav added with timestamp 1733312558
+[INFO] Incoming request with file size: 1048620 bytes.
+[SAVE] ./storage/qw/audio_part_20241204144238.wav saved to storage.
+[ADD] audio_part_20241204144538.wav added with timestamp 1733312738
+[INFO] Incoming request with file size: 1048620 bytes.
+[SAVE] ./storage/tyty/audio_part_20241204144538.wav saved to storage.
+[ADD] audio_part_20241204144544.wav added with timestamp 1733312744
+[INFO] Incoming request with file size: 1048620 bytes.
+[SAVE] ./storage/tyty/audio_part_20241204144544.wav saved to storage.
+[ADD] audio_part_20241204144550.wav added with timestamp 1733312750
+[INFO] Incoming request with file size: 1048620 bytes.
+[SAVE] ./storage/tyty/audio_part_20241204144550.wav saved to storage.
+[ADD] audio_part_20241204144556.wav added with timestamp 1733312756
+[INFO] Incoming request with file size: 1048620 bytes.
+[SAVE] ./storage/tyty/audio_part_20241204144556.wav saved to storage.
+[ADD] audio_part_20241204144602.wav added with timestamp 1733312762
+[INFO] Incoming request with file size: 1048620 bytes.
+[SAVE] ./storage/tyty/audio_part_20241204144602.wav saved to storage.
+[ADD] audio_part_20241204144608.wav added with timestamp 1733312768
+[INFO] Incoming request with file size: 1048620 bytes.
+[SAVE] ./storage/tyty/audio_part_20241204144608.wav saved to storage.
+[ADD] audio_part_20241204144614.wav added with timestamp 1733312774
+[INFO] Incoming request with file size: 1048620 bytes.
+[SAVE] ./storage/tyty/audio_part_20241204144614.wav saved to storage.
+[ADD] audio_part_20241204144620.wav added with timestamp 1733312780
+[INFO] Incoming request with file size: 1048620 bytes.
+[SAVE] ./storage/tyty/audio_part_20241204144620.wav saved to storage.
+[ADD] audio_part_20241204144626.wav added with timestamp 1733312786
+[INFO] Incoming request with file size: 1048620 bytes.
+[SAVE] ./storage/tyty/audio_part_20241204144626.wav saved to storage.
+[ADD] audio_part_20241204144631.wav added with timestamp 1733312791
+[INFO] Incoming request with file size: 1048620 bytes.
+[INFO] Storage size exceeded. Deleting old files.
+[SAVE] ./storage/tyty/audio_part_20241204144631.wav saved to storage.
+[INFO] Date associations updated.
+[ADD] audio_part_20241204144637.wav added with timestamp 1733312797
+[INFO] Incoming request with file size: 1048620 bytes.
+[INFO] Storage size exceeded. Deleting old files.
+[SAVE] ./storage/tyty/audio_part_20241204144637.wav saved to storage.
+[INFO] Date associations updated.
+[ADD] audio_part_20241204144643.wav added with timestamp 1733312803
+[INFO] Incoming request with file size: 1048620 bytes.
+[INFO] Storage size exceeded. Deleting old files.
+[SAVE] ./storage/tyty/audio_part_20241204144643.wav saved to storage.
+[INFO] Date associations updated.
+[ADD] audio_part_20241204144649.wav added with timestamp 1733312809
+[INFO] Incoming request with file size: 1048620 bytes.
+[INFO] Storage size exceeded. Deleting old files.
+[SAVE] ./storage/tyty/audio_part_20241204144649.wav saved to storage.
+[INFO] Date associations updated.
+[ADD] audio_part_20241204144652.wav added with timestamp 1733312812
+[INFO] Incoming request with file size: 479276 bytes.
+[INFO] Storage size exceeded. Deleting old files.
+[SAVE] ./storage/tyty/audio_part_20241204144652.wav saved to storage.
+[ADD] audio_part_20241204145358.wav added with timestamp 1733313238
+[INFO] Incoming request with file size: 1048620 bytes.
+[INFO] Storage size exceeded. Deleting old files.
+[SAVE] ./storage/tyty/audio_part_20241204145358.wav saved to storage.
+[ADD] audio_part_20241204145403.wav added with timestamp 1733313243
+[INFO] Incoming request with file size: 1048620 bytes.
+[INFO] Storage size exceeded. Deleting old files.
+[SAVE] ./storage/tyty/audio_part_20241204145403.wav saved to storage.
+[ADD] audio_part_20241204145409.wav added with timestamp 1733313249
+[INFO] Incoming request with file size: 1048620 bytes.
+[INFO] Storage size exceeded. Deleting old files.
+[SAVE] ./storage/tyty/audio_part_20241204145409.wav saved to storage.
+[ADD] audio_part_20241204145415.wav added with timestamp 1733313255
+[INFO] Incoming request with file size: 1048620 bytes.
+[INFO] Storage size exceeded. Deleting old files.
+[SAVE] ./storage/tyty/audio_part_20241204145415.wav saved to storage.
+[ADD] audio_part_20241204145421.wav added with timestamp 1733313261
+[INFO] Incoming request with file size: 1048620 bytes.
+[INFO] Storage size exceeded. Deleting old files.
+[SAVE] ./storage/tyty/audio_part_20241204145421.wav saved to storage.
+[ADD] audio_part_20241204145427.wav added with timestamp 1733313267
+[INFO] Incoming request with file size: 1048620 bytes.
+[INFO] Storage size exceeded. Deleting old files.
+[SAVE] ./storage/tyty/audio_part_20241204145427.wav saved to storage.
+[INFO] Incoming request with file size: 1048620 bytes.
+[INFO] Storage size exceeded. Deleting old files.
+[INFO] Incoming request with file size: 1048620 bytes.
+[INFO] Storage size exceeded. Deleting old files.
+[INFO] Incoming request with file size: 1048620 bytes.
+[INFO] Storage size exceeded. Deleting old files.
+[INFO] Incoming request with file size: 1048620 bytes.
+[INFO] Storage size exceeded. Deleting old files.
+[INFO] Incoming request with file size: 1048620 bytes.
+[INFO] Storage size exceeded. Deleting old files.
+[INFO] Incoming request with file size: 1048620 bytes.
+[INFO] Storage size exceeded. Deleting old files.
+[INFO] Incoming request with file size: 1048620 bytes.
+[INFO] Storage size exceeded. Deleting old files.
+[DELETE] tyty/audio_part_20241204144538.wav (1048620 bytes) deleted to maintain storage size.
+[DELETE] tyty/audio_part_20241204144544.wav (1048620 bytes) deleted to maintain storage size.
+[DELETE] tyty/audio_part_20241204144550.wav (1048620 bytes) deleted to maintain storage size.
+[DELETE] tyty/audio_part_20241204144556.wav (1048620 bytes) deleted to maintain storage size.
+[DELETE] tyty/audio_part_20241204144602.wav (1048620 bytes) deleted to maintain storage size.
+[DELETE] tyty/audio_part_20241204144608.wav (1048620 bytes) deleted to maintain storage size.
+[DELETE] tyty/audio_part_20241204144614.wav (1048620 bytes) deleted to maintain storage size.
+[DELETE] tyty/audio_part_20241204144620.wav (1048620 bytes) deleted to maintain storage size.
+[DELETE] tyty/audio_part_20241204144626.wav (1048620 bytes) deleted to maintain storage size.
+[DELETE] tyty/audio_part_20241204144631.wav (1048620 bytes) deleted to maintain storage size.
+[INFO] Date associations updated.
+[ADD] audio_part_20241204145825.wav added with timestamp 1733313505
+[INFO] Incoming request with file size: 1048620 bytes.
+[INFO] Storage size exceeded. Deleting old files.
+[SAVE] ./storage/tyty/audio_part_20241204145825.wav saved to storage.
+[DELETE] tyty/audio_part_20241204144637.wav (1048620 bytes) deleted to maintain storage size.
+[INFO] Date associations updated.
+[ADD] audio_part_20241204145831.wav added with timestamp 1733313511
+[INFO] Incoming request with file size: 1048620 bytes.
+[INFO] Storage size exceeded. Deleting old files.
+[SAVE] ./storage/tyty/audio_part_20241204145831.wav saved to storage.
+[DELETE] tyty/audio_part_20241204144643.wav (1048620 bytes) deleted to maintain storage size.
+[INFO] Date associations updated.
+[ADD] audio_part_20241204145837.wav added with timestamp 1733313517
+[INFO] Incoming request with file size: 1048620 bytes.
+[INFO] Storage size exceeded. Deleting old files.
+[SAVE] ./storage/tyty/audio_part_20241204145837.wav saved to storage.
+[DELETE] tyty/audio_part_20241204144649.wav (1048620 bytes) deleted to maintain storage size.
+[INFO] Date associations updated.
+[ADD] audio_part_20241204145842.wav added with timestamp 1733313522
+[INFO] Incoming request with file size: 1048620 bytes.
+[INFO] Storage size exceeded. Deleting old files.
+[SAVE] ./storage/tyty/audio_part_20241204145842.wav saved to storage.
+[DELETE] tyty/audio_part_20241204144652.wav (479276 bytes) deleted to maintain storage size.
+[DELETE] tyty/audio_part_20241204145358.wav (1048620 bytes) deleted to maintain storage size.
+[INFO] Date associations updated.
+[ADD] audio_part_20241204145848.wav added with timestamp 1733313528
+[INFO] Incoming request with file size: 1048620 bytes.
+[INFO] Storage size exceeded. Deleting old files.
+[SAVE] ./storage/tyty/audio_part_20241204145848.wav saved to storage.
+[DELETE] tyty/audio_part_20241204145403.wav (1048620 bytes) deleted to maintain storage size.
+[INFO] Date associations updated.
+[ADD] audio_part_20241204145854.wav added with timestamp 1733313534
+[INFO] Incoming request with file size: 1048620 bytes.
+[INFO] Storage size exceeded. Deleting old files.
+[SAVE] ./storage/tyty/audio_part_20241204145854.wav saved to storage.
+[DELETE] tyty/audio_part_20241204145409.wav (1048620 bytes) deleted to maintain storage size.
+[INFO] Date associations updated.
+[ADD] audio_part_20241204145900.wav added with timestamp 1733313540
+[INFO] Incoming request with file size: 1048620 bytes.
+[INFO] Storage size exceeded. Deleting old files.
+[SAVE] ./storage/tyty/audio_part_20241204145900.wav saved to storage.
+[DELETE] tyty/audio_part_20241204145415.wav (1048620 bytes) deleted to maintain storage size.
+[INFO] Date associations updated.
+[ADD] audio_part_20241204145904.wav added with timestamp 1733313544
+[INFO] Incoming request with file size: 561196 bytes.
+[INFO] Storage size exceeded. Deleting old files.
+[SAVE] ./storage/tyty/audio_part_20241204145904.wav saved to storage.
+[ADD] audio_part_20241204150258.wav added with timestamp 1733313778
+[INFO] Incoming request with file size: 1048620 bytes.
+[SAVE] ./storage/qwe/audio_part_20241204150258.wav saved to storage.
+[ADD] audio_part_20241204150258.wav added with timestamp 1733313778
+[INFO] Incoming request with file size: 1048620 bytes.
+[SAVE] ./storage/rr/audio_part_20241204150258.wav saved to storage.
+[ADD] audio_part_20241204150304.wav added with timestamp 1733313784
+[INFO] Incoming request with file size: 1048620 bytes.
+[SAVE] ./storage/qwe/audio_part_20241204150304.wav saved to storage.
+[ADD] audio_part_20241204150304.wav added with timestamp 1733313784
+[INFO] Incoming request with file size: 1048620 bytes.
+[SAVE] ./storage/rr/audio_part_20241204150304.wav saved to storage.
+[ADD] audio_part_20241204150310.wav added with timestamp 1733313790
+[INFO] Incoming request with file size: 1048620 bytes.
+[SAVE] ./storage/qwe/audio_part_20241204150310.wav saved to storage.
+[ADD] audio_part_20241204150310.wav added with timestamp 1733313790
+[INFO] Incoming request with file size: 1048620 bytes.
+[SAVE] ./storage/rr/audio_part_20241204150310.wav saved to storage.
+[ADD] audio_part_20241204150316.wav added with timestamp 1733313796
+[INFO] Incoming request with file size: 1048620 bytes.
+[SAVE] ./storage/qwe/audio_part_20241204150316.wav saved to storage.
+[ADD] audio_part_20241204150316.wav added with timestamp 1733313796
+[INFO] Incoming request with file size: 1048620 bytes.
+[SAVE] ./storage/rr/audio_part_20241204150316.wav saved to storage.
+[ADD] audio_part_20241204150321.wav added with timestamp 1733313801
+[INFO] Incoming request with file size: 1048620 bytes.
+[SAVE] ./storage/qwe/audio_part_20241204150321.wav saved to storage.
+[ADD] audio_part_20241204150322.wav added with timestamp 1733313802
+[INFO] Incoming request with file size: 1048620 bytes.
+[SAVE] ./storage/rr/audio_part_20241204150322.wav saved to storage.
+[ADD] audio_part_20241204150324.wav added with timestamp 1733313804
+[INFO] Incoming request with file size: 385068 bytes.
+[SAVE] ./storage/rr/audio_part_20241204150324.wav saved to storage.
+[ADD] audio_part_20241204150327.wav added with timestamp 1733313807
+[INFO] Incoming request with file size: 1048620 bytes.
+[SAVE] ./storage/qwe/audio_part_20241204150327.wav saved to storage.
+[ADD] audio_part_20241204150328.wav added with timestamp 1733313808
+[INFO] Incoming request with file size: 143404 bytes.
+[SAVE] ./storage/qwe/audio_part_20241204150328.wav saved to storage.

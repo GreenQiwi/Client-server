@@ -3,7 +3,7 @@
 Connection::Connection(const std::string& host, const std::string& port)
     : host(host), port(port) {}
 
-void Connection::UploadFile(const std::string& filename, const std::string& target, const std::string& contentType) 
+void Connection::UploadFile(const std::string& filename, const std::string& target, const std::string& contentType, const std::string& login, const std::string& password) 
 {
     try 
     {
@@ -33,6 +33,8 @@ void Connection::UploadFile(const std::string& filename, const std::string& targ
         req.set(http::field::host, host);
         req.set(http::field::content_type, contentType);
         req.set(http::field::content_length, std::to_string(fileSize));
+        req.set("login", login);
+        req.set("password", password);
         req.body() = data;
         req.prepare_payload();
 

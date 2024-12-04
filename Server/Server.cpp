@@ -5,25 +5,19 @@
 namespace asio = boost::asio;
 using tcp = asio::ip::tcp;
 
-
 int main()
 {
-    try 
+    setlocale(LC_ALL, "rus");
+    try
     {
-
         asio::io_context ioc;
-        tcp::acceptor acc(ioc, tcp::endpoint(tcp::v4(), 8080));
+        tcp::endpoint endpoint(tcp::v4(), 8080);
+        tcp::acceptor acceptor(ioc, endpoint);
 
-        while (true)
-        {
-            tcp::socket socket(ioc);
-            acc.accept(socket);
-            beast::tcp_stream stream(std::move(socket));
-            beast::flat_buffer buffer;
+        MessageHandler handler(std::move(acceptor));
+        handler.start();
+        ioc.run();
 
-            MessageHandler::handleRequest(stream, buffer);
-            stream.socket().shutdown(tcp::socket::shutdown_send);
-        }
     }
     catch (const std::exception& ex)
     {

@@ -24,12 +24,18 @@
     <ClCompile Include="AudioStorage.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Authentication.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Connection.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="AudioStorage.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Authentication.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

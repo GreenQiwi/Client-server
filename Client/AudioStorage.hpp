@@ -1,9 +1,12 @@
 #pragma once
 
+#include "Authentication.hpp"
 #include <vector>
 #include <fstream>
 #include <iostream>
 #include <portaudio.h>
+#include <boost/asio/thread_pool.hpp>
+#include <boost/asio/post.hpp>
 #include "Connection.hpp"
 
 #define SAMPLE_RATE 44100
@@ -25,6 +28,9 @@ private:
     std::vector<float> audiodata;
     int index = 0;
     PaStream* stream;
+    asio::thread_pool threadpool;
+
+    Authentication auth;
 
     void sendFile();
     void WriteWavHeader(std::ofstream& outFile, int dataSize);

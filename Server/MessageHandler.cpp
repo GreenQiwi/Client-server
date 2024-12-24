@@ -131,7 +131,7 @@ bool checkDigest(const http::request<http::string_body>& req, const std::string&
     }
 
     std::map<std::string, std::string> digestParams;
-    size_t start = authHeader.find("Digest") + 7; 
+    size_t start = authHeader.find("Digest") + 7;
     std::string paramsString = authHeader.substr(start);
     std::istringstream paramStream(paramsString);
     std::string param;
@@ -143,6 +143,7 @@ bool checkDigest(const http::request<http::string_body>& req, const std::string&
             std::string value = param.substr(eqPos + 1);
 
             key.erase(remove_if(key.begin(), key.end(), isspace), key.end());
+            value.erase(remove_if(value.begin(), value.end(), isspace), value.end()); 
             if (value.front() == '"' && value.back() == '"') {
                 value = value.substr(1, value.size() - 2);
             }
@@ -157,6 +158,7 @@ bool checkDigest(const http::request<http::string_body>& req, const std::string&
     std::string response = digestParams["response"];
 
     if (username.empty() || realm.empty() || nonce.empty() || uri.empty() || response.empty()) {
+        std::cerr << "Missing required Digest parameters." << std::endl;
         return false;
     }
 
@@ -170,7 +172,7 @@ bool checkDigest(const http::request<http::string_body>& req, const std::string&
     }
     std::string ha1Hex = ha1HexStream.str();
 
-    std::string method = "POST"; 
+    std::string method = "POST";
     std::string ha2Input = method + ":" + uri;
     unsigned char ha2Digest[16];
     md5(std::vector<uint8_t>(ha2Input.begin(), ha2Input.end()), ha2Digest);
@@ -193,6 +195,7 @@ bool checkDigest(const http::request<http::string_body>& req, const std::string&
 
     return expectedResponse == response;
 }
+
 
 
 

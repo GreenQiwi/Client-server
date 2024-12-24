@@ -4,7 +4,7 @@
 
 int main() 
 {
-
+    setlocale(LC_ALL, "rus");
     AudioStorage audioStorage;
     audioStorage.initRecord();
     audioStorage.startRecord();

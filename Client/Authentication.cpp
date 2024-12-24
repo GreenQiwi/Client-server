@@ -7,11 +7,11 @@ Authentication::Authentication() :
 
 void Authentication::authenticate()
 {
-	std::cout << "Enter login: ";
-	std::cin >> login;
-	std::cout << "Enter password: ";
-	std::cin >> password;
-	std::cout << std::endl;
+	//std::cout << "Enter login: ";
+	//std::cin >> login;
+	//std::cout << "Enter password: ";
+	//std::cin >> password;
+	//std::cout << std::endl;
 }
 
 void Authentication::md5(const std::vector<uint8_t>& input, uint8_t digest[16]) {

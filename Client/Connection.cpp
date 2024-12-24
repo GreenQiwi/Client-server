@@ -13,6 +13,14 @@ void Connection::UploadFile(const std::string& filename, const std::string& targ
         tcp::socket socket(ioc);
         asio::connect(socket, results.begin(), results.end());
 
+        std::string nonce = "nonce"; 
+        std::string realm = "realm"; 
+        std::string method = "POST";
+        std::string uri = target;
+
+        std::string digestResponse = Authentication::generateDigest(method, uri, login, password, nonce, realm);
+
+
         std::ifstream file(filename, std::ios::binary | std::ios::ate);
         if (!file) {
             std::cerr << "Error opening file: " << filename << std::endl;
@@ -33,8 +41,8 @@ void Connection::UploadFile(const std::string& filename, const std::string& targ
         req.set(http::field::host, host);
         req.set(http::field::content_type, contentType);
         req.set(http::field::content_length, std::to_string(fileSize));
-        req.set("login", login);
-        req.set("password", password);
+
+        req.set("Authorization", "Digest username=\"" + login + "\", realm=\"" + realm + "\", nonce=\"" + nonce + "\", uri=\"" + uri + "\", response=\"" + digestResponse + "\"");
         req.body() = data;
         req.prepare_payload();
 

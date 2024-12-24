@@ -171,33 +171,3 @@ void AudioStorage::sendFile()
 
     audiodata.clear();
 }
-
-
-
-//void AudioStorage::WriteWavHeader(std::ofstream& outFile, int dataSize) 
-//{
-//    const int chunkSize = 36 + dataSize;
-//    const int subChunk1Size = 16;
-//    const short audioFormat = 3;  // IEEE float format
-//    const int byteRate = SAMPLE_RATE * NUMBER_OF_CHANNELS * sizeof(float);
-//    const short blockAlign = NUMBER_OF_CHANNELS * sizeof(float);
-//    const short bitsPerSample = sizeof(float) * 8;
-//    const short numChannels = NUMBER_OF_CHANNELS;
-//    const int sampleRate = SAMPLE_RATE;
-//
-//    outFile.write("RIFF", 4);
-//    outFile.write(reinterpret_cast<const char*>(&chunkSize), sizeof(int));
-//    outFile.write("WAVE", 4);
-//
-//    outFile.write("fmt ", 4);
-//    outFile.write(reinterpret_cast<const char*>(&subChunk1Size), sizeof(int));
-//    outFile.write(reinterpret_cast<const char*>(&audioFormat), sizeof(short));
-//    outFile.write(reinterpret_cast<const char*>(&numChannels), sizeof(short));
-//    outFile.write(reinterpret_cast<const char*>(&sampleRate), sizeof(int));
-//    outFile.write(reinterpret_cast<const char*>(&byteRate), sizeof(int));
-//    outFile.write(reinterpret_cast<const char*>(&blockAlign), sizeof(short));
-//    outFile.write(reinterpret_cast<const char*>(&bitsPerSample), sizeof(short));
-//
-//    outFile.write("data", 4);
-//    outFile.write(reinterpret_cast<const char*>(&dataSize), sizeof(int));
-//}

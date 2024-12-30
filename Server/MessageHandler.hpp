@@ -15,16 +15,17 @@ using tcp = boost::asio::ip::tcp;
 class MessageHandler : public std::enable_shared_from_this<MessageHandler> {
 public:
 	MessageHandler(tcp::acceptor acceptor);
-	void start();
+	void Start();
 	//static void handleRequest(beast::tcp_stream& stream, beast::flat_buffer& buffer);
 
 private:
 	void acceptConnections();
 	void readRequest(tcp::socket socket);
 
-	tcp::acceptor acceptor;
-	beast::flat_buffer buffer;
-
-	asio::thread_pool threadpool;
+private:
+	tcp::acceptor m_acceptor;
+	beast::flat_buffer m_buffer;
+	 
+	asio::thread_pool m_threadpool	;
 };
 

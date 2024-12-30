@@ -14,12 +14,14 @@ namespace http = beast::http;
 namespace asio = boost::asio;
 using tcp = asio::ip::tcp;
 
-class Connection {
+class Connection  { 
 public:
     Connection(const std::string& host, const std::string& port);
     void UploadFile(const std::string& filename, const std::string& target, const std::string& contentType, const std::string& login, const std::string& password);
 
 private:
-    std::string host;
-    std::string port;
+    asio::io_context m_ioc;
+    std::string m_host;
+    std::string m_port;
+
 };

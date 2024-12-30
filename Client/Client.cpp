@@ -6,8 +6,8 @@ int main()
 {
     setlocale(LC_ALL, "rus");
     AudioStorage audioStorage;
-    audioStorage.initRecord();
-    audioStorage.startRecord();
+    audioStorage.InitRecord();
+    audioStorage.StartRecord();
 
     while (true) {
         if (_kbhit()) {
@@ -16,7 +16,7 @@ int main()
         }
     }
 
-    audioStorage.stopRecord();
+    audioStorage.StopRecord();
 
     system("pause");
     return 0;

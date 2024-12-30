@@ -3,9 +3,9 @@
 #include <iomanip>
 
 Authentication::Authentication() :
-	login("default"), password("default") {}
+	m_Login("default"), m_Password("default") {}
 
-void Authentication::authenticate()
+void Authentication::Authenticate()
 {
 	//std::cout << "Enter login: ";
 	//std::cin >> login;
@@ -143,7 +143,7 @@ std::string Authentication::calculateMD5(const std::string& input) {
     return oss.str();
 }
 
-std::string Authentication::generateDigest(const std::string& method, const std::string& uri, const std::string& login, const std::string& password, const std::string& nonce, const std::string& realm) {
+std::string Authentication::GenerateDigest(const std::string& method, const std::string& uri, const std::string& login, const std::string& password, const std::string& nonce, const std::string& realm) {
     // username:realm:password
     std::string ha1Input = login + ":" + realm + ":" + password;
     std::string ha1 = calculateMD5(ha1Input);

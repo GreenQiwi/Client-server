@@ -2,23 +2,23 @@
 #include "Connection.hpp"
 
 AudioStorage::AudioStorage()
-    : index(0), stream(nullptr), threadpool(std::thread::hardware_concurrency()) {}
+    : m_index(0), m_stream(nullptr), m_threadpool(std::thread::hardware_concurrency()) {}
 
 
 AudioStorage::~AudioStorage()
 {
-    if(stream)
+    if(m_stream != nullptr)
     {
-        Pa_CloseStream(stream);
+        Pa_CloseStream(m_stream);
         Pa_Terminate();
     }
 
-    threadpool.join();
+    m_threadpool.join();
 }
 
-void AudioStorage::initRecord()
+void AudioStorage::InitRecord()
 {
-    auth.authenticate();
+    m_auth.Authenticate();
 
     PaError err = Pa_Initialize();
     if (err != paNoError) 
@@ -45,7 +45,7 @@ void AudioStorage::initRecord()
     inputParams.hostApiSpecificStreamInfo = nullptr;
 
     err = Pa_OpenStream(
-        &stream,
+        &m_stream,
         &inputParams,
         nullptr,
         SAMPLE_RATE,
@@ -54,7 +54,7 @@ void AudioStorage::initRecord()
         [](const void* input, void* output, unsigned long frames,
             const PaStreamCallbackTimeInfo* timeInfo,
             PaStreamCallbackFlags statusFlags, void* userData) -> int {
-                static_cast<AudioStorage*>(userData)->parseAudio(input, frames);
+                static_cast<AudioStorage*>(userData)->ParseAudio(input, frames);
                 return paContinue;
         },
         this);
@@ -65,40 +65,40 @@ void AudioStorage::initRecord()
     }
 }
 
-void AudioStorage::startRecord()
+void AudioStorage::StartRecord()
 {
-    if (Pa_StartStream(stream) != paNoError) 
+    if (Pa_StartStream(m_stream) != paNoError) 
     {
         throw std::runtime_error("Failed to start stream");
     }
     std::cout << "Recording... Press 'q' to stop." << std::endl;
 }
 
-void AudioStorage::stopRecord() {
-    if (!audiodata.empty()) 
+void AudioStorage::StopRecord() {
+    if (!m_audiodata.empty()) 
     {
         sendFile();
     }
 
-    if (Pa_StopStream(stream) != paNoError) 
+    if (Pa_StopStream(m_stream) != paNoError) 
     {
         throw std::runtime_error("Failed to stop stream.");
     }
     std::cout << "Recording stopped." << std::endl;
 
-    threadpool.join();
+    m_threadpool.join();
 }
 
-void AudioStorage::parseAudio(const void* inputAudio, unsigned long framesNumber)
+void AudioStorage::ParseAudio(const void* inputAudio, size_t framesNumber)
 {
     if (inputAudio == nullptr) return;
 
     const float* input = static_cast<const float*>(inputAudio);
-    for (unsigned long i = 0; i < framesNumber; ++i) 
+    for (size_t i = 0; i < framesNumber; ++i)
     {
-        audiodata.push_back(*input++);
+        m_audiodata.push_back(*input++);
 
-        if (audiodata.size() * sizeof(float) >= MAX_FILE_SIZE) 
+        if (m_audiodata.size() * sizeof(float) >= MAX_FILE_SIZE) 
         {
             sendFile();
         }
@@ -107,11 +107,10 @@ void AudioStorage::parseAudio(const void* inputAudio, unsigned long framesNumber
 
 void AudioStorage::sendFile()
 {
-
-    asio::post(threadpool, [data = std::move(audiodata), i = index++, this]()
+    asio::post([this]()
         {
 
-            std::string filename = "audio_part_" + std::to_string(i) + ".wav";
+            std::string filename = "audio_part_" + std::to_string(m_index++) + ".wav";
             std::ofstream outFile(filename, std::ios::binary);
             if (!outFile.is_open())
             {
@@ -120,7 +119,7 @@ void AudioStorage::sendFile()
             }
 
 
-            int dataSize = data.size() * sizeof(float);
+            int dataSize = m_audiodata.size() * sizeof(float);
             const int chunkSize = 36 + dataSize;
             const int subChunk1Size = 16;
             const short audioFormat = 3;  // IEEE float format
@@ -147,7 +146,7 @@ void AudioStorage::sendFile()
             outFile.write(reinterpret_cast<const char*>(&dataSize), sizeof(int));
 
 
-            outFile.write(reinterpret_cast<const char*>(data.data()), data.size() * sizeof(float));
+            outFile.write(reinterpret_cast<const char*>(m_audiodata.data()), m_audiodata.size() * sizeof(float));
             outFile.close();
 
             if (!std::ifstream(filename))
@@ -158,8 +157,10 @@ void AudioStorage::sendFile()
 
             try
             {
-                Connection client("127.0.0.1", "8080");
-                client.UploadFile(filename, "/upload", "audio/wav", auth.login, auth.password);
+                Connection connection("127.0.0.1", "8080");
+                connection.UploadFile(filename, "/upload", "audio/wav", m_auth.m_Login, m_auth.m_Password);
+
+                //client.UploadFile(filename, "/upload", "audio/wav", auth.login, auth.password);
             }
             catch (const std::exception& ex)
             {
@@ -169,5 +170,5 @@ void AudioStorage::sendFile()
             std::remove(filename.c_str());
         });
 
-    audiodata.clear();
+    m_audiodata.clear();
 }

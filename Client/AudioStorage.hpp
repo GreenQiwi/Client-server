@@ -14,24 +14,24 @@
 #define NUMBER_OF_CHANNELS  1
 #define MAX_FILE_SIZE 1024 * 1024  
 
-class AudioStorage {
+class AudioStorage  {
 public:
     AudioStorage();
     ~AudioStorage();
 
-    void initRecord();
-    void startRecord();
-    void stopRecord();
-    void parseAudio(const void* inputAudio, unsigned long framesNumber);
+    void InitRecord();
+    void StartRecord();
+    void StopRecord();
+    void ParseAudio(const void* inputAudio, size_t framesNumber);
 
 private:
-    std::vector<float> audiodata;
-    int index = 0;
-    PaStream* stream;
-    asio::thread_pool threadpool;
+    std::vector<float> m_audiodata;
+    int m_index;
+    PaStream* m_stream;
+    asio::thread_pool m_threadpool;
+    Authentication m_auth;
 
-    Authentication auth;
-
+private:
     void sendFile();
-    void WriteWavHeader(std::ofstream& outFile, int dataSize);
+
 };

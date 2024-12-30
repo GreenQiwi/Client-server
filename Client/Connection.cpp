@@ -1,16 +1,15 @@
 #include "Connection.hpp"
 
 Connection::Connection(const std::string& host, const std::string& port)
-    : host(host), port(port) {}
+    : m_host(host), m_port(port) {}
 
 void Connection::UploadFile(const std::string& filename, const std::string& target, const std::string& contentType, const std::string& login, const std::string& password)
 {
     try
-    {
-        asio::io_context ioc;
-        tcp::resolver resolver(ioc);
-        auto const results = resolver.resolve(host, port);
-        tcp::socket socket(ioc);
+    {        
+        tcp::resolver resolver(m_ioc);
+        auto const results = resolver.resolve(m_host, m_port);
+        tcp::socket socket(m_ioc);
         asio::connect(socket, results.begin(), results.end());
         if (!socket.is_open()) {
             std::cerr << "Failed to connect to the server." << std::endl;
@@ -18,7 +17,9 @@ void Connection::UploadFile(const std::string& filename, const std::string& targ
         }
 
         http::request<http::empty_body> initialReq{ http::verb::post, target, 11 };
-        initialReq.set(http::field::host, host);
+        initialReq.set(http::field::host, m_host);
+        initialReq.set(http::field::content_length, "0");
+        initialReq.prepare_payload();
         try {
             http::write(socket, initialReq);
         }
@@ -69,7 +70,7 @@ void Connection::UploadFile(const std::string& filename, const std::string& targ
 
         std::string method = "POST";
         std::string uri = target;
-        std::string digestResponse = Authentication::generateDigest(method, uri, login, password, nonce, realm);
+        std::string digestResponse = Authentication::GenerateDigest(method, uri, login, password, nonce, realm);
 
         std::ifstream file(filename, std::ios::binary | std::ios::ate);
         if (!file) {
@@ -88,7 +89,7 @@ void Connection::UploadFile(const std::string& filename, const std::string& targ
         const std::string data(dataVect.begin(), dataVect.end());
 
         http::request<http::string_body> req{ http::verb::post, target, 11 };
-        req.set(http::field::host, host);
+        req.set(http::field::host, m_host);
         req.set(http::field::content_type, contentType);
         req.set(http::field::content_length, std::to_string(fileSize));
         req.set("Authorization", "Digest username=\"" + login +
@@ -98,12 +99,20 @@ void Connection::UploadFile(const std::string& filename, const std::string& targ
             "\", response=\"" + digestResponse + "\"");
         req.body() = data;
         req.prepare_payload();
-
+        if (!socket.is_open()) {
+            std::cerr << "Failed to connect to the server." << std::endl;
+            return;
+        }
         http::write(socket, req);
+        if (!socket.is_open()) {
+            std::cerr << "Failed to connect to the server." << std::endl;
+            return;
+        }
 
         http::response<http::string_body> resp;
         try {
-            http::read(socket, buffer, resp);
+            beast::flat_buffer buffer1;
+            http::read(socket, buffer1, resp);
         }
         catch (const boost::system::system_error& ex) {
             std::cerr << "Boost error: " << ex.what() << std::endl;

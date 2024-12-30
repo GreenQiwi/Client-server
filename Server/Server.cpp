@@ -16,7 +16,7 @@ int main()
         tcp::acceptor acceptor(ioc, endpoint);
 
         MessageHandler handler(std::move(acceptor));
-        handler.start();
+        handler.Start();
         ioc.run();
 
     }

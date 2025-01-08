@@ -19,13 +19,17 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Digest.cpp" />
     <ClCompile Include="MessageHandler.cpp" />
     <ClCompile Include="Server.cpp" />
     <ClCompile Include="ServerStorage.cpp" />
+    <ClCompile Include="Session.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Digest.hpp" />
     <ClInclude Include="MessageHandler.hpp" />
     <ClInclude Include="ServerStorage.hpp" />
+    <ClInclude Include="Session.hpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>

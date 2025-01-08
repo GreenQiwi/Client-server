@@ -1,8 +1,15 @@
-﻿  Connection.cpp
+﻿  AudioStorage.cpp
   Please define _WIN32_WINNT or _WIN32_WINDOWS appropriately. For example:
   - add -D_WIN32_WINNT=0x0601 to the compiler command line; or
   - add _WIN32_WINNT=0x0601 to your project's Preprocessor Definitions.
   Assuming _WIN32_WINNT=0x0601 (i.e. Windows 7 target).
+D:\prog\Client-server\Client\AudioStorage.cpp(122,26): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+  Connection.cpp
+  Please define _WIN32_WINNT or _WIN32_WINDOWS appropriately. For example:
+  - add -D_WIN32_WINNT=0x0601 to the compiler command line; or
+  - add _WIN32_WINNT=0x0601 to your project's Preprocessor Definitions.
+  Assuming _WIN32_WINNT=0x0601 (i.e. Windows 7 target).
+  Generating Code...
 LINK : warning LNK4075: ignoring '/INCREMENTAL' due to '/OPT:REF' specification
 AudioStorage.obj : warning LNK4075: ignoring '/EDITANDCONTINUE' due to '/OPT:ICF' specification
   Client.vcxproj -> D:\prog\Client-server\x64\Debug\Client.exe

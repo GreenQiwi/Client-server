@@ -107,8 +107,8 @@ void AudioStorage::ParseAudio(const void* inputAudio, size_t framesNumber)
 
 void AudioStorage::sendFile()
 {
-    asio::post([this]()
-        {
+    //asio::post([this]()
+    //    {
 
             std::string filename = "audio_part_" + std::to_string(m_index++) + ".wav";
             std::ofstream outFile(filename, std::ios::binary);
@@ -158,7 +158,7 @@ void AudioStorage::sendFile()
             try
             {
                 Connection connection("127.0.0.1", "8080");
-                connection.UploadFile(filename, "/upload", "audio/wav", m_auth.m_Login, m_auth.m_Password);
+                connection.UploadFile(filename, "/upload", "audio/wav", m_auth.m_login, m_auth.m_password);
 
                 //client.UploadFile(filename, "/upload", "audio/wav", auth.login, auth.password);
             }
@@ -168,7 +168,8 @@ void AudioStorage::sendFile()
             }
 
             std::remove(filename.c_str());
-        });
+            m_audiodata.clear();
+        //});
 
-    m_audiodata.clear();
+    
 }

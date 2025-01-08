@@ -5,7 +5,7 @@
 #include <boost/asio.hpp>
 #include <fstream>
 #include <iostream>
-#include "ServerStorage.hpp"
+#include "Session.hpp"
 
 namespace beast = boost::beast;
 namespace asio = boost::asio;
@@ -14,18 +14,20 @@ using tcp = boost::asio::ip::tcp;
 
 class MessageHandler : public std::enable_shared_from_this<MessageHandler> {
 public:
-	MessageHandler(tcp::acceptor acceptor);
+	MessageHandler(std::shared_ptr<asio::io_context> ioc);
 	void Start();
-	//static void handleRequest(beast::tcp_stream& stream, beast::flat_buffer& buffer);
-
+	~MessageHandler() {
+		std::cout << "MessageHandler destroyed" << std::endl;
+	}
 private:
 	void acceptConnections();
-	void readRequest(tcp::socket socket);
+	void handle(beast::error_code er, tcp::socket socket);
 
 private:
+	std::shared_ptr<asio::io_context> m_ioc;
+	tcp::endpoint m_endpoint;
 	tcp::acceptor m_acceptor;
-	beast::flat_buffer m_buffer;
-	 
-	asio::thread_pool m_threadpool	;
+	std::shared_ptr<http::request<http::string_body>> request;
+
 };
 

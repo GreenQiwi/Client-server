@@ -11,9 +11,9 @@ public:
     static std::string GenerateDigest(const std::string& method, const std::string& uri, const std::string& login, const std::string& password, const std::string& nonce, const std::string& realm);
 
 public:
-    std::string m_Login;
-    std::string m_Password;
-    std::string m_AuthHeader;
+    std::string m_login;
+    std::string m_password;
+    std::string m_authHeader;
 
 private:   
     static void md5(const std::vector<uint8_t>& input, uint8_t digest[16]);

@@ -3,7 +3,7 @@
 #include <iomanip>
 
 Authentication::Authentication() :
-	m_Login("default"), m_Password("default") {}
+	m_login("default"), m_password("default") {}
 
 void Authentication::Authenticate()
 {

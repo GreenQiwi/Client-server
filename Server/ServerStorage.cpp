@@ -1,6 +1,6 @@
 #include "ServerStorage.hpp"
 
-std::size_t ServerStorage::getStorageSize(const std::string& directory)
+std::size_t ServerStorage::GetStorageSize(const std::string& directory)
 {
     if (!std::filesystem::exists(directory)) {
         std::filesystem::create_directory(directory);
@@ -15,11 +15,11 @@ std::size_t ServerStorage::getStorageSize(const std::string& directory)
 	return size;
 }
 
-std::string ServerStorage::generateFilename(const std::string& sessionDir)
+std::string ServerStorage::GenerateFilename(const std::string& sessionDir)
 {
     std::filesystem::path dir = "./storage/" + sessionDir;
 
-    auto now = std::chrono::system_clock::now();
+    const auto& now = std::chrono::system_clock::now();
     std::time_t time_now = std::chrono::system_clock::to_time_t(now);
 
     std::tm time_info;
@@ -33,7 +33,7 @@ std::string ServerStorage::generateFilename(const std::string& sessionDir)
     return oss.str();
 }
 
-void ServerStorage::addFile(const std::string & filename, const std::string & file, const std::string & sessionDir)
+void ServerStorage::AddFile(const std::string& filename, const std::string& file, const std::string& sessionDir)
 {
     std::ofstream out(file, std::ios::app);
     if (!out.is_open()) {
@@ -52,7 +52,7 @@ void ServerStorage::addFile(const std::string & filename, const std::string & fi
     out.close();
 }
 
-std::map<std::string, std::time_t> ServerStorage::readAssociations(const std::string& file)
+std::map<std::string, std::time_t> ServerStorage::ReadAssociations(const std::string& file)
 {
     std::map<std::string, std::time_t> associations;
 
@@ -73,7 +73,7 @@ std::map<std::string, std::time_t> ServerStorage::readAssociations(const std::st
     return associations;
 }
 
-void ServerStorage::writeAssociations(const std::map<std::string, std::time_t>& associations, const std::string& file)
+void ServerStorage::WriteAssociations(const std::map<std::string, std::time_t>& associations, const std::string& file)
 {
     std::ofstream out(file);
     if (!out.is_open()) 
@@ -88,11 +88,11 @@ void ServerStorage::writeAssociations(const std::map<std::string, std::time_t>& 
     out.close();
 }
 
-void ServerStorage::deleteFiles(const std::string& directory, std::size_t maxSize, const std::string& file)
+void ServerStorage::DeleteFiles(const std::string& directory, std::size_t maxSize, const std::string& file)
 {
-    std::map<std::string, std::time_t> associations = readAssociations(file);
+    std::map<std::string, std::time_t> associations = ReadAssociations(file);
 
-    std::size_t size = getStorageSize(directory);
+    std::size_t size = GetStorageSize(directory);
 
     if (size <= maxSize) {
         return; 
@@ -122,6 +122,6 @@ void ServerStorage::deleteFiles(const std::string& directory, std::size_t maxSiz
         }
     }
 
-    writeAssociations(associations, file);
+    WriteAssociations(associations, file);
     log << "[INFO] Date associations updated.\n";
 }

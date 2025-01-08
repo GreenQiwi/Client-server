@@ -5,20 +5,30 @@
 namespace asio = boost::asio;
 using tcp = asio::ip::tcp;
 
-
 int main()
 {
     setlocale(LC_ALL, "rus");
     try
     {
-        asio::io_context ioc;
-        tcp::endpoint endpoint(tcp::v4(), 8080);
-        tcp::acceptor acceptor(ioc, endpoint);
+        auto ioc = std::make_shared<asio::io_context>(std::thread::hardware_concurrency());
+        auto handler = std::make_shared<MessageHandler>(ioc);
+        handler->Start();
 
-        MessageHandler handler(std::move(acceptor));
-        handler.Start();
-        ioc.run();
+        std::vector<std::thread> threads;
+        threads.reserve(std::thread::hardware_concurrency());
+        for (std::size_t i = 0; i < std::thread::hardware_concurrency(); ++i) {
+            threads.emplace_back([ioc]() {
+                ioc->run();
+                });
+        }
+          
+        //ioc->run();
 
+        for (auto& thread : threads) {
+            if (thread.joinable()) {
+                thread.join();
+            }
+        }
     }
     catch (const std::exception& ex)
     {

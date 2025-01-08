@@ -6,3 +6,24 @@
 ./storage/audio_part_20241120032824.wav is saved.
 ./storage/audio_part_20241120032845.wav is saved.
 ./storage/audio_part_20241120033140.wav is saved.
+[ADD] audio_part_20250107193106.wav added with timestamp 1736267466
+[INFO] Incoming request with file size: 1048620 bytes.
+[SAVE] ./storage//audio_part_20250107193106.wav saved to storage.
+[ADD] audio_part_20250107193112.wav added with timestamp 1736267472
+[INFO] Incoming request with file size: 1048620 bytes.
+[SAVE] ./storage//audio_part_20250107193112.wav saved to storage.
+[ADD] audio_part_20250107193118.wav added with timestamp 1736267478
+[INFO] Incoming request with file size: 1048620 bytes.
+[SAVE] ./storage//audio_part_20250107193118.wav saved to storage.
+[ADD] audio_part_20250107193124.wav added with timestamp 1736267484
+[INFO] Incoming request with file size: 1048620 bytes.
+[SAVE] ./storage//audio_part_20250107193124.wav saved to storage.
+[ADD] audio_part_20250107193130.wav added with timestamp 1736267490
+[INFO] Incoming request with file size: 1048620 bytes.
+[SAVE] ./storage//audio_part_20250107193130.wav saved to storage.
+[ADD] audio_part_20250107193136.wav added with timestamp 1736267496
+[INFO] Incoming request with file size: 1048620 bytes.
+[SAVE] ./storage//audio_part_20250107193136.wav saved to storage.
+[ADD] audio_part_20250107193142.wav added with timestamp 1736267502
+[INFO] Incoming request with file size: 1048620 bytes.
+[SAVE] ./storage//audio_part_20250107193142.wav saved to storage.

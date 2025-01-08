@@ -24,12 +24,24 @@
     <ClCompile Include="MessageHandler.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Session.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Digest.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ServerStorage.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="MessageHandler.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Session.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Digest.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

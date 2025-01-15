@@ -1,17 +1,95 @@
 #include "Authentication.hpp"
 #include <vector>
 #include <iomanip>
+#include <sstream>
 
-Authentication::Authentication() :
-	m_login("default"), m_password("default") {}
+Authentication::Authentication(const std::string& host, const std::string& port)
+    : m_host(host), m_port(port) {}
 
-void Authentication::Authenticate()
-{
-	//std::cout << "Enter login: ";
-	//std::cin >> login;
-	//std::cout << "Enter password: ";
-	//std::cin >> password;
-	//std::cout << std::endl;
+void Authentication::Authenticate(const std::string& method, const std::string& target, const std::string& username, const std::string& password) {
+    try {
+        std::cout << "Sending init request" << "\n";
+        asio::io_context ioc;
+        tcp::resolver resolver(ioc);
+        tcp::socket socket(ioc);
+
+        auto const results = resolver.resolve(m_host, m_port);
+        asio::connect(socket, results.begin(), results.end());
+
+        http::request<http::empty_body> req{ http::verb::get, target, 11 };
+        req.set(http::field::host, m_host);
+        req.set(http::field::connection, "close");
+
+        http::write(socket, req);
+
+        boost::beast::flat_buffer buffer;
+        http::response<http::string_body> res;
+        http::read(socket, buffer, res);
+
+        if (res.result() != http::status::unauthorized) {
+            throw std::runtime_error("Unexpected status code: " + std::to_string(static_cast<int>(res.result())));
+        }
+
+        auto authHeader = res[http::field::www_authenticate];
+        std::string realm, nonce;
+
+        auto realmPos = authHeader.find("realm=\"");
+        if (realmPos != std::string::npos) {
+            realmPos += 7;
+            auto end = authHeader.find("\"", realmPos);
+            realm = authHeader.substr(realmPos, end - realmPos);
+        }
+
+        auto noncePos = authHeader.find("nonce=\"");
+        if (noncePos != std::string::npos) {
+            noncePos += 7;
+            auto end = authHeader.find("\"", noncePos);
+            nonce = authHeader.substr(noncePos, end - noncePos);
+        }
+
+        if (realm.empty() || nonce.empty()) {
+            throw std::runtime_error("Failed to extract realm or nonce from WWW-Authenticate header.");
+        }
+
+        m_authHeader = "Digest username=\"" + username +
+            "\", realm=\"" + realm +
+            "\", nonce=\"" + nonce +
+            "\", uri=\"" + target +
+            "\", response=\"" + GenerateDigest(method, target, username, password, nonce, realm) + "\"";
+    }
+    catch (const std::exception& ex) {
+        std::cerr << "Authentication failed: " << ex.what() << std::endl;
+    }
+}
+
+std::string Authentication::GenerateDigest(const std::string& method, const std::string& uri,
+    const std::string& username, const std::string& password,
+    const std::string& nonce, const std::string& realm) {
+    // HA1
+    std::string ha1 = calculateMD5(username + ":" + realm + ":" + password);
+
+    // HA2
+    std::string ha2 = calculateMD5(method + ":" + uri);
+
+    // HA1:nonce:HA2
+    std::string digest = calculateMD5(ha1 + ":" + nonce + ":" + ha2);
+    return digest;
+}
+
+std::string Authentication::calculateMD5(const std::string& input) {
+    std::vector<uint8_t> inputVec(input.begin(), input.end());
+    uint8_t digest[16];
+    md5(inputVec, digest);
+
+    std::ostringstream oss;
+    for (int i = 0; i < 16; ++i) {
+        oss << std::hex << std::setw(2) << std::setfill('0') << (int)digest[i];
+    }
+    return oss.str();
+}
+
+uint32_t Authentication::left_rotate(uint32_t x, uint32_t c) {
+    return (x << c) | (x >> (32 - c));
 }
 
 void Authentication::md5(const std::vector<uint8_t>& input, uint8_t digest[16]) {
@@ -125,34 +203,4 @@ void Authentication::md5(const std::vector<uint8_t>& input, uint8_t digest[16]) 
     digest[13] = static_cast<uint8_t>(d0 >> 8);
     digest[14] = static_cast<uint8_t>(d0 >> 16);
     digest[15] = static_cast<uint8_t>(d0 >> 24);
-}
-
-uint32_t Authentication::left_rotate(uint32_t x, uint32_t c) {
-    return (x << c) | (x >> (32 - c));
-}
-
-std::string Authentication::calculateMD5(const std::string& input) {
-    std::vector<uint8_t> data(input.begin(), input.end());
-    uint8_t digest[16];
-    md5(data, digest);
-
-    std::ostringstream oss;
-    for (int i = 0; i < 16; ++i) {
-        oss << std::hex << std::setfill('0') << std::setw(2) << static_cast<int>(digest[i]);
-    }
-    return oss.str();
-}
-
-std::string Authentication::GenerateDigest(const std::string& method, const std::string& uri, const std::string& login, const std::string& password, const std::string& nonce, const std::string& realm) {
-    // username:realm:password
-    std::string ha1Input = login + ":" + realm + ":" + password;
-    std::string ha1 = calculateMD5(ha1Input);
-
-    // method:digestURI
-    std::string ha2Input = method + ":" + uri;
-    std::string ha2 = calculateMD5(ha2Input);
-
-    // HA1:nonce:HA2
-    std::string responseInput = ha1 + ":" + nonce + ":" + ha2;
-    return calculateMD5(responseInput);
 }

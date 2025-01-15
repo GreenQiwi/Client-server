@@ -3,7 +3,7 @@
 Connection::Connection(const std::string& host, const std::string& port)
     : m_host(host), m_port(port) {}
 
-void Connection::UploadFile(const std::string& filename, const std::string& target, const std::string& contentType, const std::string& login, const std::string& password)
+void Connection::UploadFile(const std::string& filename, const std::string& target, const std::string& contentType, const std::string& digestResponse)
 {
     try
     {        
@@ -75,10 +75,7 @@ void Connection::UploadFile(const std::string& filename, const std::string& targ
         //    std::cerr << "Failed to extract realm or nonce." << std::endl;
         //    return;
         //}
-        
-        std::string method = "POST";
-        std::string uri = target;
-        std::string digestResponse = Authentication::GenerateDigest(method, uri, login, password, "nonce", "realm");
+
 
         std::ifstream file(filename, std::ios::binary | std::ios::ate);
         if (!file) {
@@ -100,11 +97,7 @@ void Connection::UploadFile(const std::string& filename, const std::string& targ
         req.set(http::field::host, m_host);
         req.set(http::field::content_type, contentType);
         req.set(http::field::content_length, std::to_string(fileSize));
-        req.set("Authorization", "Digest username=\"" + login +
-            "\", realm=\"" + "realm" +
-            "\", nonce=\"" + "nonce" +
-            "\", uri=\"" + uri +
-            "\", response=\"" + digestResponse + "\"");
+        req.set("Authorization", digestResponse);
         req.body() = data;
         req.prepare_payload();
         if (!socket.is_open()) {

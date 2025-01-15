@@ -885,3 +885,320 @@ qwerty/au<JÚ¼p €_20241204140433.wav 1733310273
 [ADD] audio_part_20250108121958.wav added with timestamp 1736327998
 [INFO] Incoming request with file size: 184364 bytes.
 [SAVE] ./storage//audio_part_20250108121958.wav saved to storage.
+[ADD] audio_part_20250115035648.wav added with timestamp 1736902608
+[INFO] Incoming request with file size: 1048620 bytes.
+[SAVE] ./storage//audio_part_20250115035648.wav saved to storage.
+[ADD] audio_part_20250115035654.wav added with timestamp 1736902614
+[INFO] Incoming request with file size: 1048620 bytes.
+[SAVE] ./storage//audio_part_20250115035654.wav saved to storage.
+[ADD] audio_part_20250115035700.wav added with timestamp 1736902620
+[INFO] Incoming request with file size: 1019948 bytes.
+[SAVE] ./storage//audio_part_20250115035700.wav saved to storage.
+[ADD] audio_part_20250115124053.wav added with timestamp 1736934053
+[INFO] Incoming request with file size: 1048620 bytes.
+[INFO] Storage size exceeded. Deleting old files.
+[SAVE] ./storage//audio_part_20250115124053.wav saved to storage.
+[DELETE] /audio_part_20250107173645.wav (1048620 bytes) deleted to maintain storage size.
+[INFO] Date associations updated.
+[ADD] audio_part_20250115124059.wav added with timestamp 1736934059
+[INFO] Incoming request with file size: 1048620 bytes.
+[INFO] Storage size exceeded. Deleting old files.
+[SAVE] ./storage//audio_part_20250115124059.wav saved to storage.
+[DELETE] /audio_part_20250107173651.wav (1048620 bytes) deleted to maintain storage size.
+[INFO] Date associations updated.
+[ADD] audio_part_20250115124106.wav added with timestamp 1736934066
+[INFO] Incoming request with file size: 1048620 bytes.
+[INFO] Storage size exceeded. Deleting old files.
+[SAVE] ./storage//audio_part_20250115124106.wav saved to storage.
+[DELETE] /audio_part_20250107173655.wav (692268 bytes) deleted to maintain storage size.
+[DELETE] /audio_part_20250107193007.wav (4140 bytes) deleted to maintain storage size.
+[DELETE] /audio_part_20250107193013.wav (44 bytes) deleted to maintain storage size.
+[DELETE] /audio_part_20250107193019.wav (44 bytes) deleted to maintain storage size.
+[DELETE] /audio_part_20250108121939.wav (1048620 bytes) deleted to maintain storage size.
+[INFO] Date associations updated.
+[ADD] audio_part_20250115124112.wav added with timestamp 1736934072
+[INFO] Incoming request with file size: 1048620 bytes.
+[INFO] Storage size exceeded. Deleting old files.
+[SAVE] ./storage//audio_part_20250115124112.wav saved to storage.
+[DELETE] /audio_part_20250108121945.wav (1048620 bytes) deleted to maintain storage size.
+[INFO] Date associations updated.
+[ADD] audio_part_20250115124231.wav added with timestamp 1736934151
+[INFO] Incoming request with file size: 1048620 bytes.
+[INFO] Storage size exceeded. Deleting old files.
+[SAVE] ./storage//audio_part_20250115124231.wav saved to storage.
+[DELETE] /audio_part_20250108121951.wav (1048620 bytes) deleted to maintain storage size.
+[INFO] Date associations updated.
+[ADD] audio_part_20250115124237.wav added with timestamp 1736934157
+[INFO] Incoming request with file size: 1048620 bytes.
+[INFO] Storage size exceeded. Deleting old files.
+[SAVE] ./storage//audio_part_20250115124237.wav saved to storage.
+[DELETE] /audio_part_20250108121957.wav (1048620 bytes) deleted to maintain storage size.
+[INFO] Date associations updated.
+[ADD] audio_part_20250115124532.wav added with timestamp 1736934332
+[INFO] Incoming request with file size: 1048620 bytes.
+[INFO] Storage size exceeded. Deleting old files.
+[SAVE] ./storage//audio_part_20250115124532.wav saved to storage.
+[DELETE] /audio_part_20250108121958.wav (184364 bytes) deleted to maintain storage size.
+[INFO] Date associations updated.
+[ADD] audio_part_20250115124543.wav added with timestamp 1736934343
+[INFO] Incoming request with file size: 1048620 bytes.
+[INFO] Storage size exceeded. Deleting old files.
+[SAVE] ./storage//audio_part_20250115124543.wav saved to storage.
+[DELETE] /audio_part_20250115035648.wav (1048620 bytes) deleted to maintain storage size.
+[INFO] Date associations updated.
+[ADD] audio_part_20250115124809.wav added with timestamp 1736934501
+[INFO] Incoming request with file size: 1048620 bytes.
+[INFO] Storage size exceeded. Deleting old files.
+[SAVE] ./storage//audio_part_20250115124809.wav saved to storage.
+[ADD] audio_part_20250115131800.wav added with timestamp 1736936280
+[INFO] Incoming request with file size: 1048620 bytes.
+[SAVE] ./storage/default/audio_part_20250115131800.wav saved to storage.
+[ADD] audio_part_20250115131806.wav added with timestamp 1736936286
+[INFO] Incoming request with file size: 1048620 bytes.
+[SAVE] ./storage/default/audio_part_20250115131806.wav saved to storage.
+[ADD] audio_part_20250115131809.wav added with timestamp 1736936289
+[INFO] Incoming request with file size: 479276 bytes.
+[SAVE] ./storage/default/audio_part_20250115131809.wav saved to storage.
+[ADD] audio_part_20250115132000.wav added with timestamp 1736936400
+[INFO] Incoming request with file size: 1048620 bytes.
+[SAVE] ./storage/default/audio_part_20250115132000.wav saved to storage.
+[ADD] audio_part_20250115132242.wav added with timestamp 1736936562
+[INFO] Incoming request with file size: 1048620 bytes.
+[SAVE] ./storage/default/audio_part_20250115132242.wav saved to storage.
+[ADD] audio_part_20250115132248.wav added with timestamp 1736936568
+[INFO] Incoming request with file size: 1048620 bytes.
+[SAVE] ./storage/default/audio_part_20250115132248.wav saved to storage.
+[ADD] audio_part_20250115132254.wav added with timestamp 1736936574
+[INFO] Incoming request with file size: 1048620 bytes.
+[SAVE] ./storage/default/audio_part_20250115132254.wav saved to storage.
+[ADD] audio_part_20250115132300.wav added with timestamp 1736936580
+[INFO] Incoming request with file size: 1048620 bytes.
+[SAVE] ./storage/default/audio_part_20250115132300.wav saved to storage.
+[ADD] audio_part_20250115132306.wav added with timestamp 1736936586
+[INFO] Incoming request with file size: 1048620 bytes.
+[SAVE] ./storage/default/audio_part_20250115132306.wav saved to storage.
+[ADD] audio_part_20250115132434.wav added with timestamp 1736936674
+[INFO] Incoming request with file size: 1048620 bytes.
+[SAVE] ./storage/default/audio_part_20250115132434.wav saved to storage.
+[ADD] audio_part_20250115132440.wav added with timestamp 1736936680
+[INFO] Incoming request with file size: 1048620 bytes.
+[INFO] Storage size exceeded. Deleting old files.
+[SAVE] ./storage/default/audio_part_20250115132440.wav saved to storage.
+[DELETE] default/audio_part_20241225122732.wav (0 bytes) deleted to maintain storage size.
+[DELETE] default/audio_part_20241225131848.wav (0 bytes) deleted to maintain storage size.
+[DELETE] default/audio_part_20241225132150.wav (0 bytes) deleted to maintain storage size.
+[DELETE] default/audio_part_20241225132318.wav (0 bytes) deleted to maintain storage size.
+[DELETE] default/audio_part_20250115131800.wav (1048620 bytes) deleted to maintain storage size.
+[INFO] Date associations updated.
+[ADD] audio_part_20250115132622.wav added with timestamp 1736936782
+[INFO] Incoming request with file size: 1048620 bytes.
+[INFO] Storage size exceeded. Deleting old files.
+[SAVE] ./storage/default/audio_part_20250115132622.wav saved to storage.
+[DELETE] default/audio_part_20250115131806.wav (1048620 bytes) deleted to maintain storage size.
+[INFO] Date associations updated.
+[ADD] audio_part_20250115132628.wav added with timestamp 1736936788
+[INFO] Incoming request with file size: 1048620 bytes.
+[INFO] Storage size exceeded. Deleting old files.
+[SAVE] ./storage/default/audio_part_20250115132628.wav saved to storage.
+[DELETE] default/audio_part_20250115131809.wav (479276 bytes) deleted to maintain storage size.
+[DELETE] default/audio_part_20250115132000.wav (1048620 bytes) deleted to maintain storage size.
+[INFO] Date associations updated.
+[ADD] audio_part_20250115132634.wav added with timestamp 1736936794
+[INFO] Incoming request with file size: 1048620 bytes.
+[INFO] Storage size exceeded. Deleting old files.
+[SAVE] ./storage/default/audio_part_20250115132634.wav saved to storage.
+[DELETE] /audio_part_20250115035654.wav (1048620 bytes) deleted to maintain storage size.
+[INFO] Date associations updated.
+[ADD] audio_part_20250115132903.wav added with timestamp 1736936943
+[INFO] Incoming request with file size: 1048620 bytes.
+[INFO] Storage size exceeded. Deleting old files.
+[SAVE] ./storage//audio_part_20250115132903.wav saved to storage.
+[DELETE] /audio_part_20250115035700.wav (1019948 bytes) deleted to maintain storage size.
+[DELETE] /audio_part_20250115124053.wav (1048620 bytes) deleted to maintain storage size.
+[INFO] Date associations updated.
+[ADD] audio_part_20250115132909.wav added with timestamp 1736936949
+[INFO] Incoming request with file size: 1048620 bytes.
+[INFO] Storage size exceeded. Deleting old files.
+[SAVE] ./storage//audio_part_20250115132909.wav saved to storage.
+[DELETE] /audio_part_20250115124059.wav (1048620 bytes) deleted to maintain storage size.
+[INFO] Date associations updated.
+[ADD] audio_part_20250115133020.wav added with timestamp 1736937020
+[INFO] Incoming request with file size: 1048620 bytes.
+[INFO] Storage size exceeded. Deleting old files.
+[SAVE] ./storage//audio_part_20250115133020.wav saved to storage.
+[DELETE] /audio_part_20250115124106.wav (1048620 bytes) deleted to maintain storage size.
+[INFO] Date associations updated.
+[ADD] audio_part_20250115133026.wav added with timestamp 1736937026
+[INFO] Incoming request with file size: 1048620 bytes.
+[INFO] Storage size exceeded. Deleting old files.
+[SAVE] ./storage//audio_part_20250115133026.wav saved to storage.
+[DELETE] /audio_part_20250115124112.wav (1048620 bytes) deleted to maintain storage size.
+[INFO] Date associations updated.
+[ADD] audio_part_20250115133032.wav added with timestamp 1736937032
+[INFO] Incoming request with file size: 1048620 bytes.
+[INFO] Storage size exceeded. Deleting old files.
+[SAVE] ./storage//audio_part_20250115133032.wav saved to storage.
+[DELETE] /audio_part_20250115124231.wav (1048620 bytes) deleted to maintain storage size.
+[INFO] Date associations updated.
+[ADD] audio_part_20250115133038.wav added with timestamp 1736937038
+[INFO] Incoming request with file size: 1048620 bytes.
+[INFO] Storage size exceeded. Deleting old files.
+[SAVE] ./storage//audio_part_20250115133038.wav saved to storage.
+[DELETE] /audio_part_20250115124237.wav (1048620 bytes) deleted to maintain storage size.
+[INFO] Date associations updated.
+[ADD] audio_part_20250115133243.wav added with timestamp 1736937163
+[INFO] Incoming request with file size: 1048620 bytes.
+[INFO] Storage size exceeded. Deleting old files.
+[SAVE] ./storage//audio_part_20250115133243.wav saved to storage.
+[DELETE] /audio_part_20250115124532.wav (1048620 bytes) deleted to maintain storage size.
+[INFO] Date associations updated.
+[ADD] audio_part_20250115133249.wav added with timestamp 1736937169
+[INFO] Incoming request with file size: 1048620 bytes.
+[INFO] Storage size exceeded. Deleting old files.
+[SAVE] ./storage//audio_part_20250115133249.wav saved to storage.
+[DELETE] /audio_part_20250115124543.wav (1048620 bytes) deleted to maintain storage size.
+[INFO] Date associations updated.
+[ADD] audio_part_20250115133405.wav added with timestamp 1736937245
+[INFO] Incoming request with file size: 1048620 bytes.
+[INFO] Storage size exceeded. Deleting old files.
+[SAVE] ./storage//audio_part_20250115133405.wav saved to storage.
+[DELETE] /audio_part_20250115124809.wav (1048620 bytes) deleted to maintain storage size.
+[INFO] Date associations updated.
+[ADD] audio_part_20250115133512.wav added with timestamp 1736937312
+[INFO] Incoming request with file size: 1048620 bytes.
+[INFO] Storage size exceeded. Deleting old files.
+[SAVE] ./storage//audio_part_20250115133512.wav saved to storage.
+[DELETE] /audio_part_20250115132903.wav (1048620 bytes) deleted to maintain storage size.
+[INFO] Date associations updated.
+[ADD] audio_part_20250115133518.wav added with timestamp 1736937318
+[INFO] Incoming request with file size: 1048620 bytes.
+[INFO] Storage size exceeded. Deleting old files.
+[SAVE] ./storage//audio_part_20250115133518.wav saved to storage.
+[DELETE] /audio_part_20250115132909.wav (1048620 bytes) deleted to maintain storage size.
+[INFO] Date associations updated.
+[ADD] audio_part_20250115133524.wav added with timestamp 1736937324
+[INFO] Incoming request with file size: 1048620 bytes.
+[INFO] Storage size exceeded. Deleting old files.
+[SAVE] ./storage//audio_part_20250115133524.wav saved to storage.
+[DELETE] /audio_part_20250115133020.wav (1048620 bytes) deleted to maintain storage size.
+[INFO] Date associations updated.
+[ADD] audio_part_20250115133530.wav added with timestamp 1736937330
+[INFO] Incoming request with file size: 1048620 bytes.
+[INFO] Storage size exceeded. Deleting old files.
+[SAVE] ./storage//audio_part_20250115133530.wav saved to storage.
+[DELETE] /audio_part_20250115133026.wav (1048620 bytes) deleted to maintain storage size.
+[INFO] Date associations updated.
+[ADD] audio_part_20250115133648.wav added with timestamp 1736937408
+[INFO] Incoming request with file size: 1048620 bytes.
+[INFO] Storage size exceeded. Deleting old files.
+[SAVE] ./storage//audio_part_20250115133648.wav saved to storage.
+[DELETE] /audio_part_20250115133032.wav (1048620 bytes) deleted to maintain storage size.
+[INFO] Date associations updated.
+[ADD] audio_part_20250115133654.wav added with timestamp 1736937414
+[INFO] Incoming request with file size: 1048620 bytes.
+[INFO] Storage size exceeded. Deleting old files.
+[SAVE] ./storage//audio_part_20250115133654.wav saved to storage.
+[DELETE] /audio_part_20250115133038.wav (1048620 bytes) deleted to maintain storage size.
+[INFO] Date associations updated.
+[ADD] audio_part_20250115133700.wav added with timestamp 1736937420
+[INFO] Incoming request with file size: 1048620 bytes.
+[INFO] Storage size exceeded. Deleting old files.
+[SAVE] ./storage//audio_part_20250115133700.wav saved to storage.
+[DELETE] /audio_part_20250115133243.wav (1048620 bytes) deleted to maintain storage size.
+[INFO] Date associations updated.
+[ADD] audio_part_20250115133700.wav added with timestamp 1736937420
+[INFO] Incoming request with file size: 20524 bytes.
+[INFO] Storage size exceeded. Deleting old files.
+[SAVE] ./storage//audio_part_20250115133700.wav saved to storage.
+[ADD] audio_part_20250115134224.wav added with timestamp 1736937744
+[INFO] Incoming request with file size: 1048620 bytes.
+[SAVE] ./storage//audio_part_20250115134224.wav saved to storage.
+[ADD] audio_part_20250115134230.wav added with timestamp 1736937750
+[INFO] Incoming request with file size: 1048620 bytes.
+[INFO] Storage size exceeded. Deleting old files.
+[SAVE] ./storage//audio_part_20250115134230.wav saved to storage.
+[DELETE] /audio_part_20250115133249.wav (1048620 bytes) deleted to maintain storage size.
+[INFO] Date associations updated.
+[ADD] audio_part_20250115134236.wav added with timestamp 1736937756
+[INFO] Incoming request with file size: 1048620 bytes.
+[INFO] Storage size exceeded. Deleting old files.
+[SAVE] ./storage//audio_part_20250115134236.wav saved to storage.
+[DELETE] /audio_part_20250115133405.wav (1048620 bytes) deleted to maintain storage size.
+[INFO] Date associations updated.
+[ADD] audio_part_20250115134242.wav added with timestamp 1736937762
+[INFO] Incoming request with file size: 1048620 bytes.
+[INFO] Storage size exceeded. Deleting old files.
+[SAVE] ./storage//audio_part_20250115134242.wav saved to storage.
+[DELETE] /audio_part_20250115133512.wav (1048620 bytes) deleted to maintain storage size.
+[INFO] Date associations updated.
+[ADD] audio_part_20250115134410.wav added with timestamp 1736937850
+[INFO] Incoming request with file size: 1048620 bytes.
+[INFO] Storage size exceeded. Deleting old files.
+[SAVE] ./storage//audio_part_20250115134410.wav saved to storage.
+[DELETE] /audio_part_20250115133518.wav (1048620 bytes) deleted to maintain storage size.
+[INFO] Date associations updated.
+[ADD] audio_part_20250115134637.wav added with timestamp 1736937997
+[INFO] Incoming request with file size: 1048620 bytes.
+[INFO] Storage size exceeded. Deleting old files.
+[SAVE] ./storage//audio_part_20250115134637.wav saved to storage.
+[DELETE] /audio_part_20250115133524.wav (1048620 bytes) deleted to maintain storage size.
+[INFO] Date associations updated.
+[ADD] audio_part_20250115134643.wav added with timestamp 1736938003
+[INFO] Incoming request with file size: 1048620 bytes.
+[INFO] Storage size exceeded. Deleting old files.
+[SAVE] ./storage//audio_part_20250115134643.wav saved to storage.
+[DELETE] /audio_part_20250115133530.wav (1048620 bytes) deleted to maintain storage size.
+[INFO] Date associations updated.
+[ADD] audio_part_20250115134649.wav added with timestamp 1736938009
+[INFO] Incoming request with file size: 1048620 bytes.
+[INFO] Storage size exceeded. Deleting old files.
+[SAVE] ./storage//audio_part_20250115134649.wav saved to storage.
+[DELETE] /audio_part_20250115133648.wav (1048620 bytes) deleted to maintain storage size.
+[INFO] Date associations updated.
+[ADD] audio_part_20250115134655.wav added with timestamp 1736938015
+[INFO] Incoming request with file size: 1048620 bytes.
+[INFO] Storage size exceeded. Deleting old files.
+[SAVE] ./storage//audio_part_20250115134655.wav saved to storage.
+[DELETE] /audio_part_20250115133654.wav (1048620 bytes) deleted to maintain storage size.
+[INFO] Date associations updated.
+[ADD] audio_part_20250115134702.wav added with timestamp 1736938022
+[INFO] Incoming request with file size: 1048620 bytes.
+[INFO] Storage size exceeded. Deleting old files.
+[SAVE] ./storage//audio_part_20250115134702.wav saved to storage.
+[DELETE] /audio_part_20250115133700.wav (20524 bytes) deleted to maintain storage size.
+[DELETE] /audio_part_20250115134224.wav (1048620 bytes) deleted to maintain storage size.
+[INFO] Date associations updated.
+[ADD] audio_part_20250115135012.wav added with timestamp 1736938212
+[INFO] Incoming request with file size: 1048620 bytes.
+[INFO] Storage size exceeded. Deleting old files.
+[SAVE] ./storage//audio_part_20250115135012.wav saved to storage.
+[DELETE] /audio_part_20250115134230.wav (1048620 bytes) deleted to maintain storage size.
+[INFO] Date associations updated.
+[ADD] audio_part_20250115135018.wav added with timestamp 1736938218
+[INFO] Incoming request with file size: 1048620 bytes.
+[INFO] Storage size exceeded. Deleting old files.
+[SAVE] ./storage//audio_part_20250115135018.wav saved to storage.
+[DELETE] /audio_part_20250115134236.wav (1048620 bytes) deleted to maintain storage size.
+[INFO] Date associations updated.
+[ADD] audio_part_20250115135019.wav added with timestamp 1736938219
+[INFO] Incoming request with file size: 147500 bytes.
+[INFO] Storage size exceeded. Deleting old files.
+[SAVE] ./storage//audio_part_20250115135019.wav saved to storage.
+[DELETE] default/audio_part_20250115132242.wav (1048620 bytes) deleted to maintain storage size.
+[INFO] Date associations updated.
+[ADD] audio_part_20250115152912.wav added with timestamp 1736944152
+[INFO] Incoming request with file size: 1048620 bytes.
+[INFO] Storage size exceeded. Deleting old files.
+[SAVE] ./storage//audio_part_20250115152912.wav saved to storage.
+[DELETE] /audio_part_20250115134242.wav (1048620 bytes) deleted to maintain storage size.
+[INFO] Date associations updated.
+[ADD] audio_part_20250115152918.wav added with timestamp 1736944158
+[INFO] Incoming request with file size: 1048620 bytes.
+[INFO] Storage size exceeded. Deleting old files.
+[SAVE] ./storage//audio_part_20250115152918.wav saved to storage.
+[DELETE] /audio_part_20250115134410.wav (1048620 bytes) deleted to maintain storage size.
+[INFO] Date associations updated.
+[ADD] audio_part_20250115152923.wav added with timestamp 1736944163
+[INFO] Incoming request with file size: 864300 bytes.
+[INFO] Storage size exceeded. Deleting old files.
+[SAVE] ./storage//audio_part_20250115152923.wav saved to storage.

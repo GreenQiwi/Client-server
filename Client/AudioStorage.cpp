@@ -2,7 +2,7 @@
 #include "Connection.hpp"
 
 AudioStorage::AudioStorage()
-    : m_index(0), m_stream(nullptr), m_threadpool(std::thread::hardware_concurrency()) {}
+    : m_index(0), m_stream(nullptr), m_threadpool(std::thread::hardware_concurrency()), m_auth("127.0.0.1", "8080") {}
 
 
 AudioStorage::~AudioStorage()
@@ -18,7 +18,7 @@ AudioStorage::~AudioStorage()
 
 void AudioStorage::InitRecord()
 {
-    m_auth.Authenticate();
+    m_auth.Authenticate("POST", "audio/wav", "default", "default");
 
     PaError err = Pa_Initialize();
     if (err != paNoError) 
@@ -158,7 +158,7 @@ void AudioStorage::sendFile()
             try
             {
                 Connection connection("127.0.0.1", "8080");
-                connection.UploadFile(filename, "/upload", "audio/wav", m_auth.m_login, m_auth.m_password);
+                connection.UploadFile(filename, "/upload", "audio/wav", m_auth.GetAuthHeader());
 
                 //client.UploadFile(filename, "/upload", "audio/wav", auth.login, auth.password);
             }

@@ -129,80 +129,108 @@ std::string Digest::GenerateNonce() {
     return oss.str();
 }
 
+std::string Digest::calculateMD5(const std::string& input) {
+    std::vector<uint8_t> inputVec(input.begin(), input.end());
+    uint8_t digest[16];
+    MD5(inputVec, digest);
+
+    std::ostringstream oss;
+    for (int i = 0; i < 16; ++i) {
+        oss << std::hex << std::setw(2) << std::setfill('0') << (int)digest[i];
+    }
+    return oss.str();
+}
+
+std::string Digest::GenerateDigest(const std::string& method, const std::string& uri,
+    const std::string& username, const std::string& password,
+    const std::string& nonce, const std::string& realm) {
+    // HA1
+    std::string ha1 = calculateMD5(username + ":" + realm + ":" + password);
+
+    // HA2
+    std::string ha2 = calculateMD5(method + ":" + uri);
+
+    // HA1:nonce:HA2
+    return calculateMD5(ha1 + ":" + nonce + ":" + ha2);
+}
 
 bool Digest::CheckDigest(http::request<http::string_body>& req, const std::string& password) {
+    try {
+        auto authHeader = req[http::field::authorization];
 
-    auto authHeaderIt = req.find("Authorization");
-    if (authHeaderIt == req.end())
-        return false;
+        if (authHeader.empty()) {
+            throw std::runtime_error("Missing Authorization header.");
+        }
 
-    const auto& authHeader = authHeaderIt->value();
-    if (authHeader.find("Digest") == std::string::npos) {
+        std::string username, realm, nonce, uri, response, method;
+        size_t startPos, endPos;
+
+        startPos = authHeader.find("username=\"") + 10;
+        endPos = authHeader.find("\"", startPos);
+        username = authHeader.substr(startPos, endPos - startPos);
+
+        startPos = authHeader.find("realm=\"") + 7;
+        endPos = authHeader.find("\"", startPos);
+        realm = authHeader.substr(startPos, endPos - startPos);
+
+        startPos = authHeader.find("nonce=\"") + 7;
+        endPos = authHeader.find("\"", startPos);
+        nonce = authHeader.substr(startPos, endPos - startPos);
+
+        startPos = authHeader.find("uri=\"") + 5;
+        endPos = authHeader.find("\"", startPos);
+        uri = authHeader.substr(startPos, endPos - startPos);
+
+        startPos = authHeader.find("response=\"") + 10;
+        endPos = authHeader.find("\"", startPos);
+        response = authHeader.substr(startPos, endPos - startPos);
+
+        method = req.method_string();
+
+        std::string generatedDigest = GenerateDigest(method, uri, username, password, nonce, realm);
+
+        return generatedDigest == response;
+    }
+    catch (const std::exception& ex) {
+        std::cerr << "Digest verification failed: " << ex.what() << std::endl;
         return false;
     }
+}
 
-    std::map<std::string, std::string> digestParams;
-    size_t start = authHeader.find("Digest") + 7;
-    std::string paramsString = authHeader.substr(start);
-    std::istringstream paramStream(paramsString);
-    std::string param;
 
-    while (std::getline(paramStream, param, ',')) {
-        auto eqPos = param.find('=');
-        if (eqPos != std::string::npos) {
-            std::string key = param.substr(0, eqPos);
-            std::string value = param.substr(eqPos + 1);
+void Digest::AddUser(const std::string& login, const std::string& password) {
 
-            key.erase(remove_if(key.begin(), key.end(), isspace), key.end());
-            value.erase(remove_if(value.begin(), value.end(), isspace), value.end());
-            if (value.front() == '"' && value.back() == '"') {
-                value = value.substr(1, value.size() - 2);
-            }
-            digestParams[key] = value;
+    std::ofstream userFile("users.txt", std::ios::app);
+    if (!userFile.is_open()) {
+        throw std::runtime_error("Unable to open users file");
+    }
+
+    userFile << login << ":" << password << std::endl;
+    userFile.close();
+
+    std::cout << "User added: " << login << std::endl;
+}
+
+std::unordered_map<std::string, std::string> Digest::LoadUsers() {
+    std::unordered_map<std::string, std::string> users;
+    std::ifstream userFile("users.txt");
+    if (!userFile.is_open()) {
+        throw std::runtime_error("Unable to open users file");
+    }
+
+    std::string line;
+    while (std::getline(userFile, line)) {
+        auto delimiterPos = line.find(':');
+        if (delimiterPos != std::string::npos) {
+            std::string login = line.substr(0, delimiterPos);
+            std::string password = line.substr(delimiterPos + 1);
+            users[login] = password;
         }
     }
-
-    std::string username = digestParams["username"];
-    std::string realm = digestParams["realm"];
-    std::string nonce = digestParams["nonce"];
-    std::string uri = digestParams["uri"];
-    std::string response = digestParams["response"];
-
-    if (username.empty() || realm.empty() || nonce.empty() || uri.empty() || response.empty()) {
-        std::cerr << "Missing required Digest parameters." << std::endl;
-        return false;
-    }
-
-    std::string ha1Input = username + ":" + realm + ":" + password;
-    unsigned char ha1Digest[16];
-    MD5(std::vector<uint8_t>(ha1Input.begin(), ha1Input.end()), ha1Digest);
-
-    std::ostringstream ha1HexStream;
-    for (unsigned char byte : ha1Digest) {
-        ha1HexStream << std::setw(2) << std::setfill('0') << std::hex << (int)byte;
-    }
-    std::string ha1Hex = ha1HexStream.str();
-
-    std::string method = "POST";
-    std::string ha2Input = method + ":" + uri;
-    unsigned char ha2Digest[16];
-    MD5(std::vector<uint8_t>(ha2Input.begin(), ha2Input.end()), ha2Digest);
-
-    std::ostringstream ha2HexStream;
-    for (unsigned char byte : ha2Digest) {
-        ha2HexStream << std::setw(2) << std::setfill('0') << std::hex << (int)byte;
-    }
-    std::string ha2Hex = ha2HexStream.str();
-
-    std::string finalInput = ha1Hex + ":" + nonce + ":" + ha2Hex;
-    unsigned char finalDigest[16];
-    MD5(std::vector<uint8_t>(finalInput.begin(), finalInput.end()), finalDigest);
-
-    std::ostringstream finalHexStream;
-    for (unsigned char byte : finalDigest) {
-        finalHexStream << std::setw(2) << std::setfill('0') << std::hex << (int)byte;
-    }
-    std::string expectedResponse = finalHexStream.str();
-
-    return expectedResponse == response;
+    return users;
 }
+
+
+
+
+

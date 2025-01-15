@@ -19,10 +19,14 @@ public:
     ~Session();
     void Run();
 
-public:
-    beast::flat_buffer buffer;
-    boost::optional<http::request_parser<http::string_body>> parser;
-    tcp::socket socket;
+    //beast::flat_buffer GetBuffer() { return m_buffer; }
+    //boost::optional<http::request_parser<http::string_body>> GetParser() { return m_parser; }
+    //tcp::socket GetSocket() { return std::move(m_socket); }
+
+private:
+    beast::flat_buffer m_buffer;
+    boost::optional<http::request_parser<http::string_body>> m_parser;
+    tcp::socket m_socket;
 
 private:
     void doRead();

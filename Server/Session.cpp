@@ -1,6 +1,5 @@
 #include "Session.hpp"
 
-
 const int MAX_SIZE = 10 * 1024 * 1024;
 
 Session::Session(tcp::socket&& socket) :
@@ -28,19 +27,28 @@ void Session::doRead()
 void Session::onRead(beast::error_code er, std::size_t)
 {
     if (er == http::error::end_of_stream) {
-        std::cout << "Client closed the connection (end of stream)." << std::endl;
+        //doClose();
+        doRead();
         return;
     }
-
-    if (er) {
+    
+    if (er) {   
         std::cerr << "Read error: " << er.message() << std::endl;
         return;
     }
 
     try {
+
+
         std::string requiredPassword = "default";
         auto request = m_parser->release();
-        auto authHeader = request[http::field::authorization];
+        // auto authHeader = request[http::field::authorization];
+
+        if (request.body() == "CLOSE_CONNECTION") {
+            std::cout << "Client requested to close the connection." << std::endl;
+            doClose();
+            return;
+        }
 
         std::cout << "Request body size: " << request.body().size() << " bytes." << std::endl;
         std::cout << "Request body (first 100 chars): " << request.body().data() << std::endl;
@@ -49,19 +57,26 @@ void Session::onRead(beast::error_code er, std::size_t)
     
             std::string realm = "realm";
             std::string nonce = Digest::GenerateNonce();
-    
+
+            auto now = std::chrono::system_clock::now();
+            auto epoch = std::chrono::duration_cast<std::chrono::seconds>(now.time_since_epoch()).count();
+            std::ostringstream clientIdStream;
+            clientIdStream << "client_" << epoch; 
+            std::string clientId = clientIdStream.str();
+          
             std::ostringstream authHeader;
             authHeader << "Digest realm=\"" << realm
-                << "\", nonce=\"" << Digest::GenerateNonce()
+                << "\", nonce=\"" << nonce
                 << "\", algorithm=MD5, qop=\"auth\"";
-    
+
             auto response = std::make_shared<http::response<http::string_body>>(
                 http::status::unauthorized, request.version());
             response->set(http::field::www_authenticate, authHeader.str());
             response->set(http::field::content_type, "text/plain");
+            response->set("client-id", clientId);
             response->body() = "Unauthorized";
             response->prepare_payload();
-    
+
             http::async_write(m_socket, *response,
                 beast::bind_front_handler(&Session::onWrite, shared_from_this()));
             return;
@@ -98,18 +113,32 @@ void Session::onRead(beast::error_code er, std::size_t)
         ServerStorage::AddFile(std::filesystem::path(filename).filename().string(),
             "./storage/" + login + "/file_dates.txt", login);
     
-        http::response<http::string_body> response{ http::status::ok, request.version() };
-        response.set(http::field::server, "AudioServer");
-        response.set(http::field::content_type, "text/plain");
-        response.body() = "Part of audio saved as " + filename;
-        response.prepare_payload();
+        auto response = std::make_shared<http::response<http::string_body>>(http::status::ok, request.version());
+        response->set(http::field::server, "AudioServer");
+        response->set(http::field::content_type, "text/plain");
+        response->body() = "Part of audio saved as " + filename;
+        response->prepare_payload();
     
-        http::async_write(m_socket, response,
+        http::async_write(m_socket, *response,
             beast::bind_front_handler(&Session::onWrite, shared_from_this()));
+
+        return;
     }
     catch (const std::exception& ex) {
         std::cerr << "Request processing error: " << ex.what() << std::endl;
+    }   
+}
+
+void Session::doClose()
+{
+    beast::error_code ec;
+    if (!ec) {
+        m_socket.shutdown(tcp::socket::shutdown_send, ec);
     }
+    else {
+        std::cerr << "Shutdown error: " << ec.message() << std::endl;
+    }
+    std::cout << "Session ended, socket closed." << std::endl;
 }
 
 void Session::onWrite(beast::error_code write_er, std::size_t)

@@ -17,7 +17,7 @@ void MessageHandler::Start()
 }
 
 void MessageHandler::acceptConnections() {
-
+    
     auto self = shared_from_this();
     std::cout << "Waiting for request..." << std::endl;
 

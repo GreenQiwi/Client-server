@@ -1,5 +1,7 @@
 #include "ServerStorage.hpp"
 
+const int MAX_SIZE = 10 * 1024 * 1024;
+
 std::size_t ServerStorage::GetStorageSize(const std::string& directory)
 {
     if (!std::filesystem::exists(directory)) {
@@ -88,7 +90,7 @@ void ServerStorage::WriteAssociations(const std::map<std::string, std::time_t>& 
     out.close();
 }
 
-void ServerStorage::DeleteFiles(const std::string& directory, std::size_t maxSize, const std::string& file)
+void ServerStorage::DeleteFiles(const std::string& directory, const int maxSize, const std::string& file)
 {
     std::map<std::string, std::time_t> associations = ReadAssociations(file);
 

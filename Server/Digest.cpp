@@ -151,7 +151,7 @@ std::string Digest::GenerateDigest(const std::string& method, const std::string&
     std::string ha2 = calculateMD5(method + ":" + uri);
 
     // HA1:nonce:HA2
-    return calculateMD5(ha1 + ":" + nonce + ":" + ha2);
+    return ha1 + ":" + nonce + ":" + ha2;
 }
 
 bool Digest::CheckDigest(http::request<http::string_body>& req, const std::string& password) {

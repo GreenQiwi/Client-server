@@ -3,32 +3,13 @@
 #include <iomanip>
 #include <sstream>
 
-Authentication::Authentication(const std::string& host, const std::string& port)
-    : m_host(host), m_port(port) {}
+Authentication::Authentication()
+    : m_authHeader(""), m_username(""), m_password(""), m_pcId("") {}
 
-void Authentication::Authenticate(const std::string& method, const std::string& target, const std::string& username, const std::string& password) {
+void Authentication::Authenticate(http::response<http::string_body> res, std::string method, std::string target) {
     try {
-        std::cout << "Sending init request" << "\n";
-        asio::io_context ioc;
-        tcp::resolver resolver(ioc);
-        tcp::socket socket(ioc);
-
-        auto const results = resolver.resolve(m_host, m_port);
-        asio::connect(socket, results.begin(), results.end());
-
-        http::request<http::empty_body> req{ http::verb::get, target, 11 };
-        req.set(http::field::host, m_host);
-        req.set(http::field::connection, "close");
-
-        http::write(socket, req);
-
-        boost::beast::flat_buffer buffer;
-        http::response<http::string_body> res;
-        http::read(socket, buffer, res);
-
-        if (res.result() != http::status::unauthorized) {
-            throw std::runtime_error("Unexpected status code: " + std::to_string(static_cast<int>(res.result())));
-        }
+        std::string username = GetUsername();
+        std::string password = GetPassword();
 
         auto authHeader = res[http::field::www_authenticate];
         std::string realm, nonce;
@@ -56,10 +37,46 @@ void Authentication::Authenticate(const std::string& method, const std::string& 
             "\", nonce=\"" + nonce +
             "\", uri=\"" + target +
             "\", response=\"" + GenerateDigest(method, target, username, password, nonce, realm) + "\"";
+
+        std::ifstream infile("pc_id.txt");
+
+        if (infile.is_open() && infile.peek() != std::ifstream::traits_type::eof()) {
+            std::getline(infile, m_pcId);
+            infile.close();
+        }
+        else {
+            std::string client_id = res["client-id"];
+            infile.close();
+            m_pcId = client_id;
+
+            std::ofstream outfile("pc_id.txt", std::ios::trunc);
+            if (outfile.is_open()) {
+                outfile << client_id;
+                outfile.close();
+            }
+            else {
+                std::cerr << "Failed to open file for writing: " << "pc_id.txt" << std::endl;
+            }
+        }
     }
     catch (const std::exception& ex) {
         std::cerr << "Authentication failed: " << ex.what() << std::endl;
     }
+}
+
+void Authentication::LogIn()
+{
+    std::string username, password;
+
+    std::cout << "Enter login " << ":";
+    std::cin >> username;
+    std::cout << std::endl;
+    std::cout << "Enter password " << ":";
+    std::cin >> password;
+    std::cout << std::endl;
+
+    SetUsername(username);
+    SetPassword(password);
 }
 
 std::string Authentication::GenerateDigest(const std::string& method, const std::string& uri,
@@ -72,7 +89,7 @@ std::string Authentication::GenerateDigest(const std::string& method, const std:
     std::string ha2 = calculateMD5(method + ":" + uri);
 
     // HA1:nonce:HA2
-    std::string digest = calculateMD5(ha1 + ":" + nonce + ":" + ha2);
+    std::string digest = ha1 + ":" + nonce + ":" + ha2;
     return digest;
 }
 

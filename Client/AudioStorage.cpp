@@ -2,7 +2,7 @@
 #include "Connection.hpp"
 
 AudioStorage::AudioStorage()
-    : m_index(0), m_stream(nullptr), m_threadpool(std::thread::hardware_concurrency()), m_auth("127.0.0.1", "8080") {}
+    : m_index(0), m_stream(nullptr), m_threadpool(std::thread::hardware_concurrency()), m_auth() {}
 
 
 AudioStorage::~AudioStorage()
@@ -13,12 +13,12 @@ AudioStorage::~AudioStorage()
         Pa_Terminate();
     }
 
-    m_threadpool.join();
+    //m_threadpool.join();
 }
 
 void AudioStorage::InitRecord()
 {
-    m_auth.Authenticate("POST", "audio/wav", "default", "default");
+    m_auth.LogIn();
 
     PaError err = Pa_Initialize();
     if (err != paNoError) 
@@ -86,7 +86,7 @@ void AudioStorage::StopRecord() {
     }
     std::cout << "Recording stopped." << std::endl;
 
-    m_threadpool.join();
+    //m_threadpool.join();
 }
 
 void AudioStorage::ParseAudio(const void* inputAudio, size_t framesNumber)
@@ -107,69 +107,83 @@ void AudioStorage::ParseAudio(const void* inputAudio, size_t framesNumber)
 
 void AudioStorage::sendFile()
 {
-    //asio::post([this]()
-    //    {
+    std::string filename = "audio_part_" + std::to_string(m_index++) + ".wav";
+    std::ofstream outFile(filename, std::ios::binary);
+    if (!outFile.is_open())
+    {
+        std::cerr << "Failed to create file: " << filename << std::endl;
+        return;
+    }
 
-            std::string filename = "audio_part_" + std::to_string(m_index++) + ".wav";
-            std::ofstream outFile(filename, std::ios::binary);
-            if (!outFile.is_open())
-            {
-                std::cerr << "Failed to create file: " << filename << std::endl;
-                return;
+    int dataSize = m_audiodata.size() * sizeof(float);
+    const int chunkSize = 36 + dataSize;
+    const int subChunk1Size = 16;
+    const short audioFormat = 3;  // IEEE float format
+    const int byteRate = SAMPLE_RATE * NUMBER_OF_CHANNELS * sizeof(float);
+    const short blockAlign = NUMBER_OF_CHANNELS * sizeof(float);
+    const short bitsPerSample = sizeof(float) * 8;
+    const short numChannels = NUMBER_OF_CHANNELS;
+    const int sampleRate = SAMPLE_RATE;
+
+    outFile.write("RIFF", 4);
+    outFile.write(reinterpret_cast<const char*>(&chunkSize), sizeof(int));
+    outFile.write("WAVE", 4);
+
+    outFile.write("fmt ", 4);
+    outFile.write(reinterpret_cast<const char*>(&subChunk1Size), sizeof(int));
+    outFile.write(reinterpret_cast<const char*>(&audioFormat), sizeof(short));
+    outFile.write(reinterpret_cast<const char*>(&numChannels), sizeof(short));
+    outFile.write(reinterpret_cast<const char*>(&sampleRate), sizeof(int));
+    outFile.write(reinterpret_cast<const char*>(&byteRate), sizeof(int));
+    outFile.write(reinterpret_cast<const char*>(&blockAlign), sizeof(short));
+    outFile.write(reinterpret_cast<const char*>(&bitsPerSample), sizeof(short));
+
+    outFile.write("data", 4);
+    outFile.write(reinterpret_cast<const char*>(&dataSize), sizeof(int));
+    outFile.write(reinterpret_cast<const char*>(m_audiodata.data()), m_audiodata.size() * sizeof(float));
+    outFile.close();
+
+    if (!std::ifstream(filename))
+    {
+        std::cerr << "File does not exist or failed to save properly: " << filename << std::endl;
+        return;
+    }
+
+    int attempt = 0;
+    bool success = false;
+
+    while (attempt < 100 && !success) // 100 const
+    {
+        try
+        {
+            Connection connection("127.0.0.1", "8080");
+            http::response<http::string_body> res = connection.UploadFile(filename, "/upload", "audio/wav", m_auth.GetAuthHeader(), m_auth.GetId());   
+
+            if (res.result_int() != 0 && res.result() == http::status::unauthorized) {
+                std::cout << "Digest header generation" << std::endl;
+                m_auth.Authenticate(res, "POST", "audio/wav");
             }
 
-
-            int dataSize = m_audiodata.size() * sizeof(float);
-            const int chunkSize = 36 + dataSize;
-            const int subChunk1Size = 16;
-            const short audioFormat = 3;  // IEEE float format
-            const int byteRate = SAMPLE_RATE * NUMBER_OF_CHANNELS * sizeof(float);
-            const short blockAlign = NUMBER_OF_CHANNELS * sizeof(float);
-            const short bitsPerSample = sizeof(float) * 8;
-            const short numChannels = NUMBER_OF_CHANNELS;
-            const int sampleRate = SAMPLE_RATE;
-
-            outFile.write("RIFF", 4);
-            outFile.write(reinterpret_cast<const char*>(&chunkSize), sizeof(int));
-            outFile.write("WAVE", 4);
-
-            outFile.write("fmt ", 4);
-            outFile.write(reinterpret_cast<const char*>(&subChunk1Size), sizeof(int));
-            outFile.write(reinterpret_cast<const char*>(&audioFormat), sizeof(short));
-            outFile.write(reinterpret_cast<const char*>(&numChannels), sizeof(short));
-            outFile.write(reinterpret_cast<const char*>(&sampleRate), sizeof(int));
-            outFile.write(reinterpret_cast<const char*>(&byteRate), sizeof(int));
-            outFile.write(reinterpret_cast<const char*>(&blockAlign), sizeof(short));
-            outFile.write(reinterpret_cast<const char*>(&bitsPerSample), sizeof(short));
-
-            outFile.write("data", 4);
-            outFile.write(reinterpret_cast<const char*>(&dataSize), sizeof(int));
-
-
-            outFile.write(reinterpret_cast<const char*>(m_audiodata.data()), m_audiodata.size() * sizeof(float));
-            outFile.close();
-
-            if (!std::ifstream(filename))
+            if (res.result_int() != 0 && res.result() != http::status::unauthorized)
+                success = true;
+            
+        }
+        catch (const std::exception& ex)
+        {
+            attempt++;
+            std::cerr << "Attempt " << attempt << " failed: " << ex.what() << std::endl;
+            if (attempt < 100)
             {
-                std::cerr << "File does not exist or failed to save properly: " << filename << std::endl;
-                return;
+                std::this_thread::sleep_for(std::chrono::seconds(1));
             }
+        }
+    }
 
-            try
-            {
-                Connection connection("127.0.0.1", "8080");
-                connection.UploadFile(filename, "/upload", "audio/wav", m_auth.GetAuthHeader());
+    if (!success)
+    {
+        std::cerr << "Failed to upload file after 100 attempts: " << filename << std::endl;
+    }
 
-                //client.UploadFile(filename, "/upload", "audio/wav", auth.login, auth.password);
-            }
-            catch (const std::exception& ex)
-            {
-                std::cerr << "File upload failed for " << filename << ": " << ex.what() << std::endl;
-            }
-
-            std::remove(filename.c_str());
-            m_audiodata.clear();
-        //});
-
-    
+    std::remove(filename.c_str());
+    m_audiodata.clear();
 }

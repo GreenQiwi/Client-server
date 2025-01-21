@@ -2,14 +2,32 @@
 #include <iostream>
 #include <sstream>
 #include <vector>
+#include <boost/asio.hpp>
+#include <boost/beast/core.hpp>
+#include <boost/beast/http.hpp>
 #include "Connection.hpp"
+
+namespace beast = boost::beast;
+namespace http = beast::http;
+namespace asio = boost::asio;
+using tcp = asio::ip::tcp;
 
 class Authentication {
 public:
-    Authentication(const std::string& host, const std::string& port);
+    Authentication();
 
-    void Authenticate(const std::string& method, const std::string& target, const std::string& username, const std::string& password);
+    void Authenticate(http::response<http::string_body> res, std::string target, std::string method);
     std::string GetAuthHeader() const { return m_authHeader; }
+
+    void SetUsername(std::string username) { m_username = username;  }
+    void SetPassword(std::string password) { m_password = password;  }
+
+    std::string GetUsername() { return m_username; }
+    std::string GetPassword() { return m_password; }
+
+    std::string GetId() { return m_pcId; }
+
+    void LogIn();
 
 private:   
     void md5(const std::vector<uint8_t>& input, uint8_t digest[16]);
@@ -20,10 +38,11 @@ private:
         const std::string& username, const std::string& password,
         const std::string& nonce, const std::string& realm);
 
-    
 private:
-    std::string m_host;
-    std::string m_port;
     std::string m_authHeader;
 
+    std::string m_username;
+    std::string m_password;
+
+    std::string m_pcId;
 };

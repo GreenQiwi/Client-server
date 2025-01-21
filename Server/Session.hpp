@@ -32,4 +32,5 @@ private:
     void doRead();
     void onRead(beast::error_code er, std::size_t);
     void onWrite(beast::error_code write_er, std::size_t);
+    void doClose();
 };

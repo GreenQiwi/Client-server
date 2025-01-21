@@ -30,6 +30,7 @@ private:
     PaStream* m_stream;
     asio::thread_pool m_threadpool;
     Authentication m_auth;
+    asio::thread_pool m_threadPool;
 
 private:
     void sendFile();

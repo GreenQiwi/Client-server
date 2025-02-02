@@ -76,25 +76,22 @@ int main() {
 
         std::mutex fileMutex;
 
-        std::thread commandThread(commandHandler, std::ref(fileMutex));
+        //std::thread commandThread(commandHandler, std::ref(fileMutex));
 
         std::vector<std::thread> threads;
-        threads.reserve(std::thread::hardware_concurrency() - 1);
-        for (std::size_t i = 0; i < std::thread::hardware_concurrency() - 1; ++i) {
+        threads.reserve(std::thread::hardware_concurrency());
+        for (std::size_t i = 0; i < std::thread::hardware_concurrency(); ++i) {
             threads.emplace_back([ioc]() {
                 ioc->run();
                 });
         }
-
+        ioc->run();
         for (auto& thread : threads) {
             if (thread.joinable()) {
                 thread.join();
             }
         }
 
-        if (commandThread.joinable()) {
-            commandThread.join();
-        }
     }
     catch (const std::exception& ex) {
         std::cerr << "Server error: " << ex.what() << std::endl;

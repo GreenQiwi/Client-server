@@ -1,14 +1,13 @@
 d:\prog\client-server\client\x64\release\vc143.pdb
 d:\prog\client-server\client\x64\release\vc143.idb
-d:\prog\client-server\client\x64\release\authentication.obj
 d:\prog\client-server\client\x64\release\connection.obj
-d:\prog\client-server\client\x64\release\client.obj
 d:\prog\client-server\client\x64\release\audiostorage.obj
+d:\prog\client-server\client\x64\release\client.obj
+d:\prog\client-server\client\x64\release\authentication.obj
 d:\prog\client-server\x64\release\client.exe
 d:\prog\client-server\x64\release\client.pdb
 d:\prog\client-server\client\x64\release\client.tlog\cl.command.1.tlog
 d:\prog\client-server\client\x64\release\client.tlog\cl.items.tlog
-d:\prog\client-server\client\x64\release\client.tlog\cl.read.1.tlog
 d:\prog\client-server\client\x64\release\client.tlog\cl.write.1.tlog
 d:\prog\client-server\client\x64\release\client.tlog\link.command.1.tlog
 d:\prog\client-server\client\x64\release\client.tlog\link.read.1.tlog

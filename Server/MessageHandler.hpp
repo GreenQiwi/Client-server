@@ -28,6 +28,7 @@ private:
 	tcp::endpoint m_endpoint;
 	tcp::acceptor m_acceptor;
 	std::shared_ptr<http::request<http::string_body>> request;
-
+	std::unordered_map<std::string, std::shared_ptr<Session>> m_sessions;
+	std::mutex m_sessionsMutex;
 };
 

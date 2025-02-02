@@ -2,15 +2,21 @@
 #include <vector>
 #include <iomanip>
 #include <sstream>
+#include <fstream>
 
 Authentication::Authentication()
-    : m_authHeader(""), m_username(""), m_password(""), m_pcId("") {}
+    : m_username(""), m_password(""), m_token("") 
+    {
+    std::ifstream file("client_id.txt");
+    if (file) {
+        std::stringstream buffer;
+        buffer << file.rdbuf();
+        m_token = buffer.str();
+    }
+}
 
-void Authentication::Authenticate(http::response<http::string_body> res, std::string method, std::string target) {
-    try {
-        std::string username = GetUsername();
-        std::string password = GetPassword();
-
+void Authentication::Authenticate(http::response<http::string_body> res) {
+    try {            
         auto authHeader = res[http::field::www_authenticate];
         std::string realm, nonce;
 
@@ -23,7 +29,7 @@ void Authentication::Authenticate(http::response<http::string_body> res, std::st
 
         auto noncePos = authHeader.find("nonce=\"");
         if (noncePos != std::string::npos) {
-            noncePos += 7;
+            noncePos += 11;  
             auto end = authHeader.find("\"", noncePos);
             nonce = authHeader.substr(noncePos, end - noncePos);
         }
@@ -32,37 +38,47 @@ void Authentication::Authenticate(http::response<http::string_body> res, std::st
             throw std::runtime_error("Failed to extract realm or nonce from WWW-Authenticate header.");
         }
 
-        m_authHeader = "Digest username=\"" + username +
+        std::string digest = "Digest username=\"" + m_username +
             "\", realm=\"" + realm +
             "\", nonce=\"" + nonce +
-            "\", uri=\"" + target +
-            "\", response=\"" + GenerateDigest(method, target, username, password, nonce, realm) + "\"";
+            "\", uri=\"/audioserver\", algorithm=MD5, qop=\"auth\", response=\"" +
+            generateDigest("POST", "/audioserver", nonce, realm) + "\"";
 
-        std::ifstream infile("pc_id.txt");
+        std::cout << "Authentication header generated: " << digest << std::endl;
 
-        if (infile.is_open() && infile.peek() != std::ifstream::traits_type::eof()) {
-            std::getline(infile, m_pcId);
-            infile.close();
+        asio::io_context ioc;
+        tcp::resolver resolver(ioc);
+        auto const results = resolver.resolve("127.0.0.1", "8080");
+        tcp::socket socket(ioc);
+        beast::flat_buffer buffer;
+
+        asio::connect(socket, results.begin(), results.end());
+        http::request<http::string_body> req{ http::verb::post, "AUTH", 11 };
+        req.set(http::field::host, "127.0.0.1");
+        req.body() = digest;
+        req.prepare_payload();
+
+        http::write(socket, req);
+
+        http::response<http::string_body> resp;
+
+        http::read(socket, buffer, resp);
+
+        std::ofstream ofs("client.txt", std::ofstream::out | std::ofstream::trunc);
+        if (!ofs) {
+            std::cerr << "Error opening client.txt." << std::endl;
         }
         else {
-            std::string client_id = res["client-id"];
-            infile.close();
-            m_pcId = client_id;
-
-            std::ofstream outfile("pc_id.txt", std::ios::trunc);
-            if (outfile.is_open()) {
-                outfile << client_id;
-                outfile.close();
-            }
-            else {
-                std::cerr << "Failed to open file for writing: " << "pc_id.txt" << std::endl;
-            }
+            ofs << resp.body();
+            ofs.close();
         }
+        m_token = resp.body();
     }
     catch (const std::exception& ex) {
         std::cerr << "Authentication failed: " << ex.what() << std::endl;
     }
 }
+
 
 void Authentication::LogIn()
 {
@@ -70,7 +86,6 @@ void Authentication::LogIn()
 
     std::cout << "Enter login " << ":";
     std::cin >> username;
-    std::cout << std::endl;
     std::cout << "Enter password " << ":";
     std::cin >> password;
     std::cout << std::endl;
@@ -79,11 +94,10 @@ void Authentication::LogIn()
     SetPassword(password);
 }
 
-std::string Authentication::GenerateDigest(const std::string& method, const std::string& uri,
-    const std::string& username, const std::string& password,
+std::string Authentication::generateDigest(const std::string& method, const std::string& uri,
     const std::string& nonce, const std::string& realm) {
     // HA1
-    std::string ha1 = calculateMD5(username + ":" + realm + ":" + password);
+    std::string ha1 = calculateMD5(m_username + ":" + realm + ":" + m_password);
 
     // HA2
     std::string ha2 = calculateMD5(method + ":" + uri);
@@ -91,6 +105,10 @@ std::string Authentication::GenerateDigest(const std::string& method, const std:
     // HA1:nonce:HA2
     std::string digest = ha1 + ":" + nonce + ":" + ha2;
     return digest;
+}
+
+std::string Authentication::generateHa1(std::string realm) {
+    return calculateMD5(m_username + ":" + realm + ":" + m_password);
 }
 
 std::string Authentication::calculateMD5(const std::string& input) {

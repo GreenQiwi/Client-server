@@ -11,7 +11,7 @@ MessageHandler::MessageHandler(std::shared_ptr<asio::io_context> ioc)
     m_acceptor.listen();   
     }
 
-void MessageHandler::Start()
+void MessageHandler::Start()       
 {
    acceptConnections();
 }
@@ -26,11 +26,12 @@ void MessageHandler::acceptConnections() {
             if (!er) {
                 auto session = std::make_shared<Session>(std::move(socket));
                 session->Run();
+
+                self->acceptConnections();
             }
             else {
                 std::cerr << "Accept error: " << er.message() << std::endl;
-            }
-            self->acceptConnections(); 
+            }          
         });
 
 }
@@ -46,4 +47,5 @@ void MessageHandler::handle(beast::error_code er, tcp::socket socket)
     {
         std::cerr << "Accept error: " << er.message() << std::endl;
     }
+    acceptConnections();
 }

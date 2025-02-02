@@ -5,7 +5,6 @@
 #include <boost/asio.hpp>
 #include <boost/beast/core.hpp>
 #include <boost/beast/http.hpp>
-#include "Connection.hpp"
 
 namespace beast = boost::beast;
 namespace http = beast::http;
@@ -16,33 +15,33 @@ class Authentication {
 public:
     Authentication();
 
-    void Authenticate(http::response<http::string_body> res, std::string target, std::string method);
-    std::string GetAuthHeader() const { return m_authHeader; }
+    //void Authenticate();
+    //std::string GetAuthHeader() const { return m_authHeader; }
 
     void SetUsername(std::string username) { m_username = username;  }
     void SetPassword(std::string password) { m_password = password;  }
 
-    std::string GetUsername() { return m_username; }
-    std::string GetPassword() { return m_password; }
+    //std::string GetUsername() { return m_username; }
+    //std::string GetPassword() { return m_password; }
 
-    std::string GetId() { return m_pcId; }
+    std::string GetToken() { return m_token; }
 
-    void LogIn();
+    void LogIn();  
+    void Authenticate(http::response<http::string_body> res);
 
 private:   
     void md5(const std::vector<uint8_t>& input, uint8_t digest[16]);
     uint32_t left_rotate(uint32_t x, uint32_t c);
     std::string calculateMD5(const std::string& input);
-
-    std::string GenerateDigest(const std::string& method, const std::string& uri,
-        const std::string& username, const std::string& password,
+    std::string generateDigest(const std::string& method, const std::string& uri,
         const std::string& nonce, const std::string& realm);
-
+    std::string generateHa1(std::string realm);
+    
 private:
-    std::string m_authHeader;
+    //std::string m_authHeader;
 
     std::string m_username;
     std::string m_password;
 
-    std::string m_pcId;
+    std::string m_token;
 };

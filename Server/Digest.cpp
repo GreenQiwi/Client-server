@@ -141,20 +141,15 @@ std::string Digest::calculateMD5(const std::string& input) {
     return oss.str();
 }
 
-std::string Digest::GenerateDigest(const std::string& method, const std::string& uri,
-    const std::string& username, const std::string& password,
-    const std::string& nonce, const std::string& realm) {
-    // HA1
-    std::string ha1 = calculateMD5(username + ":" + realm + ":" + password);
+std::string Digest::GenerateDigest(const std::string& ha1, const std::string& nonce,
+    const std::string& method, const std::string& uri) {
 
-    // HA2
     std::string ha2 = calculateMD5(method + ":" + uri);
 
-    // HA1:nonce:HA2
     return ha1 + ":" + nonce + ":" + ha2;
 }
 
-bool Digest::CheckDigest(http::request<http::string_body>& req, const std::string& password) {
+bool Digest::CheckDigest(http::request<http::string_body>& req, const std::string& ha1, const std::string& nonce) {
     try {
         auto authHeader = req[http::field::authorization];
 
@@ -162,24 +157,8 @@ bool Digest::CheckDigest(http::request<http::string_body>& req, const std::strin
             throw std::runtime_error("Missing Authorization header.");
         }
 
-        std::string username, realm, nonce, uri, response, method;
+        std::string response, method;
         size_t startPos, endPos;
-
-        startPos = authHeader.find("username=\"") + 10;
-        endPos = authHeader.find("\"", startPos);
-        username = authHeader.substr(startPos, endPos - startPos);
-
-        startPos = authHeader.find("realm=\"") + 7;
-        endPos = authHeader.find("\"", startPos);
-        realm = authHeader.substr(startPos, endPos - startPos);
-
-        startPos = authHeader.find("nonce=\"") + 7;
-        endPos = authHeader.find("\"", startPos);
-        nonce = authHeader.substr(startPos, endPos - startPos);
-
-        startPos = authHeader.find("uri=\"") + 5;
-        endPos = authHeader.find("\"", startPos);
-        uri = authHeader.substr(startPos, endPos - startPos);
 
         startPos = authHeader.find("response=\"") + 10;
         endPos = authHeader.find("\"", startPos);
@@ -187,7 +166,9 @@ bool Digest::CheckDigest(http::request<http::string_body>& req, const std::strin
 
         method = req.method_string();
 
-        std::string generatedDigest = GenerateDigest(method, uri, username, password, nonce, realm);
+        std::string uri = "/audioserver";
+
+        std::string generatedDigest = GenerateDigest(ha1, method, uri, nonce);
 
         return generatedDigest == response;
     }

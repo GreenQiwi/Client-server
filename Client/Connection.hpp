@@ -17,7 +17,7 @@ using tcp = asio::ip::tcp;
 class Connection {
 public:
     Connection(const std::string& host, const std::string& port);
-    http::response<http::string_body> UploadFile(const std::string& filename, const std::string& target, const std::string& contentType, const std::string& authHeader);
+    http::response<http::string_body> UploadFile(const std::string& filename, const std::string& target, const std::string& contentType, std::string& authToken, const std::string& digestHeaedr);
     //std::string Authenticate();
 
 private:

@@ -25,9 +25,11 @@ public:
     //std::string GetPassword() { return m_password; }
 
     std::string GetToken() { return m_token; }
+    void SetToken(const std::string& token ) { m_token = token; }
 
     void LogIn();  
     void Authenticate(http::response<http::string_body> res);
+    std::string GenerateHa1(std::string realm);
 
 private:   
     void md5(const std::vector<uint8_t>& input, uint8_t digest[16]);
@@ -35,7 +37,7 @@ private:
     std::string calculateMD5(const std::string& input);
     std::string generateDigest(const std::string& method, const std::string& uri,
         const std::string& nonce, const std::string& realm);
-    std::string generateHa1(std::string realm);
+    
     
 private:
     //std::string m_authHeader;

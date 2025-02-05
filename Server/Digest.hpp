@@ -22,6 +22,4 @@ namespace Digest{
 	std::string calculateMD5(const std::string& input);
 	std::string GenerateDigest(const std::string& ha1, const std::string& nonce,
 		const std::string& method, const std::string& uri);
-	void AddUser(const std::string& login, const std::string& password);
-	std::unordered_map<std::string, std::string> LoadUsers();
 };

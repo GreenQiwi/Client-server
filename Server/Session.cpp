@@ -49,77 +49,80 @@ void Session::onRead(beast::error_code er, std::size_t s)
     try {
         auto request = m_parser->release();
 
+        if (boost::beast::websocket::is_upgrade(request))
+        {
+            std::make_shared<WebSocketSession>(std::move(m_socket))->doAccept(std::move(request));
+            return;
+        }
         std::cout << "Request body size: " << request.body().size() << " bytes." << std::endl;
         std::cout << "Request body (first 100 chars): " << request.body().substr(0, 100) << std::endl;
 
-        std::string token = request[http::field::authorization];
+        std::string token;
+        if (request.find(http::field::authorization) != request.end()) {
+            token = request[http::field::authorization];
+        }
         bool tokenValid = false;
 
-        if (!token.empty()) {
+        if (token.empty()) {
+            auto now = std::chrono::system_clock::now();
+            auto epoch = std::chrono::duration_cast<std::chrono::seconds>(now.time_since_epoch()).count();
+            std::ostringstream tokenStream;
+            tokenStream << epoch;
+            std::string newToken = tokenStream.str();
 
-            std::ifstream tokenFile("clients.txt");
-            if (tokenFile.is_open()) {
-                std::string storedToken;
-                while (std::getline(tokenFile, storedToken)) {
-                    if (storedToken == token) {
-                        tokenValid = true;
-                        break;
-                    }
-                }
-                tokenFile.close();
+            std::string ha1 = request["ha1"];
+            if (ha1.empty()) {
+                std::cerr << "Missing ha1 in request." << std::endl;
             }
+
+            std::ofstream ofs("clients.txt", std::ios::app);
+            if (ofs.is_open()) {
+                ofs << newToken << " " << ha1 << std::endl;
+                ofs.close();
+            }
+            else {
+                std::cerr << "Error opening clients.txt." << std::endl;
+            }
+
+            http::response<http::string_body> response(http::status::ok, request.version());
+            response.set(http::field::content_type, "text/plain");
+            response.body() = newToken;
+            response.prepare_payload();
+            http::async_write(m_socket, response, beast::bind_front_handler(&Session::onWrite, shared_from_this()));
+            doClose();
+            return;
+        }
+
+        std::ifstream tokenFile("clients.txt");
+        if (tokenFile.is_open()) {
+            std::string storedToken, storedHa1;
+            while (tokenFile >> storedToken) {
+                std::getline(tokenFile, storedHa1);
+                if (storedToken == token) {
+                    tokenValid = true;
+                    break;
+                }
+            }
+            tokenFile.close();
         }
 
         if (!tokenValid) {
-            if (!Digest::CheckDigest(request, m_ha1, m_nonce)) {
-                auto now = std::chrono::system_clock::now();
-                auto epoch = std::chrono::duration_cast<std::chrono::seconds>(now.time_since_epoch()).count();
-                std::ostringstream clientIdStream;
-                clientIdStream << epoch;
-                std::string clientId = clientIdStream.str();
+            std::ostringstream authHeader;
+            authHeader << "Digest realm=\"" << "/audioserver"
+                << "\", nonce=\"" << m_nonce
+                << "\", algorithm=MD5, qop=\"auth\"";
 
-                std::ostringstream authHeader;
-                authHeader << "Digest realm=\"" << clientId
-                    << "\", nonce=\"" << m_nonce
-                    << "\", algorithm=MD5, qop=\"auth\"";
+            http::response<http::string_body> response(http::status::unauthorized, request.version());
+            response.set(http::field::www_authenticate, authHeader.str());
+            response.set(http::field::content_type, "text/plain");
+            response.body() = "Unauthorized";
+            response.prepare_payload();
 
-                http::response<http::string_body> response(http::status::unauthorized, request.version());
-                response.set(http::field::www_authenticate, authHeader.str());
-                response.set(http::field::content_type, "text/plain");
-                response.body() = "Unauthorized";
-                response.prepare_payload();
+            http::async_write(m_socket, response,
+                beast::bind_front_handler(&Session::onWrite, shared_from_this()));
+            doClose();
+            return;
 
-                http::async_write(m_socket, response,
-                    beast::bind_front_handler(&Session::onWrite, shared_from_this()));
-                doClose();
-                return;
-            }
-            else {
-                auto now = std::chrono::system_clock::now();
-                auto epoch = std::chrono::duration_cast<std::chrono::seconds>(now.time_since_epoch()).count();
-                std::ostringstream tokenStream;
-                tokenStream << "token_" << epoch;
-                std::string newToken = tokenStream.str();
-
-                std::ofstream ofs("clients.txt", std::ios::app);
-                if (!ofs.is_open()) {
-                    std::cerr << "Ќе удалось открыть clients.txt дл€ записи нового токена." << std::endl;
-                }
-                else {
-                    ofs << newToken << std::endl;
-                    ofs.close();
-                }
-
-                http::response<http::string_body> response(http::status::ok, request.version());
-                response.set(http::field::content_type, "text/plain");
-                response.body() = newToken;
-                response.prepare_payload();
-
-                http::async_write(m_socket, response,
-                    beast::bind_front_handler(&Session::onWrite, shared_from_this()));
-                doClose();
-                return;
-            }
         }
 
         std::ofstream log("log.txt", std::ios::app);
@@ -165,6 +168,7 @@ void Session::onRead(beast::error_code er, std::size_t s)
         std::cerr << "Request processing error: " << ex.what() << std::endl;
     }
 }
+
 
 
 void Session::doClose()

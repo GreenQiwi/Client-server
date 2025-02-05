@@ -3,10 +3,12 @@
 #include <boost/beast/core.hpp>
 #include <boost/beast/http.hpp>
 #include <boost/asio.hpp>
-#include "Digest.hpp"
-#include "ServerStorage.hpp"
 #include <fstream>
 #include <iostream>
+#include <boost/beast/websocket/rfc6455.hpp>
+#include "Digest.hpp"
+#include "ServerStorage.hpp"
+#include "WebSession.hpp"
 
 namespace beast = boost::beast;
 namespace asio = boost::asio;

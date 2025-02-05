@@ -179,39 +179,6 @@ bool Digest::CheckDigest(http::request<http::string_body>& req, const std::strin
 }
 
 
-void Digest::AddUser(const std::string& login, const std::string& password) {
-
-    std::ofstream userFile("users.txt", std::ios::app);
-    if (!userFile.is_open()) {
-        throw std::runtime_error("Unable to open users file");
-    }
-
-    userFile << login << ":" << password << std::endl;
-    userFile.close();
-
-    std::cout << "User added: " << login << std::endl;
-}
-
-std::unordered_map<std::string, std::string> Digest::LoadUsers() {
-    std::unordered_map<std::string, std::string> users;
-    std::ifstream userFile("users.txt");
-    if (!userFile.is_open()) {
-        throw std::runtime_error("Unable to open users file");
-    }
-
-    std::string line;
-    while (std::getline(userFile, line)) {
-        auto delimiterPos = line.find(':');
-        if (delimiterPos != std::string::npos) {
-            std::string login = line.substr(0, delimiterPos);
-            std::string password = line.substr(delimiterPos + 1);
-            users[login] = password;
-        }
-    }
-    return users;
-}
-
-
 
 
 

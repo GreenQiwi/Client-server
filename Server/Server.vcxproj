@@ -24,12 +24,14 @@
     <ClCompile Include="Server.cpp" />
     <ClCompile Include="ServerStorage.cpp" />
     <ClCompile Include="Session.cpp" />
+    <ClCompile Include="WebSession.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Digest.hpp" />
     <ClInclude Include="MessageHandler.hpp" />
     <ClInclude Include="ServerStorage.hpp" />
     <ClInclude Include="Session.hpp" />
+    <ClInclude Include="WebSession.hpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>

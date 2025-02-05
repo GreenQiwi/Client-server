@@ -78,7 +78,7 @@ Connection::Connection(const std::string& host, const std::string& port)
 //}
 
 
-http::response<http::string_body> Connection::UploadFile(const std::string& filename, const std::string& target, const std::string& contentType, const std::string& authToken)
+http::response<http::string_body> Connection::UploadFile(const std::string& filename, const std::string& target, const std::string& contentType, std::string& authToken, const std::string& digestHeader)
 {
     try
     {
@@ -103,11 +103,16 @@ http::response<http::string_body> Connection::UploadFile(const std::string& file
         }
         const std::string data(dataVect.begin(), dataVect.end());
         
+        if (!authToken.empty() && authToken[authToken.size() - 1] == '\n') {
+            authToken.erase(authToken.size() - 1); 
+        }
+
         http::request<http::string_body> req{ http::verb::post, target, 11 };
         req.set(http::field::host, m_host);
         req.set(http::field::content_type, contentType);
         req.set(http::field::content_length, std::to_string(fileSize));
         req.set(http::field::authorization, authToken);
+        req.set("ha1", digestHeader);
         req.body() = data;
         req.prepare_payload();
 

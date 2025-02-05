@@ -46,39 +46,12 @@ void Authentication::Authenticate(http::response<http::string_body> res) {
 
         std::cout << "Authentication header generated: " << digest << std::endl;
 
-        asio::io_context ioc;
-        tcp::resolver resolver(ioc);
-        auto const results = resolver.resolve("127.0.0.1", "8080");
-        tcp::socket socket(ioc);
-        beast::flat_buffer buffer;
-
-        asio::connect(socket, results.begin(), results.end());
-        http::request<http::string_body> req{ http::verb::post, "AUTH", 11 };
-        req.set(http::field::host, "127.0.0.1");
-        req.body() = digest;
-        req.prepare_payload();
-
-        http::write(socket, req);
-
-        http::response<http::string_body> resp;
-
-        http::read(socket, buffer, resp);
-
-        std::ofstream ofs("client.txt", std::ofstream::out | std::ofstream::trunc);
-        if (!ofs) {
-            std::cerr << "Error opening client.txt." << std::endl;
-        }
-        else {
-            ofs << resp.body();
-            ofs.close();
-        }
-        m_token = resp.body();
+    
     }
     catch (const std::exception& ex) {
         std::cerr << "Authentication failed: " << ex.what() << std::endl;
     }
 }
-
 
 void Authentication::LogIn()
 {
@@ -107,7 +80,7 @@ std::string Authentication::generateDigest(const std::string& method, const std:
     return digest;
 }
 
-std::string Authentication::generateHa1(std::string realm) {
+std::string Authentication::GenerateHa1(std::string realm) {
     return calculateMD5(m_username + ":" + realm + ":" + m_password);
 }
 

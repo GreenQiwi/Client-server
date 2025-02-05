@@ -18,7 +18,7 @@ AudioStorage::~AudioStorage()
 
 void AudioStorage::InitRecord()
 {
-
+    m_auth.LogIn();
     PaError err = Pa_Initialize();
     if (err != paNoError) 
     {
@@ -158,16 +158,40 @@ void AudioStorage::sendFile()
         try
         {
             Connection connection("127.0.0.1", "8080");
-            http::response<http::string_body> res = connection.UploadFile(filename, "POST", "audio/wav", m_auth.GetToken());
+            std::string token = m_auth.GetToken();
+            std::string ha1 = token.empty() ? m_auth.GenerateHa1("/audioserver") : " ";
+
+            http::response<http::string_body> res = connection.UploadFile(filename, "POST", "audio/wav", token, ha1);
 
             if (res.result() == http::status::unauthorized) {
                 std::cout << "Wrong token" << std::endl;
-                std::this_thread::sleep_for(std::chrono::seconds(1));
-                
-            }     
+                std::this_thread::sleep_for(std::chrono::seconds(5));
+
+                std::ofstream ofs("client_id.txt", std::ios::trunc);
+                if (!ofs.is_open()) {
+                    std::cerr << "Error clearing clients.txt." << std::endl;
+                }
+
+                m_auth.SetToken("");
+            }
 
             if (res.result_int() != 0 && res.result() != http::status::unauthorized)
+            {
                 success = true;
+
+                if (token.empty()) {
+                    std::string newToken = res.body();
+                    m_auth.SetToken(newToken);
+                    std::ofstream ofs("client_id.txt", std::ios::app);
+                    if (ofs.is_open()) {
+                        ofs << newToken << std::endl;
+                        ofs.close();
+                    }
+                    else {
+                        std::cerr << "Error opening clients.txt for writing." << std::endl;
+                    }
+                }
+            }
             
         }
         catch (const std::exception& ex)

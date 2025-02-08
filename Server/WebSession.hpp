@@ -36,5 +36,9 @@ private:
     void sendMessage(const std::string& msg);
     void onWrite(beast::error_code ec, std::size_t bytesTransferred);
     void doClose();
+    bool isValidUser(const std::string& username, const std::string& password, std::string& userDirectory);
+    bool authenticate(const http::request<http::string_body>& req);
+    void sendUnauthorized();
+
 };
 

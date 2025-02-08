@@ -4,8 +4,8 @@
   - add _WIN32_WINNT=0x0601 to your project's Preprocessor Definitions.
   Assuming _WIN32_WINNT=0x0601 (i.e. Windows 7 target).
   Generating code
-  394 of 9571 functions ( 4.1%) were compiled, the rest were copied from previous compilation.
+  380 of 10200 functions ( 3.7%) were compiled, the rest were copied from previous compilation.
     355 functions were new in current compilation
-    167 functions had inline decision re-evaluated but remain unchanged
+    1514 functions had inline decision re-evaluated but remain unchanged
   Finished generating code
   Server.vcxproj -> D:\prog\Client-server\x64\Release\Server.exe

@@ -1,14 +1,81 @@
 #include "WebSession.hpp"
+#include <boost/asio.hpp>
+#include <boost/beast.hpp>
+#include <iostream>
+#include <fstream>
+#include <sstream>
 #include <filesystem>
+#include <string>
+#include <vector>
+#include <boost/algorithm/string.hpp>
+#include "Digest.hpp"  
 
 WebSocketSession::WebSocketSession(tcp::socket&& socket)
-    : m_socket(std::move(socket))
-{}
+    : m_socket(std::move(socket)) {}
 
 void WebSocketSession::doAccept(http::request<http::string_body> req) {
     std::cout << "WebSocket created." << std::endl;
+
+    if (!authenticate(req)) {
+        sendUnauthorized();
+        return;
+    }
+
     m_socket.async_accept(req,
         beast::bind_front_handler(&WebSocketSession::onAccept, shared_from_this()));
+}
+
+bool WebSocketSession::authenticate(const http::request<http::string_body>& req) {
+    const auto& authHeader = req[http::field::authorization];
+    if (authHeader.empty()) {
+        return false;  
+    }
+
+    std::string authValue = authHeader;
+    if (!boost::starts_with(authValue, "Digest ")) {
+        return false; 
+    }
+
+    std::map<std::string, std::string> authParams;
+    std::string authData = authValue.substr(7);
+    std::stringstream ss(authData);
+    std::string keyValuePair;
+    while (std::getline(ss, keyValuePair, ',')) {
+        size_t pos = keyValuePair.find('=');
+        if (pos != std::string::npos) {
+            std::string key = keyValuePair.substr(0, pos);
+            std::string value = keyValuePair.substr(pos + 1);
+            boost::trim(key);
+            boost::trim(value);
+            if (value.front() == '"') value.erase(0, 1);
+            if (value.back() == '"') value.pop_back();
+            authParams[key] = value;
+        }
+    }
+
+    std::string username = authParams["username"];
+    std::string realm = authParams["realm"];
+    std::string uri = authParams["uri"];
+    std::string response = authParams["response"];
+    std::string method = req.method_string();
+
+    if (username.empty() || realm.empty() || uri.empty() || response.empty()) {
+        return false;
+    }
+
+    std::string expectedResponse = Digest::GenerateDigest(username, realm, uri, method);
+    return response == expectedResponse;
+}
+
+void WebSocketSession::sendUnauthorized() {
+    std::string unauthorizedMsg = "HTTP/1.1 401 Unauthorized\r\n"
+        "WWW-Authenticate: Digest realm=\"audioserver\", qop=\"auth\", nonce=\"dummy_nonce\", opaque=\"dummy_opaque\"\r\n"
+        "Content-Type: text/plain\r\n"
+        "Content-Length: 10\r\n\r\n"
+        "Unauthorized";
+
+    m_socket.async_write(asio::buffer(unauthorizedMsg),
+        beast::bind_front_handler(&WebSocketSession::onWrite, shared_from_this()));
 }
 
 void WebSocketSession::onAccept(beast::error_code ec) {
@@ -50,10 +117,11 @@ void WebSocketSession::onRead(beast::error_code ec, std::size_t bytesTransferred
 
         bool valid = false;
         std::vector<std::string> files;
+        std::string userDirectory;
 
-        if (username == "user" && password == "password") {
+        if (isValidUser(username, password, userDirectory)) {
             valid = true;
-            std::string userDirectory = "./storage/16165335557417779349";
+
             if (std::filesystem::exists(userDirectory)) {
                 for (const auto& entry : std::filesystem::directory_iterator(userDirectory)) {
                     if (entry.is_regular_file()) {
@@ -98,8 +166,7 @@ void WebSocketSession::onWrite(beast::error_code ec, std::size_t s) {
     }
 }
 
-void WebSocketSession::doClose()
-{
+void WebSocketSession::doClose() {
     beast::error_code ec;
     if (!ec) {
         m_socket.close(tcp::socket::shutdown_send, ec);
@@ -108,4 +175,29 @@ void WebSocketSession::doClose()
         std::cerr << "Shutdown error: " << ec.message() << std::endl;
     }
     std::cout << "Session ended, socket closed." << std::endl;
+}
+
+bool WebSocketSession::isValidUser(const std::string& username, const std::string& password, std::string& userDirectory) {
+    std::ifstream file("clients.txt");
+    if (!file.is_open()) {
+        std::cerr << "Failed to open clients.txt" << std::endl;
+        return false;
+    }
+
+    std::string line;
+    while (std::getline(file, line)) {
+        std::istringstream iss(line);
+        std::string folderAddress, storedHash;
+        std::getline(iss, folderAddress, ' ');
+        std::getline(iss, storedHash);
+
+        std::string loginData = Digest::calculateMD5(username + ":/audioserver:" + password);
+
+        if (loginData == storedHash) {
+            userDirectory = "./storage/" + folderAddress;
+            return true;
+        }
+    }
+
+    return false;
 }

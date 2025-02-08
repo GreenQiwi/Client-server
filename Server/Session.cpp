@@ -6,8 +6,8 @@ Session::Session(tcp::socket&& socket) :
     m_socket(std::move(socket)),
     m_buffer(),
     m_ha1() {
-    m_nonce = Digest::GenerateNonce();
     std::cout << "Session created" << std::endl;
+    m_nonce = Digest::GenerateNonce();
     };
 
 
@@ -64,33 +64,60 @@ void Session::onRead(beast::error_code er, std::size_t s)
         bool tokenValid = false;
 
         if (token.empty()) {
-            auto now = std::chrono::system_clock::now();
-            auto epoch = std::chrono::duration_cast<std::chrono::seconds>(now.time_since_epoch()).count();
-            std::ostringstream tokenStream;
-            tokenStream << epoch;
-            std::string newToken = tokenStream.str();
-
             std::string ha1 = request["ha1"];
+
             if (ha1.empty()) {
                 std::cerr << "Missing ha1 in request." << std::endl;
+                http::response<http::string_body> response(http::status::bad_request, request.version());
+                response.set(http::field::content_type, "text/plain");
+                response.body() = "Missing ha1";
+                response.prepare_payload();
+                http::async_write(m_socket, response, beast::bind_front_handler(&Session::onWrite, shared_from_this()));
+                doClose();
+                return;
             }
 
-            std::ofstream ofs("clients.txt", std::ios::app);
-            if (ofs.is_open()) {
-                ofs << newToken << " " << ha1 << std::endl;
-                ofs.close();
+            if (Digest::CheckDigest(request, ha1)) {
+                auto now = std::chrono::system_clock::now();
+                auto epoch = std::chrono::duration_cast<std::chrono::seconds>(now.time_since_epoch()).count();
+                std::ostringstream tokenStream;
+                tokenStream << epoch;
+                std::string newToken = tokenStream.str();
+
+                std::ofstream ofs("clients.txt", std::ios::app);
+                if (ofs.is_open()) {
+                    ofs << newToken << " " << ha1 << std::endl;
+                    ofs.close();
+                }
+                else {
+                    std::cerr << "Error opening clients.txt." << std::endl;
+                }
+
+                http::response<http::string_body> response(http::status::ok, request.version());
+                response.set(http::field::content_type, "text/plain");
+                response.body() = newToken;
+                response.prepare_payload();
+                http::async_write(m_socket, response, beast::bind_front_handler(&Session::onWrite, shared_from_this()));
+                doClose();
+                return;
             }
             else {
-                std::cerr << "Error opening clients.txt." << std::endl;
-            }
+                std::ostringstream authHeader;
+                authHeader << "Digest realm=\"" << "/audioserver"
+                    << "\", nonce=\"" << m_nonce
+                    << "\", algorithm=MD5, qop=\"auth\"";
 
-            http::response<http::string_body> response(http::status::ok, request.version());
-            response.set(http::field::content_type, "text/plain");
-            response.body() = newToken;
-            response.prepare_payload();
-            http::async_write(m_socket, response, beast::bind_front_handler(&Session::onWrite, shared_from_this()));
-            doClose();
-            return;
+                http::response<http::string_body> response(http::status::unauthorized, request.version());
+                response.set(http::field::www_authenticate, authHeader.str());
+                response.set(http::field::content_type, "text/plain");
+                response.body() = "Unauthorized";
+                response.prepare_payload();
+
+                http::async_write(m_socket, response,
+                    beast::bind_front_handler(&Session::onWrite, shared_from_this()));
+                doClose();
+                return;
+            }
         }
 
         std::ifstream tokenFile("clients.txt");

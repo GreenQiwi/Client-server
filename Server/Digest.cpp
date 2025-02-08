@@ -143,32 +143,38 @@ std::string Digest::calculateMD5(const std::string& input) {
 
 std::string Digest::GenerateDigest(const std::string& ha1, const std::string& nonce,
     const std::string& method, const std::string& uri) {
-
     std::string ha2 = calculateMD5(method + ":" + uri);
-
-    return ha1 + ":" + nonce + ":" + ha2;
+    std::string digest = ha1 + ":" + nonce + ":" + ha2;
+    return digest;
 }
 
-bool Digest::CheckDigest(http::request<http::string_body>& req, const std::string& ha1, const std::string& nonce) {
+bool Digest::CheckDigest(http::request<http::string_body>& req, const std::string& ha1) {
     try {
-        auto authHeader = req[http::field::authorization];
+        auto authHeader = req["authHeader"];
 
         if (authHeader.empty()) {
             throw std::runtime_error("Missing Authorization header.");
         }
 
-        std::string response, method;
+        std::string response, uri;
         size_t startPos, endPos;
 
         startPos = authHeader.find("response=\"") + 10;
         endPos = authHeader.find("\"", startPos);
         response = authHeader.substr(startPos, endPos - startPos);
 
-        method = req.method_string();
+        startPos = authHeader.find("uri=\"") + 5;
+        endPos = authHeader.find("\"", startPos);
+        uri = authHeader.substr(startPos, endPos - startPos);
 
-        std::string uri = "/audioserver";
+        startPos = authHeader.find("nonce=\"");
+        startPos += 7;
+        endPos = authHeader.find("\"", startPos);
+        std::string nonce = authHeader.substr(startPos, endPos - startPos);
 
-        std::string generatedDigest = GenerateDigest(ha1, method, uri, nonce);
+        std::string method = req.method_string();
+
+        std::string generatedDigest = Digest::GenerateDigest(ha1, nonce, method, uri);
 
         return generatedDigest == response;
     }
@@ -177,6 +183,7 @@ bool Digest::CheckDigest(http::request<http::string_body>& req, const std::strin
         return false;
     }
 }
+
 
 
 

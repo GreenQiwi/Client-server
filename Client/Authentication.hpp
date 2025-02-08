@@ -16,13 +16,13 @@ public:
     Authentication();
 
     //void Authenticate();
-    //std::string GetAuthHeader() const { return m_authHeader; }
+    std::string GetAuthHeader() const { return m_authHeader; }
 
     void SetUsername(std::string username) { m_username = username;  }
     void SetPassword(std::string password) { m_password = password;  }
 
-    //std::string GetUsername() { return m_username; }
-    //std::string GetPassword() { return m_password; }
+    std::string GetUsername() { return m_username; }
+    std::string GetPassword() { return m_password; }
 
     std::string GetToken() { return m_token; }
     void SetToken(const std::string& token ) { m_token = token; }
@@ -40,7 +40,7 @@ private:
     
     
 private:
-    //std::string m_authHeader;
+    std::string m_authHeader;
 
     std::string m_username;
     std::string m_password;

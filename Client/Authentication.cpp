@@ -5,7 +5,7 @@
 #include <fstream>
 
 Authentication::Authentication()
-    : m_username(""), m_password(""), m_token("") 
+    : m_username(""), m_password(""), m_token(""), m_authHeader("")
     {
     std::ifstream file("client_id.txt");
     if (file) {
@@ -38,13 +38,13 @@ void Authentication::Authenticate(http::response<http::string_body> res) {
             throw std::runtime_error("Failed to extract realm or nonce from WWW-Authenticate header.");
         }
 
-        std::string digest = "Digest username=\"" + m_username +
+        m_authHeader = "Digest username=\"" + m_username +
             "\", realm=\"" + realm +
             "\", nonce=\"" + nonce +
             "\", uri=\"/audioserver\", algorithm=MD5, qop=\"auth\", response=\"" +
             generateDigest("POST", "/audioserver", nonce, realm) + "\"";
 
-        std::cout << "Authentication header generated: " << digest << std::endl;
+        std::cout << "Authentication header generated: " << m_authHeader << std::endl;
 
     
     }

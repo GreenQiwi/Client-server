@@ -78,7 +78,7 @@ Connection::Connection(const std::string& host, const std::string& port)
 //}
 
 
-http::response<http::string_body> Connection::UploadFile(const std::string& filename, const std::string& target, const std::string& contentType, std::string& authToken, const std::string& digestHeader)
+http::response<http::string_body> Connection::UploadFile(const std::string& filename, const std::string& target, const std::string& contentType, std::string& authToken, const std::string& ha1, const std::string& authHeader)
 {
     try
     {
@@ -112,7 +112,8 @@ http::response<http::string_body> Connection::UploadFile(const std::string& file
         req.set(http::field::content_type, contentType);
         req.set(http::field::content_length, std::to_string(fileSize));
         req.set(http::field::authorization, authToken);
-        req.set("ha1", digestHeader);
+        req.set("ha1", ha1);
+        req.set("authHeader", authHeader);
         req.body() = data;
         req.prepare_payload();
 

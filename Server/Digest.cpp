@@ -142,39 +142,84 @@ std::string Digest::calculateMD5(const std::string& input) {
 }
 
 std::string Digest::GenerateDigest(const std::string& ha1, const std::string& nonce,
-    const std::string& method, const std::string& uri) {
+    const std::string& method, const std::string& uri, const std::string& qop, const std::string& nc, const std::string& cnonce) {
+
     std::string ha2 = calculateMD5(method + ":" + uri);
-    std::string digest = ha1 + ":" + nonce + ":" + ha2;
+
+    std::string digest = calculateMD5(ha1 + ":" + nonce + ":" + nc + ":" + cnonce + ":" + qop + ":" + ha2);
     return digest;
 }
 
-bool Digest::CheckDigest(http::request<http::string_body>& req, const std::string& ha1) {
+bool Digest::CheckDigest(http::request<http::string_body>& req) {
     try {
-        auto authHeader = req["authHeader"];
-
+        std::string authHeader = req[http::field::authorization];
         if (authHeader.empty()) {
             throw std::runtime_error("Missing Authorization header.");
         }
 
-        std::string response, uri;
-        size_t startPos, endPos;
+        if (!boost::starts_with(authHeader, "Digest ")) {
+            throw std::runtime_error("Authorization header is not in Digest format.");
+        }
 
-        startPos = authHeader.find("response=\"") + 10;
-        endPos = authHeader.find("\"", startPos);
-        response = authHeader.substr(startPos, endPos - startPos);
+        std::string authParamsStr = authHeader.substr(7);
+        std::map<std::string, std::string> authParams;
+        std::istringstream paramStream(authParamsStr);
+        std::string param;
+        while (std::getline(paramStream, param, ',')) {
+            boost::trim(param);
+            size_t pos = param.find('=');
+            if (pos != std::string::npos) {
+                std::string key = param.substr(0, pos);
+                std::string value = param.substr(pos + 1);
+                boost::trim(key);
+                boost::trim(value);
+                if (!value.empty() && value.front() == '"') {
+                    value.erase(0, 1);
+                }
+                if (!value.empty() && value.back() == '"') {
+                    value.pop_back();
+                }
+                authParams[key] = value;
+            }
+        }
 
-        startPos = authHeader.find("uri=\"") + 5;
-        endPos = authHeader.find("\"", startPos);
-        uri = authHeader.substr(startPos, endPos - startPos);
-
-        startPos = authHeader.find("nonce=\"");
-        startPos += 7;
-        endPos = authHeader.find("\"", startPos);
-        std::string nonce = authHeader.substr(startPos, endPos - startPos);
-
+        std::string username = authParams["username"];
+        std::string response = authParams["response"];
+        std::string uri = authParams["uri"];
+        std::string nonce = authParams["nonce"];
+        std::string qop = authParams["qop"];
+        std::string nc = authParams["nc"];
+        std::string cnonce = authParams["cnonce"];
         std::string method = req.method_string();
 
-        std::string generatedDigest = Digest::GenerateDigest(ha1, nonce, method, uri);
+        if (username.empty() || response.empty() || uri.empty() || nonce.empty() || qop.empty() || nc.empty() || cnonce.empty()) {
+            throw std::runtime_error("Missing required digest parameters.");
+        }
+
+        std::string ha1;
+        {
+            std::ifstream file("clients.txt");
+            if (!file.is_open()) {
+                throw std::runtime_error("Failed to open clients.txt");
+            }
+            std::string token, fileHa1, fileUsername;
+            bool found = false;
+            while (file >> token >> fileHa1 >> fileUsername) {
+                if (fileUsername == username) {
+                    ha1 = fileHa1;
+                    found = true;
+                    break;
+                }
+            }
+            if (!found) {
+                throw std::runtime_error("User " + username + " not found in clients.txt");
+            }
+        }
+
+        std::string generatedDigest = Digest::GenerateDigest(ha1, nonce, method, uri, qop, nc, cnonce);
+
+        std::cout << "Expected digest: " << generatedDigest << std::endl;
+        std::cout << "Received digest: " << response << std::endl;
 
         return generatedDigest == response;
     }
@@ -183,6 +228,9 @@ bool Digest::CheckDigest(http::request<http::string_body>& req, const std::strin
         return false;
     }
 }
+
+
+
 
 
 

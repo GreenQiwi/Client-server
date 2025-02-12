@@ -1,123 +1,90 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>WebSocket Client</title>
-  <style>
-    body { font-family: Arial, sans-serif; }
-    #loginDiv, #filesDiv { margin: 20px; }
-    input { margin-bottom: 10px; }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WebSocket Client</title>
 </head>
 <body>
-  <div id="loginDiv">
-    <h2>Login</h2>
-    <input type="text" id="username" placeholder="Username"><br>
-    <input type="password" id="password" placeholder="Password"><br>
-    <button id="loginBtn">Login</button>
-    <div id="loginError" style="color: red;"></div>
-  </div>
+    <h2>WebSocket Client</h2>
+    <div id="messages"></div>
+    <div id="fileList"></div>
 
-  <div id="filesDiv" style="display: none;">
-    <h2>Your Files</h2>
-    <ul id="filesList"></ul>
-  </div>
+    <script>
+        let socket;
+        const serverUrl = "ws://localhost:8080"; 
+        let username = ""; 
 
-  <script>
-    function authenticate(username, password, callback) {
-      const credentials = 'username="' + username + '", password="' + password + '"';
-      
-      const xhr = new XMLHttpRequest();
-      xhr.open("GET", "http://localhost:8080/authenticate", true, username, password);
-      xhr.setRequestHeader('Authorization', 'Digest ' + credentials);
-      xhr.onload = function() {
-        if (xhr.status === 200) {
-          callback(true);
-        } else {
-          callback(false, xhr.statusText);
+        function connectWebSocket() {
+            socket = new WebSocket(serverUrl);
+
+            socket.onopen = () => {
+                logMessage("Connected to WebSocket server.");
+                if (username) {
+                    socket.send("requestFiles:" + username); 
+                } else {
+                    logMessage("Username is not available.");
+                }
+            };
+
+            socket.onmessage = (event) => {
+                logMessage("Server: " + event.data);
+                handleServerMessage(event.data);  
+            };
+
+            socket.onerror = (error) => {
+                logMessage("WebSocket Error: " + error);
+            };
+
+            socket.onclose = () => {
+                logMessage("WebSocket connection closed.");
+            };
         }
-      };
-      xhr.onerror = function() {
-        callback(false, "Network Error");
-      };
-      xhr.send();
-    }
 
-    function startWebSocket() {
-      const socket = new WebSocket('ws://localhost:8080');
-      
-      socket.onopen = () => {
-        console.log('Connection established');
-      };
-
-      socket.onmessage = (event) => {
-        console.log('Received message:', event.data);
-        try {
-          const data = JSON.parse(event.data);
-          console.log('Parsed data:', data);
-
-          if (data.type === 'login') {
-            if (data.success) {
-              document.getElementById('loginDiv').style.display = 'none';
-              document.getElementById('filesDiv').style.display = 'block';
-
-              const filesList = document.getElementById('filesList');
-              filesList.innerHTML = '';
-
-              if (data.files && Array.isArray(data.files)) {
-                data.files.forEach(file => {
-                  const li = document.createElement('li');
-                  li.textContent = file;
-                  filesList.appendChild(li);
-                });
-              } else {
-                filesList.innerHTML = '<li>No available files</li>';
-              }
+        function handleServerMessage(message) {
+            if (message.startsWith("fileList:")) {
+                const fileList = message.slice(9).split(",");  
+                showFileList(fileList);
             } else {
-              document.getElementById('loginError').textContent = data.error;
+                logMessage("Unexpected message: " + message);
             }
-          }
-        } catch (error) {
-          console.error('Error processing message:', error);
         }
-      };
 
-      socket.onerror = (error) => {
-        console.error('WebSocket error:', error);
-      };
-    }
+        function showFileList(files) {
+            const fileListDiv = document.getElementById("fileList");
+            fileListDiv.innerHTML = "<h3>Your Files</h3>";
+            const ul = document.createElement("ul");
+            files.forEach(file => {
+                const li = document.createElement("li");
+                li.textContent = file;
+                ul.appendChild(li);
+            });
+            fileListDiv.appendChild(ul);
+        }
 
-    document.getElementById('loginBtn').addEventListener('click', () => {
-      const username = document.getElementById('username').value.trim();
-      const password = document.getElementById('password').value.trim();
+        function setUsername(user) {
+            username = user; 
+            logMessage("User logged in as: " + username);
+            connectWebSocket(); 
+        }
 
-      if (!username || !password) {
-        document.getElementById('loginError').textContent = 'Please enter both username and password';
-        return;
-      }
+        function logMessage(message) {
+            const messagesDiv = document.getElementById("messages");
+            const p = document.createElement("p");
+            p.textContent = message;
+            messagesDiv.appendChild(p);
+        }
 
-      function authenticate(username, password, callback) {
-        const encodedUsername = encodeURIComponent(username);
-        const encodedPassword = encodeURIComponent(password);
+        function promptForUsername() {
+            const user = prompt("Please enter your username");
+            if (user) {
+                setUsername(user); 
+            } else {
+                logMessage("Username is required.");
+            }
+        }
 
-        const credentials = 'username="' + encodedUsername + '", password="' + encodedPassword + '"';
-  
-        const xhr = new XMLHttpRequest();
-        xhr.open("GET", "http://localhost:8080/authenticate", true, username, password);
-        xhr.setRequestHeader('Authorization', 'Digest ' + credentials);
-        xhr.onload = function() {
-        if (xhr.status === 200) {
-          callback(true);
-        } else {
-        callback(false, xhr.statusText);
-      }
-    };
-  xhr.onerror = function() {
-    callback(false, "Network Error");
-  };
-  xhr.send();
-}
-);
-  </script>
+        window.onload = promptForUsername;
+    </script>
 </body>
 </html>

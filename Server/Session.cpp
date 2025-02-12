@@ -49,6 +49,64 @@ void Session::onRead(beast::error_code er, std::size_t s)
     try {
         auto request = m_parser->release();
 
+        if (request.target() == "/webclient")
+        {
+            if (request.find(http::field::authorization) == request.end())
+            {
+                std::ostringstream authChallenge;
+                authChallenge << "Digest realm=\"/audioserver\", nonce=\"" << m_nonce
+                    << "\", algorithm=md5, qop=\"auth\"";
+
+                http::response<http::string_body> response(http::status::unauthorized, request.version());
+                response.set(http::field::www_authenticate, authChallenge.str());
+                response.set(http::field::content_type, "text/plain");
+                response.body() = "Unauthorized";
+                response.prepare_payload();
+
+                http::async_write(m_socket, response,
+                    beast::bind_front_handler(&Session::onWrite, shared_from_this()));
+                doClose();
+                return;
+            }
+            else
+            {
+                std::string authHeaderStr = request[http::field::authorization];
+                std::cout << "Received Authorization header: " << authHeaderStr << std::endl;
+
+                if (!Digest::CheckDigest(request))
+                {
+                    std::ostringstream authChallenge;
+                    authChallenge << "Digest realm=\"/audioserver\", nonce=\"" << m_nonce
+                        << "\", algorithm=MD5, qop=\"auth\"";
+
+                    http::response<http::string_body> response(http::status::unauthorized, request.version());
+                    response.set(http::field::www_authenticate, authChallenge.str());
+                    response.set(http::field::content_type, "text/plain");
+                    response.body() = "Unauthorized";
+                    response.prepare_payload();
+
+                    http::async_write(m_socket, response,
+                        beast::bind_front_handler(&Session::onWrite, shared_from_this()));
+                    doClose();
+                    return;
+                }
+
+                http::response<http::file_body> response(http::status::ok, request.version());
+                boost::beast::error_code ec;
+                response.body().open("D:\\prog\\Client-server\\WebClient\\index.html",
+                    boost::beast::file_mode::scan, ec);
+                response.content_length(response.body().size());
+                response.keep_alive(request.keep_alive());
+                response.prepare_payload();
+
+                http::async_write(m_socket, response,
+                    beast::bind_front_handler(&Session::onWrite, shared_from_this()));
+                doClose();
+                return;
+            }
+        }
+
+
         if (boost::beast::websocket::is_upgrade(request))
         {
             std::make_shared<WebSocketSession>(std::move(m_socket))->doAccept(std::move(request));
@@ -58,26 +116,28 @@ void Session::onRead(beast::error_code er, std::size_t s)
         std::cout << "Request body (first 100 chars): " << request.body().substr(0, 100) << std::endl;
 
         std::string token;
-        if (request.find(http::field::authorization) != request.end()) {
-            token = request[http::field::authorization];
+        if (request.find("token") != request.end()) {
+            token = request["token"];
         }
         bool tokenValid = false;
 
         if (token.empty()) {
             std::string ha1 = request["ha1"];
+            std::string username = request["username"]; 
 
-            if (ha1.empty()) {
-                std::cerr << "Missing ha1 in request." << std::endl;
+            if (ha1.empty() || username.empty()) {
+                std::cerr << "Missing ha1 or username in request." << std::endl;
                 http::response<http::string_body> response(http::status::bad_request, request.version());
                 response.set(http::field::content_type, "text/plain");
-                response.body() = "Missing ha1";
+                response.body() = "Missing ha1 or username";
                 response.prepare_payload();
-                http::async_write(m_socket, response, beast::bind_front_handler(&Session::onWrite, shared_from_this()));
+                http::async_write(m_socket, response,
+                    beast::bind_front_handler(&Session::onWrite, shared_from_this()));
                 doClose();
                 return;
             }
 
-            if (Digest::CheckDigest(request, ha1)) {
+            if (Digest::CheckDigest(request)) {
                 auto now = std::chrono::system_clock::now();
                 auto epoch = std::chrono::duration_cast<std::chrono::seconds>(now.time_since_epoch()).count();
                 std::ostringstream tokenStream;
@@ -86,7 +146,7 @@ void Session::onRead(beast::error_code er, std::size_t s)
 
                 std::ofstream ofs("clients.txt", std::ios::app);
                 if (ofs.is_open()) {
-                    ofs << newToken << " " << ha1 << std::endl;
+                    ofs << newToken << " " << ha1 << " " << username << std::endl;
                     ofs.close();
                 }
                 else {
@@ -97,7 +157,8 @@ void Session::onRead(beast::error_code er, std::size_t s)
                 response.set(http::field::content_type, "text/plain");
                 response.body() = newToken;
                 response.prepare_payload();
-                http::async_write(m_socket, response, beast::bind_front_handler(&Session::onWrite, shared_from_this()));
+                http::async_write(m_socket, response,
+                    beast::bind_front_handler(&Session::onWrite, shared_from_this()));
                 doClose();
                 return;
             }
@@ -120,11 +181,11 @@ void Session::onRead(beast::error_code er, std::size_t s)
             }
         }
 
+
         std::ifstream tokenFile("clients.txt");
         if (tokenFile.is_open()) {
-            std::string storedToken, storedHa1;
-            while (tokenFile >> storedToken) {
-                std::getline(tokenFile, storedHa1);
+            std::string storedToken, storedHa1, storedUsername;
+            while (tokenFile >> storedToken >> storedHa1 >> storedUsername) {
                 if (storedToken == token) {
                     tokenValid = true;
                     break;

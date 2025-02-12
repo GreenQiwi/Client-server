@@ -23,7 +23,7 @@ class WebSocketSession : public std::enable_shared_from_this<WebSocketSession> {
 public:
     WebSocketSession(tcp::socket&& socket);
     void doAccept(http::request<http::string_body> req);
-
+    ~WebSocketSession();
 private:
     websocket::stream<tcp::socket> m_socket;
     beast::flat_buffer m_buffer;
@@ -36,9 +36,7 @@ private:
     void sendMessage(const std::string& msg);
     void onWrite(beast::error_code ec, std::size_t bytesTransferred);
     void doClose();
-    bool isValidUser(const std::string& username, const std::string& password, std::string& userDirectory);
-    bool authenticate(const http::request<http::string_body>& req);
-    void sendUnauthorized();
-
+    bool getUserFiles(const std::string& username, std::string& userDirectory, std::vector<std::string>& files);
+    void sendFileList(const std::vector<std::string>& files);
 };
 

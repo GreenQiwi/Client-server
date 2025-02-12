@@ -76,7 +76,7 @@ std::string Authentication::generateDigest(const std::string& method, const std:
     std::string ha2 = calculateMD5(method + ":" + uri);
 
     // HA1:nonce:HA2
-    std::string digest = ha1 + ":" + nonce + ":" + ha2;
+    std::string digest = calculateMD5(ha1 + ":" + nonce + ":" + ha2);
     return digest;
 }
 

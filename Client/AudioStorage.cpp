@@ -161,9 +161,10 @@ void AudioStorage::sendFile()
             Connection connection("127.0.0.1", "8080");
             std::string token = m_auth.GetToken();
             std::string ha1 = token.empty() ? m_auth.GenerateHa1("/audioserver") : " ";
-            std::string authHeader = m_auth.GetAuthHeader();
+            std::string authHeader = token.empty() ? m_auth.GetAuthHeader() : " ";
+            std::string username = token.empty() ? m_auth.GetUsername() : " ";
 
-            http::response<http::string_body> res = connection.UploadFile(filename, "POST", "audio/wav", token, ha1, authHeader);
+            http::response<http::string_body> res = connection.UploadFile(filename, "POST", "audio/wav", token, ha1, authHeader, username);
 
             if (res.result() == http::status::unauthorized) {
                 std::cout << "Wrong token" << std::endl;

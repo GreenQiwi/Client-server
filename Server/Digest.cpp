@@ -150,7 +150,7 @@ std::string Digest::GenerateDigest(const std::string& ha1, const std::string& no
     return digest;
 }
 
-bool Digest::CheckDigest(http::request<http::string_body>& req) {
+bool Digest::CheckDigest(http::request<http::string_body> req) {
     try {
         std::string authHeader = req[http::field::authorization];
         if (authHeader.empty()) {
@@ -192,10 +192,11 @@ bool Digest::CheckDigest(http::request<http::string_body>& req) {
         std::string cnonce = authParams["cnonce"];
         std::string method = req.method_string();
 
+        
         if (username.empty() || response.empty() || uri.empty() || nonce.empty() || qop.empty() || nc.empty() || cnonce.empty()) {
             throw std::runtime_error("Missing required digest parameters.");
         }
-
+        
         std::string ha1;
         {
             std::ifstream file("clients.txt");
@@ -215,9 +216,9 @@ bool Digest::CheckDigest(http::request<http::string_body>& req) {
                 throw std::runtime_error("User " + username + " not found in clients.txt");
             }
         }
-
+        
         std::string generatedDigest = Digest::GenerateDigest(ha1, nonce, method, uri, qop, nc, cnonce);
-
+        
         std::cout << "Expected digest: " << generatedDigest << std::endl;
         std::cout << "Received digest: " << response << std::endl;
 

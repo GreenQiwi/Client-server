@@ -1,14 +1,9 @@
 #include "WebSession.hpp"
-#include <boost/asio.hpp>
-#include <boost/beast.hpp>
-#include <iostream>
 #include <fstream>
 #include <sstream>
-#include <filesystem>
-#include <string>
 #include <vector>
-#include <boost/algorithm/string.hpp>
-#include "Digest.hpp"  
+#include <iostream>
+#include <filesystem>
 
 WebSocketSession::WebSocketSession(tcp::socket&& socket)
     : m_socket(std::move(socket)) {}
@@ -16,11 +11,10 @@ WebSocketSession::WebSocketSession(tcp::socket&& socket)
 WebSocketSession::~WebSocketSession() { std::cout << "WebSession destroyed." << std::endl; }
 
 void WebSocketSession::doAccept(http::request<http::string_body> req) {
-    std::cout << "WebSocket created." << std::endl;    
+    std::cout << "WebSocket created." << std::endl;
 
     m_socket.async_accept(req,
         beast::bind_front_handler(&WebSocketSession::onAccept, shared_from_this()));
-    
 }
 
 void WebSocketSession::onAccept(beast::error_code ec) {
@@ -61,13 +55,25 @@ void WebSocketSession::onRead(beast::error_code ec, std::size_t bytesTransferred
         std::getline(iss, username);
 
         std::vector<std::string> files;
-        std::string userDirectory;
 
-        if (getUserFiles(username, userDirectory, files)) {
+        if (getUserFiles(username, files)) {
             sendFileList(files);
         }
         else {
             sendMessage("{\"error\":\"User not found\"}");
+        }
+    }
+    else if (command == "requestFile") {
+        std::string username, fileName;
+        std::getline(iss, username, ':');
+        std::getline(iss, fileName);
+
+        if (getUserDirectory(username)) {
+            sendFile(fileName);
+        }
+        else {
+            std::cout << "User directory not found " << m_userDirectory << std::endl;
+            sendMessage("{\"error\":\"User directory not found\"}");
         }
     }
     else {
@@ -77,7 +83,7 @@ void WebSocketSession::onRead(beast::error_code ec, std::size_t bytesTransferred
     doRead();
 }
 
-bool WebSocketSession::getUserFiles(const std::string& username, std::string& userDirectory, std::vector<std::string>& files) {
+bool WebSocketSession::getUserFiles(const std::string& username, std::vector<std::string>& files) {
     std::ifstream file("clients.txt");
     if (!file.is_open()) {
         std::cerr << "Failed to open clients.txt" << std::endl;
@@ -93,14 +99,37 @@ bool WebSocketSession::getUserFiles(const std::string& username, std::string& us
         std::getline(iss, storedUsername);
 
         if (storedUsername == username) {
-            userDirectory = "./storage/" + folderAddress; 
-            if (std::filesystem::exists(userDirectory)) {
-                for (const auto& entry : std::filesystem::directory_iterator(userDirectory)) {
+            m_userDirectory = "./storage/" + folderAddress;
+            if (std::filesystem::exists(m_userDirectory)) {
+                for (const auto& entry : std::filesystem::directory_iterator(m_userDirectory)) {
                     if (entry.is_regular_file()) {
                         files.push_back(entry.path().filename().string());
                     }
                 }
             }
+            return true;
+        }
+    }
+    return false;
+}
+
+bool WebSocketSession::getUserDirectory(const std::string& username) {
+    std::ifstream file("clients.txt");
+    if (!file.is_open()) {
+        std::cerr << "Failed to open clients.txt" << std::endl;
+        return false;
+    }
+
+    std::string line;
+    while (std::getline(file, line)) {
+        std::istringstream iss(line);
+        std::string folderAddress, storedHash, storedUsername;
+        std::getline(iss, folderAddress, ' ');
+        std::getline(iss, storedHash, ' ');
+        std::getline(iss, storedUsername);
+
+        if (storedUsername == username) {
+            m_userDirectory = "./storage/" + folderAddress;
             return true;
         }
     }
@@ -117,6 +146,20 @@ void WebSocketSession::sendFileList(const std::vector<std::string>& files) {
     }
     oss << "]}";
     sendMessage(oss.str());
+}
+
+void WebSocketSession::sendFile(const std::string& filename) {
+    std::ifstream file(m_userDirectory + "/" + filename, std::ios::binary);
+    if (!file.is_open()) {
+        sendMessage("{\"error\":\"File not found\"}");
+        return;
+    }
+
+    std::vector<char> fileData((std::istreambuf_iterator<char>(file)), std::istreambuf_iterator<char>());
+
+    m_socket.binary(true);
+    m_socket.async_write(asio::buffer(fileData),
+        beast::bind_front_handler(&WebSocketSession::onWrite, shared_from_this()));
 }
 
 void WebSocketSession::sendMessage(const std::string& msg) {

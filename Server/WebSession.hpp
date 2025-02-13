@@ -28,6 +28,7 @@ private:
     websocket::stream<tcp::socket> m_socket;
     beast::flat_buffer m_buffer;
     std::string m_message;
+    std::string m_userDirectory;
 
 private:
     void onAccept(beast::error_code ec);
@@ -36,7 +37,9 @@ private:
     void sendMessage(const std::string& msg);
     void onWrite(beast::error_code ec, std::size_t bytesTransferred);
     void doClose();
-    bool getUserFiles(const std::string& username, std::string& userDirectory, std::vector<std::string>& files);
+    bool getUserFiles(const std::string& username, std::vector<std::string>& files);
+    void sendFile(const std::string& filename);
     void sendFileList(const std::vector<std::string>& files);
+    bool getUserDirectory(const std::string& username);
 };
 

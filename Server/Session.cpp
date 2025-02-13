@@ -56,13 +56,13 @@ void Session::onRead(beast::error_code er, std::size_t s)
                 std::ostringstream authChallenge;
                 authChallenge << "Digest realm=\"/audioserver\", nonce=\"" << m_nonce
                     << "\", algorithm=md5, qop=\"auth\"";
-
+            
                 http::response<http::string_body> response(http::status::unauthorized, request.version());
                 response.set(http::field::www_authenticate, authChallenge.str());
                 response.set(http::field::content_type, "text/plain");
                 response.body() = "Unauthorized";
                 response.prepare_payload();
-
+            
                 http::async_write(m_socket, response,
                     beast::bind_front_handler(&Session::onWrite, shared_from_this()));
                 doClose();
@@ -72,33 +72,33 @@ void Session::onRead(beast::error_code er, std::size_t s)
             {
                 std::string authHeaderStr = request[http::field::authorization];
                 std::cout << "Received Authorization header: " << authHeaderStr << std::endl;
-
+           
                 if (!Digest::CheckDigest(request))
                 {
-                    std::ostringstream authChallenge;
-                    authChallenge << "Digest realm=\"/audioserver\", nonce=\"" << m_nonce
-                        << "\", algorithm=MD5, qop=\"auth\"";
-
-                    http::response<http::string_body> response(http::status::unauthorized, request.version());
-                    response.set(http::field::www_authenticate, authChallenge.str());
-                    response.set(http::field::content_type, "text/plain");
-                    response.body() = "Unauthorized";
-                    response.prepare_payload();
-
-                    http::async_write(m_socket, response,
-                        beast::bind_front_handler(&Session::onWrite, shared_from_this()));
-                    doClose();
-                    return;
+                   std::ostringstream authChallenge;
+                   authChallenge << "Digest realm=\"/audioserver\", nonce=\"" << m_nonce
+                       << "\", algorithm=MD5, qop=\"auth\"";
+                
+                   http::response<http::string_body> response(http::status::unauthorized, request.version());
+                   response.set(http::field::www_authenticate, authChallenge.str());
+                   response.set(http::field::content_type, "text/plain");
+                   response.body() = "Unauthorized";
+                   response.prepare_payload();
+                
+                   http::async_write(m_socket, response,
+                       beast::bind_front_handler(&Session::onWrite, shared_from_this()));
+                   doClose();
+                   return;
                 }
-
+                
                 http::response<http::file_body> response(http::status::ok, request.version());
                 boost::beast::error_code ec;
                 response.body().open("D:\\prog\\Client-server\\WebClient\\index.html",
-                    boost::beast::file_mode::scan, ec);
+                    boost::beast::file_mode::write, ec);
                 response.content_length(response.body().size());
                 response.keep_alive(request.keep_alive());
                 response.prepare_payload();
-
+                
                 http::async_write(m_socket, response,
                     beast::bind_front_handler(&Session::onWrite, shared_from_this()));
                 doClose();

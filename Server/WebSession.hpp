@@ -41,5 +41,6 @@ private:
     void sendFile(const std::string& filename);
     void sendFileList(const std::vector<std::string>& files);
     bool getUserDirectory(const std::string& username);
+    std::string encodeBase64(const std::vector<char>& input);
 };
 

@@ -4,6 +4,10 @@
 #include <vector>
 #include <iostream>
 #include <filesystem>
+#include <boost/archive/iterators/binary_from_base64.hpp>
+#include <boost/archive/iterators/base64_from_binary.hpp>
+#include <boost/archive/iterators/transform_width.hpp>
+#include <boost/algorithm/string.hpp>
 
 WebSocketSession::WebSocketSession(tcp::socket&& socket)
     : m_socket(std::move(socket)) {}
@@ -156,11 +160,25 @@ void WebSocketSession::sendFile(const std::string& filename) {
     }
 
     std::vector<char> fileData((std::istreambuf_iterator<char>(file)), std::istreambuf_iterator<char>());
+    if (fileData.empty()) {
+        sendMessage("{\"error\":\"File is empty\"}");
+        return;
+    }
 
-    m_socket.binary(true);
-    m_socket.async_write(asio::buffer(fileData),
-        beast::bind_front_handler(&WebSocketSession::onWrite, shared_from_this()));
+    std::string fileDataBase64 = encodeBase64(fileData);
+
+    m_message = "{\"type\":\"fileData\",\"fileName\":\"" + filename + "\",\"data\":\"" + fileDataBase64 + "\"}";
+
+    sendMessage(m_message);
 }
+
+std::string WebSocketSession::encodeBase64(const std::vector<char>& input) {
+    using namespace boost::archive::iterators;
+    using It = base64_from_binary<transform_width<std::vector<char>::const_iterator, 6, 8>>;
+    auto tmp = std::string(It(std::begin(input)), It(std::end(input)));
+    return tmp.append((3 - input.size() % 3) % 3, '=');
+}
+
 
 void WebSocketSession::sendMessage(const std::string& msg) {
     if (!m_socket.is_open()) {

@@ -17,23 +17,11 @@ void MessageHandler::Start()
 }
 
 void MessageHandler::acceptConnections() {
-    
-    auto self = shared_from_this();
-    std::cout << "Waiting for request..." << std::endl;
 
     m_acceptor.async_accept(asio::make_strand(*m_ioc),
-        [self](beast::error_code er, tcp::socket socket) {
-            if (!er) {
-                auto session = std::make_shared<Session>(std::move(socket));
-                session->Run();
-
-                self->acceptConnections();
-            }
-            else {
-                std::cerr << "Accept error: " << er.message() << std::endl;
-            }          
-        });
-
+        beast::bind_front_handler(
+            &MessageHandler::handle,
+            shared_from_this()));
 }
 
 void MessageHandler::handle(beast::error_code er, tcp::socket socket)

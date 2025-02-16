@@ -16,8 +16,13 @@ Session::~Session() {
 }
 void Session::Run()
 {
-    asio::post(m_socket.get_executor(),
-        beast::bind_front_handler(&Session::doRead, shared_from_this()));
+    asio::dispatch(
+        m_socket.get_executor(),
+        beast::bind_front_handler(
+            &Session::doRead,
+            shared_from_this()
+        )
+    );
 }
 
 void Session::doRead()
@@ -57,51 +62,85 @@ void Session::onRead(beast::error_code er, std::size_t s)
                 authChallenge << "Digest realm=\"/audioserver\", nonce=\"" << m_nonce
                     << "\", algorithm=md5, qop=\"auth\"";
             
-                http::response<http::string_body> response(http::status::unauthorized, request.version());
-                response.set(http::field::www_authenticate, authChallenge.str());
-                response.set(http::field::content_type, "text/plain");
-                response.body() = "Unauthorized";
-                response.prepare_payload();
+                m_responce = std::make_shared<http::response<http::string_body>>(http::status::unauthorized, request.version());
+                m_responce->set(http::field::www_authenticate, authChallenge.str());
+                m_responce->set(http::field::content_type, "text/plain");
+                m_responce->body() = "Unauthorized";
+                m_responce->prepare_payload();
             
-                http::async_write(m_socket, response,
+                std::cout << "1" << std::endl;
+                http::async_write(m_socket, *m_responce,
                     beast::bind_front_handler(&Session::onWrite, shared_from_this()));
-                doClose();
                 return;
             }
             else
             {
-                std::string authHeaderStr = request[http::field::authorization];
-                std::cout << "Received Authorization header: " << authHeaderStr << std::endl;
+                std::string authHeader = request[http::field::authorization];
+                std::string method = request.method_string();
+                std::cout << "Received Authorization header: " << authHeader << std::endl;
            
-                if (!Digest::CheckDigest(request))
+                if (!Digest::CheckDigest(authHeader, method))
                 {
                    std::ostringstream authChallenge;
                    authChallenge << "Digest realm=\"/audioserver\", nonce=\"" << m_nonce
                        << "\", algorithm=MD5, qop=\"auth\"";
                 
-                   http::response<http::string_body> response(http::status::unauthorized, request.version());
-                   response.set(http::field::www_authenticate, authChallenge.str());
-                   response.set(http::field::content_type, "text/plain");
-                   response.body() = "Unauthorized";
-                   response.prepare_payload();
+                   m_responce = std::make_shared<http::response<http::string_body>>(http::status::unauthorized, request.version());
+                   m_responce->set(http::field::www_authenticate, authChallenge.str());
+                   m_responce->set(http::field::content_type, "text/plain");
+                   m_responce->body() = "Unauthorized";
+                   m_responce->prepare_payload();
                 
-                   http::async_write(m_socket, response,
+                   std::cout << "2" << std::endl;
+                   http::async_write(m_socket, *m_responce,
                        beast::bind_front_handler(&Session::onWrite, shared_from_this()));
-                   doClose();
                    return;
                 }
                 
-                http::response<http::file_body> response(http::status::ok, request.version());
-                boost::beast::error_code ec;
-                response.body().open("D:\\prog\\Client-server\\WebClient\\index.html",
-                    boost::beast::file_mode::write, ec);
-                response.content_length(response.body().size());
-                response.keep_alive(request.keep_alive());
-                response.prepare_payload();
-                
-                http::async_write(m_socket, response,
+                std::string authParamsStr = authHeader.substr(7);
+                std::map<std::string, std::string> authParams;
+                std::istringstream paramStream(authParamsStr);
+                std::string param;
+                while (std::getline(paramStream, param, ',')) {
+                    boost::trim(param);
+                    size_t pos = param.find('=');
+                    if (pos != std::string::npos) {
+                        std::string key = param.substr(0, pos);
+                        std::string value = param.substr(pos + 1);
+                        boost::trim(key);
+                        boost::trim(value);
+                        if (!value.empty() && value.front() == '"') {
+                            value.erase(0, 1);
+                        }
+                        if (!value.empty() && value.back() == '"') {
+                            value.pop_back();
+                        }
+                        authParams[key] = value;
+                    }
+                }
+
+                std::string username = authParams["username"];
+
+                std::ifstream htmlFile("D:\\prog\\Client-server\\WebClient\\index.html");
+                std::stringstream buffer;
+                buffer << htmlFile.rdbuf();
+                std::string htmlContent = buffer.str();
+                htmlFile.close();
+
+                std::string placeholder = "{{USERNAME}}";
+                size_t pos = htmlContent.find(placeholder);
+                if (pos != std::string::npos) {
+                    htmlContent.replace(pos, placeholder.length(), username);
+                }
+
+                m_responce = std::make_shared<http::response<http::string_body>>(http::status::ok, request.version());
+                m_responce->set(http::field::content_type, "text/html");
+                m_responce->body() = htmlContent;
+                m_responce->prepare_payload();
+
+                http::async_write(m_socket, *m_responce,
                     beast::bind_front_handler(&Session::onWrite, shared_from_this()));
-                doClose();
+
                 return;
             }
         }
@@ -133,11 +172,11 @@ void Session::onRead(beast::error_code er, std::size_t s)
                 response.prepare_payload();
                 http::async_write(m_socket, response,
                     beast::bind_front_handler(&Session::onWrite, shared_from_this()));
-                doClose();
                 return;
             }
-
-            if (Digest::CheckDigest(request)) {
+            std::string authHeader = request[http::field::authorization];
+            std::string method = request.method_string();
+            if (Digest::CheckDigest(authHeader, method)) {
                 auto now = std::chrono::system_clock::now();
                 auto epoch = std::chrono::duration_cast<std::chrono::seconds>(now.time_since_epoch()).count();
                 std::ostringstream tokenStream;
@@ -159,7 +198,6 @@ void Session::onRead(beast::error_code er, std::size_t s)
                 response.prepare_payload();
                 http::async_write(m_socket, response,
                     beast::bind_front_handler(&Session::onWrite, shared_from_this()));
-                doClose();
                 return;
             }
             else {
@@ -176,7 +214,6 @@ void Session::onRead(beast::error_code er, std::size_t s)
 
                 http::async_write(m_socket, response,
                     beast::bind_front_handler(&Session::onWrite, shared_from_this()));
-                doClose();
                 return;
             }
         }
@@ -208,7 +245,6 @@ void Session::onRead(beast::error_code er, std::size_t s)
 
             http::async_write(m_socket, response,
                 beast::bind_front_handler(&Session::onWrite, shared_from_this()));
-            doClose();
             return;
 
         }
@@ -249,15 +285,12 @@ void Session::onRead(beast::error_code er, std::size_t s)
 
         http::async_write(m_socket, response,
             beast::bind_front_handler(&Session::onWrite, shared_from_this()));
-        doClose();
         return;
     }
     catch (const std::exception& ex) {
         std::cerr << "Request processing error: " << ex.what() << std::endl;
     }
 }
-
-
 
 void Session::doClose()
 {
@@ -278,6 +311,5 @@ void Session::onWrite(beast::error_code er, std::size_t)
     if (er) {
         std::cerr << "Write error: " << er.message() << std::endl;
     }
-
-    doRead();
+    doClose();
 }

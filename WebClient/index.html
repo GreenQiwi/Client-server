@@ -14,42 +14,56 @@
         let socket;
         const serverUrl = "ws://localhost:8080"; 
         let username = ""; 
+        let fileBuffer = []; 
 
         function connectWebSocket() {
             socket = new WebSocket(serverUrl);
+            logMessage("Connecting to WebSocket...");
 
             socket.onopen = () => {
+                logMessage("WebSocket connection opened.");
                 if (username) {
                     socket.send("requestFiles:" + username);
+                    logMessage("Requesting file list from server...");
                 } else {
                     logMessage("Username is not available.");
                 }
             };
 
             socket.onmessage = (event) => {
-                try {
-                    const message = JSON.parse(event.data);
-                    handleServerMessage(message);
-                } catch (error) {
-                    logMessage("Error parsing message: " + error);
+                logMessage("Received message: " + event.data);
+                if (typeof event.data === "string") {
+                    try {
+                        const message = JSON.parse(event.data);
+                        logMessage("Parsed JSON message: " + JSON.stringify(message));
+                        handleServerMessage(message);
+                    } catch (error) {
+                        logMessage("Error parsing JSON: " + error);
+                    }
+                } else {
+                    logMessage("Received unknown data type.");
                 }
             };
 
-            socket.onerror = (error) => {
-                logMessage("WebSocket Error: " + error);
-            };
-
-            socket.onclose = () => {
-                logMessage("WebSocket connection closed.");
-            };
+            socket.onerror = (error) => logMessage("WebSocket Error: " + error);
+            socket.onclose = () => logMessage("WebSocket connection closed.");
         }
 
         function handleServerMessage(message) {
             if (message.type === "fileList" && Array.isArray(message.files)) {
-                const wavFiles = message.files.filter(file => file.endsWith('.wav')); 
-                showFileList(wavFiles);
-            } else if (message.type === "fileData" && message.fileName && message.data) {
-                playAudio(message.data); 
+                showFileList(message.files.filter(file => file.endsWith('.wav')));
+            } else if (message.type === "fileData") {
+                logMessage(`Receiving file: ${message.fileName}`);
+                fileBuffer = Uint8Array.from(atob(message.data), m => m.codePointAt(0));
+                const fileBlob = new Blob([fileBuffer], { type: 'audio/wav' });
+                const audioUrl = URL.createObjectURL(fileBlob);
+                const audio = new Audio();
+                audio.controls = true;
+                audio.onplay = () => logMessage("Audio playback started.");
+                audio.onended = () => logMessage("Audio playback finished.");
+                audio.onerror = (error) => console.error(error);
+                document.body.appendChild(audio);
+                audio.src = audioUrl;
             } else {
                 logMessage("Unexpected message: " + JSON.stringify(message));
             }
@@ -62,31 +76,34 @@
             files.forEach(file => {
                 const li = document.createElement("li");
                 li.textContent = file;
-                li.style.cursor = 'pointer'; 
-                li.onclick = () => requestFile(file); 
+                li.style.cursor = 'pointer';
+                li.onclick = () => requestFile(file);
                 ul.appendChild(li);
             });
             fileListDiv.appendChild(ul);
         }
 
         function requestFile(fileName) {
-            socket.send("requestFile:" + username + ":" + fileName); 
+            socket.send("requestFile:" + username + ":" + fileName);
             logMessage("Requesting file: " + fileName);
         }
 
-
-        function playAudio(fileData) {
-            const audioBlob = new Blob([new Uint8Array(fileData)], { type: 'audio/wav' });
-            const audioUrl = URL.createObjectURL(audioBlob);
+        function handleBinaryData(blob) {
+            fileBuffer.push(blob);
+            const fileBlob = new Blob(fileBuffer, { type: 'audio/wav' });
+            const audioUrl = URL.createObjectURL(fileBlob);
             const audio = new Audio(audioUrl);
             audio.controls = true;
+            audio.onplay = () => logMessage("Audio playback started.");
+            audio.onended = () => logMessage("Audio playback finished.");
+            audio.onerror = () => logMessage("Error during audio playback.");
             audio.play();
-            logMessage("Playing file.");
+            logMessage("Playing received file...");
         }
 
         function setUsername(user) {
-            username = user; 
-            connectWebSocket(); 
+            username = user;
+            connectWebSocket();
         }
 
         function logMessage(message) {
@@ -94,18 +111,20 @@
             const p = document.createElement("p");
             p.textContent = message;
             messagesDiv.appendChild(p);
+            console.log(message);  
         }
 
         function promptForUsername() {
-            const user = prompt("Please enter your username");
+            const user = prompt("Please enter your username"); 
             if (user) {
-                setUsername(user); 
+                setUsername(user);
             } else {
                 logMessage("Username is required.");
+                promptForUsername();  
             }
         }
 
-        window.onload = promptForUsername;
+        window.onload = promptForUsername; 
     </script>
 </body>
 </html>

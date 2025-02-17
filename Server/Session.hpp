@@ -32,7 +32,6 @@ private:
     std::string m_ha1;
     std::string m_nonce;
     std::shared_ptr<http::response<http::string_body>> m_responce;
-    std::shared_ptr<http::response<http::file_body>> m_file;
 
 private:
     void doRead();

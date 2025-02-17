@@ -166,17 +166,17 @@ void Session::onRead(beast::error_code er, std::size_t s)
 
             if (ha1.empty() || username.empty()) {
                 std::cerr << "Missing ha1 or username in request." << std::endl;
-                http::response<http::string_body> response(http::status::bad_request, request.version());
-                response.set(http::field::content_type, "text/plain");
-                response.body() = "Missing ha1 or username";
-                response.prepare_payload();
-                http::async_write(m_socket, response,
+                m_responce = std::make_shared<http::response<http::string_body>>(http::status::bad_request, request.version());
+                m_responce->set(http::field::content_type, "text/plain");
+                m_responce->body() = "Missing ha1 or username";
+                m_responce->prepare_payload();
+                http::async_write(m_socket, *m_responce,
                     beast::bind_front_handler(&Session::onWrite, shared_from_this()));
                 return;
             }
             std::string authHeader = request[http::field::authorization];
             std::string method = request.method_string();
-            if (Digest::CheckDigest(authHeader, method)) {
+            if (Digest::CheckDigest(authHeader, method, ha1)) {
                 auto now = std::chrono::system_clock::now();
                 auto epoch = std::chrono::duration_cast<std::chrono::seconds>(now.time_since_epoch()).count();
                 std::ostringstream tokenStream;
@@ -192,11 +192,11 @@ void Session::onRead(beast::error_code er, std::size_t s)
                     std::cerr << "Error opening clients.txt." << std::endl;
                 }
 
-                http::response<http::string_body> response(http::status::ok, request.version());
-                response.set(http::field::content_type, "text/plain");
-                response.body() = newToken;
-                response.prepare_payload();
-                http::async_write(m_socket, response,
+                m_responce = std::make_shared<http::response<http::string_body>>(http::status::ok, request.version());
+                m_responce->set(http::field::content_type, "text/plain");
+                m_responce->body() = newToken;
+                m_responce->prepare_payload();
+                http::async_write(m_socket, *m_responce,
                     beast::bind_front_handler(&Session::onWrite, shared_from_this()));
                 return;
             }
@@ -206,13 +206,13 @@ void Session::onRead(beast::error_code er, std::size_t s)
                     << "\", nonce=\"" << m_nonce
                     << "\", algorithm=MD5, qop=\"auth\"";
 
-                http::response<http::string_body> response(http::status::unauthorized, request.version());
-                response.set(http::field::www_authenticate, authHeader.str());
-                response.set(http::field::content_type, "text/plain");
-                response.body() = "Unauthorized";
-                response.prepare_payload();
+                m_responce = std::make_shared<http::response<http::string_body>>(http::status::unauthorized, request.version());
+                m_responce->set(http::field::www_authenticate, authHeader.str());
+                m_responce->set(http::field::content_type, "text/plain");
+                m_responce->body() = "Unauthorized";
+                m_responce->prepare_payload();
 
-                http::async_write(m_socket, response,
+                http::async_write(m_socket, *m_responce,
                     beast::bind_front_handler(&Session::onWrite, shared_from_this()));
                 return;
             }
@@ -237,13 +237,13 @@ void Session::onRead(beast::error_code er, std::size_t s)
                 << "\", nonce=\"" << m_nonce
                 << "\", algorithm=MD5, qop=\"auth\"";
 
-            http::response<http::string_body> response(http::status::unauthorized, request.version());
-            response.set(http::field::www_authenticate, authHeader.str());
-            response.set(http::field::content_type, "text/plain");
-            response.body() = "Unauthorized";
-            response.prepare_payload();
+            m_responce = std::make_shared<http::response<http::string_body>>(http::status::unauthorized, request.version());
+            m_responce->set(http::field::www_authenticate, authHeader.str());
+            m_responce->set(http::field::content_type, "text/plain");
+            m_responce->body() = "Unauthorized";
+            m_responce->prepare_payload();
 
-            http::async_write(m_socket, response,
+            http::async_write(m_socket, *m_responce,
                 beast::bind_front_handler(&Session::onWrite, shared_from_this()));
             return;
 
@@ -277,13 +277,13 @@ void Session::onRead(beast::error_code er, std::size_t s)
         ServerStorage::AddFile(std::filesystem::path(filename).filename().string(),
             "./storage/" + token + "/file_dates.txt", token);
 
-        http::response<http::string_body> response(http::status::ok, request.version());
-        response.set(http::field::server, "AudioServer");
-        response.set(http::field::content_type, "text/plain");
-        response.body() = "Part of audio saved as " + filename;
-        response.prepare_payload();
+        m_responce = std::make_shared<http::response<http::string_body>>(http::status::ok, request.version());
+        m_responce->set(http::field::server, "AudioServer");
+        m_responce->set(http::field::content_type, "text/plain");
+        m_responce->body() = "Part of audio saved as " + filename;
+        m_responce->prepare_payload();
 
-        http::async_write(m_socket, response,
+        http::async_write(m_socket, *m_responce,
             beast::bind_front_handler(&Session::onWrite, shared_from_this()));
         return;
     }

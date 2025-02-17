@@ -38,11 +38,19 @@ void Authentication::Authenticate(http::response<http::string_body> res) {
             throw std::runtime_error("Failed to extract realm or nonce from WWW-Authenticate header.");
         }
 
+        std::string cnonce = generateNonce();
+        std::string nc = "00000001";
+        std::string qop = "auth";
+
+        std::string response = generateDigest("POST", "/audioserver", nonce, realm, cnonce, nc, qop);
+
         m_authHeader = "Digest username=\"" + m_username +
             "\", realm=\"" + realm +
             "\", nonce=\"" + nonce +
-            "\", uri=\"/audioserver\", algorithm=MD5, qop=\"auth\", response=\"" +
-            generateDigest("POST", "/audioserver", nonce, realm) + "\"";
+            "\", uri=\"/audioserver\", algorithm=MD5, qop=\"" + qop +
+            "\", nc=" + nc +
+            ", cnonce=\"" + cnonce +
+            "\", response=\"" + response + "\"";
 
         std::cout << "Authentication header generated: " << m_authHeader << std::endl;
 
@@ -68,17 +76,16 @@ void Authentication::LogIn()
 }
 
 std::string Authentication::generateDigest(const std::string& method, const std::string& uri,
-    const std::string& nonce, const std::string& realm) {
-    // HA1
-    std::string ha1 = calculateMD5(m_username + ":" + realm + ":" + m_password);
+    const std::string& nonce, const std::string& realm,
+    const std::string& cnonce, const std::string& nc, const std::string& qop) {
 
-    // HA2
+    std::string ha1 = calculateMD5(m_username + ":" + realm + ":" + m_password);
     std::string ha2 = calculateMD5(method + ":" + uri);
 
-    // HA1:nonce:HA2
-    std::string digest = calculateMD5(ha1 + ":" + nonce + ":" + ha2);
+    std::string digest = calculateMD5(ha1 + ":" + nonce + ":" + nc + ":" + cnonce + ":" + qop + ":" + ha2);
     return digest;
 }
+
 
 std::string Authentication::GenerateHa1(std::string realm) {
     return calculateMD5(m_username + ":" + realm + ":" + m_password);
@@ -211,4 +218,16 @@ void Authentication::md5(const std::vector<uint8_t>& input, uint8_t digest[16]) 
     digest[13] = static_cast<uint8_t>(d0 >> 8);
     digest[14] = static_cast<uint8_t>(d0 >> 16);
     digest[15] = static_cast<uint8_t>(d0 >> 24);
+}
+
+std::string Authentication::generateNonce() {
+    std::random_device rd;
+    std::mt19937 gen(rd());
+    std::uniform_int_distribution<> dis(0, 15);
+
+    std::ostringstream oss;
+    for (int i = 0; i < 16; ++i) {
+        oss << std::hex << dis(gen);
+    }
+    return oss.str();
 }

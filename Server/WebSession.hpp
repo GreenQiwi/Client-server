@@ -42,5 +42,8 @@ private:
     void sendFileList(const std::vector<std::string>& files);
     bool getUserDirectory(const std::string& username);
     std::string encodeBase64(const std::vector<char>& input);
+    void deleteFile(const std::string& fileName);
+    std::map<std::string, std::time_t> ReadAssociations(const std::string& file);
+    void WriteAssociations(const std::map<std::string, std::time_t>& associations, const std::string& file);
 };
 

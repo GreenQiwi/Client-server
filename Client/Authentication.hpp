@@ -1,4 +1,5 @@
 #pragma once
+#include <random>
 #include <iostream>
 #include <sstream>
 #include <vector>
@@ -36,8 +37,9 @@ private:
     uint32_t left_rotate(uint32_t x, uint32_t c);
     std::string calculateMD5(const std::string& input);
     std::string generateDigest(const std::string& method, const std::string& uri,
-        const std::string& nonce, const std::string& realm);
-    
+        const std::string& nonce, const std::string& realm,
+        const std::string& cnonce, const std::string& nc, const std::string& qop);
+    std::string generateNonce();
     
 private:
     std::string m_authHeader;

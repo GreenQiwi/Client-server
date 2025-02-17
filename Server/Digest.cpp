@@ -227,7 +227,62 @@ bool Digest::CheckDigest(std::string authHeader, std::string method) {
     }
 }
 
+bool Digest::CheckDigest(std::string authHeader, std::string method, std::string ha1) {
+    try {
+        if (authHeader.empty()) {
+            throw std::runtime_error("Missing Authorization header.");
+        }
 
+        if (!boost::starts_with(authHeader, "Digest ")) {
+            throw std::runtime_error("Authorization header is not in Digest format.");
+        }
+
+        std::string authParamsStr = authHeader.substr(7);
+        std::map<std::string, std::string> authParams;
+        std::istringstream paramStream(authParamsStr);
+        std::string param;
+        while (std::getline(paramStream, param, ',')) {
+            boost::trim(param);
+            size_t pos = param.find('=');
+            if (pos != std::string::npos) {
+                std::string key = param.substr(0, pos);
+                std::string value = param.substr(pos + 1);
+                boost::trim(key);
+                boost::trim(value);
+                if (!value.empty() && value.front() == '"') {
+                    value.erase(0, 1);
+                }
+                if (!value.empty() && value.back() == '"') {
+                    value.pop_back();
+                }
+                authParams[key] = value;
+            }
+        }
+
+        std::string username = authParams["username"];
+        std::string response = authParams["response"];
+        std::string uri = authParams["uri"];
+        std::string nonce = authParams["nonce"];
+        std::string qop = authParams["qop"];
+        std::string nc = authParams["nc"];
+        std::string cnonce = authParams["cnonce"];
+
+        if (username.empty() || response.empty() || uri.empty() || nonce.empty() || qop.empty() || nc.empty() || cnonce.empty()) {
+            throw std::runtime_error("Missing required digest parameters.");
+        }
+
+        std::string generatedDigest = Digest::GenerateDigest(ha1, nonce, method, uri, qop, nc, cnonce);
+
+        std::cout << "Expected digest: " << generatedDigest << std::endl;
+        std::cout << "Received digest: " << response << std::endl;
+
+        return generatedDigest == response;
+    }
+    catch (const std::exception& ex) {
+        std::cerr << "Digest verification failed: " << ex.what() << std::endl;
+        return false;
+    }
+}
 
 
 

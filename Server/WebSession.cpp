@@ -80,6 +80,18 @@ void WebSocketSession::onRead(beast::error_code ec, std::size_t bytesTransferred
             sendMessage("{\"error\":\"User directory not found\"}");
         }
     }
+    else if (command == "deleteFile") {
+        std::string username, fileName;
+        std::getline(iss, username, ':');
+        std::getline(iss, fileName);
+
+        if (getUserDirectory(username)) {
+            deleteFile(fileName);
+        }
+        else {
+            sendMessage("{\"error\":\"User directory not found\"}");
+        }
+    }
     else {
         sendMessage("{\"error\":\"Invalid command\"}");
     }
@@ -207,3 +219,63 @@ void WebSocketSession::doClose() {
     }
     std::cout << "Session ended, socket closed." << std::endl;
 }
+
+std::map<std::string, std::time_t> WebSocketSession::ReadAssociations(const std::string& file) {
+    std::map<std::string, std::time_t> associations;
+    std::ifstream inFile(file);
+    if (!inFile.is_open()) {
+        std::cerr << "Failed to open associations file: " << file << std::endl;
+        return associations;
+    }
+
+    std::string filename;
+    std::time_t timestamp;
+    while (inFile >> filename >> timestamp) {
+        associations[filename] = timestamp;
+    }
+
+    inFile.close();
+    return associations;
+}
+
+void WebSocketSession::WriteAssociations(const std::map<std::string, std::time_t>& associations, const std::string& file) {
+    std::ofstream outFile(file);
+    if (!outFile.is_open()) {
+        std::cerr << "Failed to open associations file: " << file << std::endl;
+        return;
+    }
+
+    for (const auto& [filename, timestamp] : associations) {
+        outFile << filename << " " << timestamp << "\n";
+    }
+
+    outFile.close();
+}
+
+void WebSocketSession::deleteFile(const std::string& fileName) {
+    if (m_userDirectory.empty()) {
+        std::cerr << "User directory is not set!" << std::endl;
+        sendMessage("{\"error\":\"User directory not found\"}");
+        return;
+    }
+
+    std::string filePath = m_userDirectory + "/" + fileName;
+    std::string associationsFile = m_userDirectory + "/file_dates.txt";
+
+    if (!std::filesystem::exists(filePath)) {
+        sendMessage("{\"error\":\"File not found\"}");
+        return;
+    }
+
+    std::filesystem::remove(filePath);
+    auto associations = ReadAssociations(associationsFile);
+
+    if (associations.erase(fileName) > 0) {
+        WriteAssociations(associations, associationsFile);
+        sendMessage("{\"type\":\"fileDeleted\",\"fileName\":\"" + fileName + "\"}");
+    }
+    else {
+        sendMessage("{\"type\":\"fileDeleted\",\"fileName\":\"" + fileName + "\",\"warning\":\"File not found in associations\"}");
+    }
+}
+

@@ -17,8 +17,7 @@ AudioStorage::~AudioStorage()
 }
 
 void AudioStorage::InitRecord()
-{
-    m_auth.LogIn();
+{    
     PaError err = Pa_Initialize();
     if (err != paNoError) 
     {
@@ -175,6 +174,7 @@ void AudioStorage::sendFile()
                     std::cerr << "Error clearing clients.txt." << std::endl;
                 }
 
+                m_auth.LogIn();
                 m_auth.SetToken("");
                 m_auth.Authenticate(res);
                 authHeader = m_auth.GetAuthHeader();

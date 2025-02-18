@@ -3,7 +3,7 @@
 MessageHandler::MessageHandler(std::shared_ptr<asio::io_context> ioc)
     :
     m_ioc(ioc),
-    m_endpoint(tcp::v4(), 8080),
+    m_endpoint(asio::ip::make_address_v4("0.0.0.0"), 8080),
     m_acceptor(*m_ioc, m_endpoint),
     request(std::make_shared<http::request<http::string_body>>())
     {

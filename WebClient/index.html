@@ -73,30 +73,25 @@
 
     <script>
         let socket;
-        const serverUrl = "ws://localhost:8080"; 
+        const serverUrl = "192.168.100.43:8080"; 
         let username = "{{USERNAME}}";
         let fileBuffer = []; 
 
         function connectWebSocket() {
             socket = new WebSocket(serverUrl);
-            //logMessage("Connecting to WebSocket...");
 
             socket.onopen = () => {
-                //logMessage("WebSocket connection opened.");
                 if (username) {
                     socket.send("requestFiles:" + username);
-                    //logMessage("Requesting file list from server...");
                 } else {
                     logMessage("Username is not available.");
                 }
             };
 
             socket.onmessage = (event) => {
-                //logMessage("Received message: " + event.data);
                 if (typeof event.data === "string") {
                     try {
                         const message = JSON.parse(event.data);
-                        //logMessage("Parsed JSON message: " + JSON.stringify(message));
                         handleServerMessage(message);
                     } catch (error) {
                         logMessage("Error parsing JSON: " + error);
@@ -171,7 +166,6 @@
 
         function requestFile(fileName) {
             socket.send("requestFile:" + username + ":" + fileName);
-            //logMessage("Requesting file: " + fileName);
         }
 
         function logMessage(message) {

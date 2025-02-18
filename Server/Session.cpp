@@ -73,7 +73,7 @@ void Session::handleWebClientRequest(http::request<http::string_body>& request) 
 
     std::string username = findUsername(authHeader);
 
-    std::ifstream htmlFile("D:\\prog\\Client-server\\WebClient\\index.html");
+    std::ifstream htmlFile("index.html");
     std::stringstream buffer;
     buffer << htmlFile.rdbuf();
     std::string htmlContent = buffer.str();

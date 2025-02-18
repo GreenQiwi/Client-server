@@ -5916,3 +5916,4 @@ qwerty/au<JÚ¼p €_20241204140433.wav 1733310273
 [ADD] audio_part_2025.02.18.17.21.12.wav added with timestamp 1739888472
 [INFO] Incoming request with file size: 364588 bytes.
 [SAVE] ./storage/1739888446/audio_part_2025.02.18.17.21.12.wav saved to storage.
+[DELETE] ./storage/1739801018/audio_part_20250217170651.wavdeleted because of user request.

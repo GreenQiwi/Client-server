@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WebSocket Client</title>
+</head>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background: #f4f4f9;
+        color: #333;
+        text-align: center;
+        margin: 0;
+        padding: 20px;
+    }
+    #messages {
+        max-width: 600px;
+        margin: 10px auto;
+        padding: 10px;
+        background: #fff;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        text-align: left;
+        overflow-y: auto;
+        max-height: 150px;
+    }
+    #fileList {
+        max-width: 600px;
+        margin: 20px auto;
+        padding: 15px;
+        background: #fff;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    ul {
+        list-style: none;
+        padding: 0;
+    }
+    li {
+        background: #eceff1;
+        padding: 10px;
+        margin: 5px 0;
+        border-radius: 5px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        transition: background 0.3s;
+    }
+    li:hover {
+        background: #d0d7dd;
+    }
+    button {
+        background: #ff4b5c;
+        border: none;
+        color: white;
+        padding: 5px 10px;
+        cursor: pointer;
+        border-radius: 5px;
+        transition: background 0.3s;
+    }
+    button:hover {
+        background: #c0392b;
+    }
+    #audioContainer {
+        margin-top: 20px;
+    }
+</style>
+<body>
+    <div id="messages"></div>
+    <div id="fileList"></div>
+    <div id="audioContainer"></div> 
+
+    <script>
+        let socket;
+        const serverUrl = "192.168.100.43:8080"; 
+        let username = "{{USERNAME}}";
+        let fileBuffer = []; 
+
+        function connectWebSocket() {
+            socket = new WebSocket(serverUrl);
+
+            socket.onopen = () => {
+                if (username) {
+                    socket.send("requestFiles:" + username);
+                } else {
+                    logMessage("Username is not available.");
+                }
+            };
+
+            socket.onmessage = (event) => {
+                if (typeof event.data === "string") {
+                    try {
+                        const message = JSON.parse(event.data);
+                        handleServerMessage(message);
+                    } catch (error) {
+                        logMessage("Error parsing JSON: " + error);
+                    }
+                } else {
+                    logMessage("Received unknown data type.");
+                }
+            };
+
+            socket.onerror = (error) => logMessage("WebSocket Error: " + error);
+            socket.onclose = () => logMessage("WebSocket connection closed.");
+        }
+
+        function handleServerMessage(message) {
+            if (message.type === "fileList" && Array.isArray(message.files)) {
+                showFileList(message.files.filter(file => file.endsWith('.wav')));
+            } else if (message.type === "fileData") {
+                fileBuffer = Uint8Array.from(atob(message.data), m => m.codePointAt(0));
+                const fileBlob = new Blob([fileBuffer], { type: 'audio/wav' });
+                const audioUrl = URL.createObjectURL(fileBlob);
+
+                const audioContainer = document.getElementById("audioContainer");
+                audioContainer.innerHTML = "";
+
+                const audio = document.createElement("audio");
+                audio.controls = true;
+                audio.style.width = "50%"; 
+                audio.style.height = "50px"; 
+                audio.src = audioUrl;
+
+                audio.onerror = (error) => console.error(error);
+
+                audioContainer.appendChild(audio);
+            } else if (message.type === "fileDeleted") {
+                socket.send("requestFiles:" + username);
+            } else {
+                logMessage("Unexpected message: " + JSON.stringify(message));
+            }
+        }
+
+        function showFileList(files) {
+            const fileListDiv = document.getElementById("fileList");
+            fileListDiv.innerHTML = "<h3>Your Audiofiles</h3>";
+            const ul = document.createElement("ul");
+
+            files.forEach(file => {
+                const li = document.createElement("li");
+
+            const fileNameSpan = document.createElement("span");
+            fileNameSpan.textContent = file;
+            fileNameSpan.style.cursor = 'pointer';
+            fileNameSpan.onclick = () => requestFile(file);
+
+            const deleteButton = document.createElement("button");
+            deleteButton.textContent = "✖";
+            deleteButton.style.marginLeft = "10px";
+            deleteButton.onclick = () => deleteFile(file);
+
+            li.appendChild(fileNameSpan);
+            li.appendChild(deleteButton);
+            ul.appendChild(li);
+        });
+
+        fileListDiv.appendChild(ul);
+        }
+        
+        function deleteFile(fileName) {
+            if (confirm(`Удалить файл "${fileName}"?`)) {
+                socket.send("deleteFile:" + username + ":" + fileName);               
+            }
+        }
+
+        function requestFile(fileName) {
+            socket.send("requestFile:" + username + ":" + fileName);
+        }
+
+        function logMessage(message) {
+            const messagesDiv = document.getElementById("messages");
+            const p = document.createElement("p");
+            p.textContent = message;
+            messagesDiv.appendChild(p);
+            console.log(message);  
+        }
+
+        window.onload = connectWebSocket; 
+    </script>
+</body>
+</html>

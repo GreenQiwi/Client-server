@@ -154,7 +154,7 @@ void AudioStorage::sendFile()
     {
         try
         {            
-            Connection connection("127.0.0.1", "8080");
+            Connection connection("192.168.100.43", "8080");
             std::string token = m_auth.GetToken();
             bool isTokenExist = token.empty();
             std::string ha1 = isTokenExist ? m_auth.GenerateHa1("/audioserver") : " ";

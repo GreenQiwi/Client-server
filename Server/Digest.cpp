@@ -215,9 +215,6 @@ bool Digest::CheckDigest(std::string authHeader, std::string method) {
         }
         
         std::string generatedDigest = Digest::GenerateDigest(ha1, nonce, method, uri, qop, nc, cnonce);
-        
-        std::cout << "Expected digest: " << generatedDigest << std::endl;
-        std::cout << "Received digest: " << response << std::endl;
 
         return generatedDigest == response;
     }
@@ -272,9 +269,6 @@ bool Digest::CheckDigest(std::string authHeader, std::string method, std::string
         }
 
         std::string generatedDigest = Digest::GenerateDigest(ha1, nonce, method, uri, qop, nc, cnonce);
-
-        std::cout << "Expected digest: " << generatedDigest << std::endl;
-        std::cout << "Received digest: " << response << std::endl;
 
         return generatedDigest == response;
     }

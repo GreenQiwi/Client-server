@@ -13,7 +13,7 @@ http::response<http::string_body> Connection::UploadFile(const std::string& file
         tcp::socket socket(m_ioc);
         beast::flat_buffer buffer;
 
-        asio::connect(socket, results.begin(), results.end());
+        asio::connect(socket, std::begin(results), std::end(results));
 
         std::ifstream file(filename, std::ios::binary | std::ios::ate);
         if (!file) {
@@ -27,13 +27,13 @@ http::response<http::string_body> Connection::UploadFile(const std::string& file
         if (!file.read(dataVect.data(), fileSize)) {
             std::cerr << "Error reading file content." << std::endl;
         }
-        const std::string data(dataVect.begin(), dataVect.end());
+        const std::string data(std::begin(dataVect), std::end(dataVect)); 
         
         if (!authToken.empty() && authToken[authToken.size() - 1] == '\n') {
             authToken.erase(authToken.size() - 1); 
         }
 
-        http::request<http::string_body> req{ http::verb::post, target, 11 };
+        http::request<http::string_body> req{ http::verb::post, target, HTTP_VERSION };
         req.set(http::field::host, m_host);
         req.set(http::field::content_type, contentType);
         req.set(http::field::content_length, std::to_string(fileSize));
@@ -43,11 +43,6 @@ http::response<http::string_body> Connection::UploadFile(const std::string& file
         req.set("username", username);
         req.body() = data;
         req.prepare_payload();
-
-
-        std::cout << "Sending request..." << std::endl;
-        std::cout << "Request body size: " << req.body().size() << std::endl;
-        std::cout << "Request body (first 100 chars): " << req.body().substr(0, 100) << std::endl;
 
         http::write(socket, req);
      
@@ -59,7 +54,7 @@ http::response<http::string_body> Connection::UploadFile(const std::string& file
 
         http::read(socket, buffer, resp);
 
-        std::cout << "Server response: " << resp << std::endl;
+        std::cout << "Server response: " << resp.body() << std::endl;
         return resp;
     }
     catch (const std::exception& ex) {

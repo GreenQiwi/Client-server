@@ -1,8 +1,4 @@
 #include "Authentication.hpp"
-#include <vector>
-#include <iomanip>
-#include <sstream>
-#include <fstream>
 
 Authentication::Authentication()
     : m_username(""), m_password(""), m_token(""), m_authHeader("")
@@ -52,22 +48,44 @@ void Authentication::Authenticate(http::response<http::string_body> res) {
             ", cnonce=\"" + cnonce +
             "\", response=\"" + response + "\"";
 
-        std::cout << "Authentication header generated: " << m_authHeader << std::endl;
-
-    
     }
     catch (const std::exception& ex) {
         std::cerr << "Authentication failed: " << ex.what() << std::endl;
     }
 }
 
+std::string Authentication::GetAuthHeader() { 
+    return m_authHeader; 
+}
+
+void Authentication::SetUsername(std::string username) { 
+    m_username = username; 
+}
+
+void Authentication::SetPassword(std::string password) { 
+    m_password = password; 
+}
+
+std::string Authentication::GetUsername() { 
+    return m_username; 
+}
+
+std::string Authentication::GetToken() { 
+    return m_token; 
+}
+
+void Authentication::SetToken(const std::string& token) { 
+    m_token = token; 
+}
+
 void Authentication::LogIn()
 {
     std::string username, password;
 
-    std::cout << "Enter login " << ":";
+    std::cout << std::endl;
+    std::cout << "Enter login: ";
     std::cin >> username;
-    std::cout << "Enter password " << ":";
+    std::cout << "Enter password: ";
     std::cin >> password;
     std::cout << std::endl;
 

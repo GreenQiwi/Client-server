@@ -1,12 +1,9 @@
 #pragma once
 
-#include "Authentication.hpp"
 #include <vector>
-#include <fstream>
-#include <iostream>
 #include <portaudio.h>
-#include <boost/asio/thread_pool.hpp>
-#include <boost/asio/post.hpp>
+
+#include "Authentication.hpp"
 #include "Connection.hpp"
 
 #define SAMPLE_RATE 44100
@@ -29,10 +26,8 @@ private:
     std::vector<float> m_audiodata;
     int m_index;
     PaStream* m_stream;
-    asio::thread_pool m_threadpool;
     Authentication m_auth;
 
 private:
     void sendFile();
-    void closeConnection();;
 };

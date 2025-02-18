@@ -29,11 +29,12 @@ std::string ServerStorage::GenerateFilename(const std::string& sessionDir)
 
     std::ostringstream oss;
     oss << dir.string() + "/audio_part_"
-        << std::put_time(&time_info, "%Y%m%d%H%M%S")
+        << std::put_time(&time_info, "%Y.%m.%d.%H.%M.%S")
         << ".wav";
 
     return oss.str();
 }
+
 
 void ServerStorage::AddFile(const std::string& filename, const std::string& file, const std::string& sessionDir)
 {

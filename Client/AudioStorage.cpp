@@ -2,7 +2,7 @@
 #include "Connection.hpp"
 
 AudioStorage::AudioStorage()
-    : m_index(0), m_stream(nullptr), m_threadpool(std::thread::hardware_concurrency()), m_auth() {}
+    : m_index(0), m_stream(nullptr), m_auth() {}
 
 
 AudioStorage::~AudioStorage()
@@ -12,13 +12,12 @@ AudioStorage::~AudioStorage()
         Pa_CloseStream(m_stream);
         Pa_Terminate();
     }
-
-    //m_threadpool.join();
 }
 
 void AudioStorage::InitRecord()
 {    
     PaError err = Pa_Initialize();
+    
     if (err != paNoError) 
     {
         throw std::runtime_error("PortAudio initialization failed: " + std::string(Pa_GetErrorText(err)));
@@ -55,7 +54,7 @@ void AudioStorage::InitRecord()
                 static_cast<AudioStorage*>(userData)->ParseAudio(input, frames);
                 return paContinue;
         },
-        this);
+        this);   
 
     if (err != paNoError) 
     {
@@ -69,6 +68,8 @@ void AudioStorage::StartRecord()
     {
         throw std::runtime_error("Failed to start stream");
     }
+
+    system("cls");
     std::cout << "Recording... Press 'q' to stop." << std::endl;
 }
 
@@ -83,10 +84,6 @@ void AudioStorage::StopRecord() {
         throw std::runtime_error("Failed to stop stream.");
     }
     std::cout << "Recording stopped." << std::endl;
-
-    //m_threadpool.join();
-
-    closeConnection();
 }
 
 void AudioStorage::ParseAudio(const void* inputAudio, size_t framesNumber)
@@ -118,7 +115,7 @@ void AudioStorage::sendFile()
     int dataSize = m_audiodata.size() * sizeof(float);
     const int chunkSize = 36 + dataSize;
     const int subChunk1Size = 16;
-    const short audioFormat = 3;  // IEEE float format
+    const short audioFormat = 3;  
     const int byteRate = SAMPLE_RATE * NUMBER_OF_CHANNELS * sizeof(float);
     const short blockAlign = NUMBER_OF_CHANNELS * sizeof(float);
     const short bitsPerSample = sizeof(float) * 8;
@@ -159,14 +156,14 @@ void AudioStorage::sendFile()
         {            
             Connection connection("127.0.0.1", "8080");
             std::string token = m_auth.GetToken();
-            std::string ha1 = token.empty() ? m_auth.GenerateHa1("/audioserver") : " ";
-            std::string authHeader = token.empty() ? m_auth.GetAuthHeader() : " ";
-            std::string username = token.empty() ? m_auth.GetUsername() : " ";
+            bool isTokenExist = token.empty();
+            std::string ha1 = isTokenExist ? m_auth.GenerateHa1("/audioserver") : " ";
+            std::string authHeader = isTokenExist ? m_auth.GetAuthHeader() : " ";
+            std::string username = isTokenExist ? m_auth.GetUsername() : " ";
 
             http::response<http::string_body> res = connection.UploadFile(filename, "POST", "audio/wav", token, ha1, authHeader, username);
 
             if (res.result() == http::status::unauthorized) {
-                std::cout << "Wrong token" << std::endl;
                 std::this_thread::sleep_for(std::chrono::seconds(5));
 
                 std::ofstream ofs("client_id.txt", std::ios::trunc);
@@ -217,56 +214,4 @@ void AudioStorage::sendFile()
 
     std::remove(filename.c_str());
     m_audiodata.clear();
-}
-
-void AudioStorage::closeConnection()
-{
-    try
-    {
-        boost::asio::io_context ioc;
-        tcp::resolver resolver(ioc);
-        auto const results = resolver.resolve("127.0.0.1", "8080");
-
-        boost::beast::tcp_stream stream(ioc);
-        stream.connect(results);
-
-        http::request<http::string_body> req{ http::verb::post, "/close", 11 };
-        req.set(http::field::host, "127.0.0.1");
-        req.set(http::field::content_type, "text/plain");
-        req.body() = "CLOSE_CONNECTION";
-        req.prepare_payload();
-
-        http::write(stream, req);
-
-        boost::system::error_code ec;
-        boost::beast::flat_buffer buffer;
-        http::response<http::string_body> res;
-        http::read(stream, buffer, res, ec);
-
-        if (ec == boost::asio::error::eof || ec == boost::system::errc::success)
-        {
-            std::cout << "Connection closed successfully." << std::endl;
-        }
-
-        if (res.result() == http::status::ok)
-        {
-            std::cout << "Connection closed successfully." << std::endl;
-        }
-        else
-        {
-            std::cerr << "Server responded with unexpected status: "
-                << res.result_int() << std::endl;
-        }
-     
-        stream.socket().shutdown(tcp::socket::shutdown_both, ec);
-      
-        if (ec && ec != boost::system::errc::not_connected)
-        {
-            throw boost::system::system_error{ ec };
-        }
-    }
-    catch (const std::exception& ex)
-    {
-        std::cerr << "Failed close connection: " << ex.what();
-    }
 }

@@ -1,14 +1,10 @@
 #pragma once
 
-#include <memory>
 #include <iostream>
-#include <sstream>
-#include <vector>
-#include <string>
 #include <filesystem>
-
-#include <boost/asio.hpp>
-#include <boost/beast.hpp>
+#include <iostream>
+#include <boost/archive/iterators/base64_from_binary.hpp>
+#include <boost/archive/iterators/transform_width.hpp>
 #include <boost/beast/websocket.hpp>
 
 #include "Digest.hpp"
@@ -23,7 +19,7 @@ class WebSocketSession : public std::enable_shared_from_this<WebSocketSession> {
 public:
     WebSocketSession(tcp::socket&& socket);
     void doAccept(http::request<http::string_body> req);
-    ~WebSocketSession();
+
 private:
     websocket::stream<tcp::socket> m_socket;
     beast::flat_buffer m_buffer;
@@ -45,5 +41,6 @@ private:
     void deleteFile(const std::string& fileName);
     std::map<std::string, std::time_t> ReadAssociations(const std::string& file);
     void WriteAssociations(const std::map<std::string, std::time_t>& associations, const std::string& file);
+
 };
 

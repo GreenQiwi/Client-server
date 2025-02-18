@@ -1,8 +1,9 @@
 #pragma once
+
 #include <random>
 #include <iostream>
-#include <sstream>
-#include <vector>
+#include <iomanip>
+#include <fstream>
 #include <boost/asio.hpp>
 #include <boost/beast/core.hpp>
 #include <boost/beast/http.hpp>
@@ -16,17 +17,15 @@ class Authentication {
 public:
     Authentication();
 
-    //void Authenticate();
-    std::string GetAuthHeader() const { return m_authHeader; }
+    std::string GetAuthHeader(); 
 
-    void SetUsername(std::string username) { m_username = username;  }
-    void SetPassword(std::string password) { m_password = password;  }
+    void SetUsername(std::string username);
+    void SetPassword(std::string password);
 
-    std::string GetUsername() { return m_username; }
-    std::string GetPassword() { return m_password; }
+    std::string GetUsername();
 
-    std::string GetToken() { return m_token; }
-    void SetToken(const std::string& token ) { m_token = token; }
+    std::string GetToken();
+    void SetToken(const std::string& token);
 
     void LogIn();  
     void Authenticate(http::response<http::string_body> res);

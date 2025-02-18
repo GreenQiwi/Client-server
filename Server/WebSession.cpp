@@ -1,22 +1,9 @@
 #include "WebSession.hpp"
-#include <fstream>
-#include <sstream>
-#include <vector>
-#include <iostream>
-#include <filesystem>
-#include <boost/archive/iterators/binary_from_base64.hpp>
-#include <boost/archive/iterators/base64_from_binary.hpp>
-#include <boost/archive/iterators/transform_width.hpp>
-#include <boost/algorithm/string.hpp>
 
 WebSocketSession::WebSocketSession(tcp::socket&& socket)
     : m_socket(std::move(socket)) {}
 
-WebSocketSession::~WebSocketSession() { std::cout << "WebSession destroyed." << std::endl; }
-
 void WebSocketSession::doAccept(http::request<http::string_body> req) {
-    std::cout << "WebSocket created." << std::endl;
-
     m_socket.async_accept(req,
         beast::bind_front_handler(&WebSocketSession::onAccept, shared_from_this()));
 }
@@ -26,7 +13,6 @@ void WebSocketSession::onAccept(beast::error_code ec) {
         std::cerr << "WebSocket accept error: " << ec.message() << std::endl;
         return;
     }
-    std::cout << "WebSocket connection accepted." << std::endl;
     doRead();
 }
 
@@ -37,8 +23,7 @@ void WebSocketSession::doRead() {
 
 void WebSocketSession::onRead(beast::error_code ec, std::size_t bytesTransferred) {
     boost::ignore_unused(bytesTransferred);
-    if (ec == websocket::error::closed) {
-        std::cout << "WebSocket connection closed." << std::endl;
+    if (ec == websocket::error::closed) { 
         return;
     }
     if (ec) {
@@ -48,7 +33,6 @@ void WebSocketSession::onRead(beast::error_code ec, std::size_t bytesTransferred
 
     std::string message = beast::buffers_to_string(m_buffer.data());
     m_buffer.consume(m_buffer.size());
-    std::cout << "Message received: " << message << std::endl;
 
     std::istringstream iss(message);
     std::string command;
@@ -65,7 +49,7 @@ void WebSocketSession::onRead(beast::error_code ec, std::size_t bytesTransferred
         }
         else {
             sendMessage("{\"error\":\"User not found\"}");
-        }
+        }   
     }
     else if (command == "requestFile") {
         std::string username, fileName;
@@ -217,7 +201,6 @@ void WebSocketSession::doClose() {
     else {
         std::cerr << "Shutdown error: " << ec.message() << std::endl;
     }
-    std::cout << "Session ended, socket closed." << std::endl;
 }
 
 std::map<std::string, std::time_t> WebSocketSession::ReadAssociations(const std::string& file) {
@@ -269,6 +252,12 @@ void WebSocketSession::deleteFile(const std::string& fileName) {
 
     std::filesystem::remove(filePath);
     auto associations = ReadAssociations(associationsFile);
+
+    std::ofstream log("log.txt", std::ios::app);
+    if (!log.is_open()) {
+        throw std::runtime_error("Failed to open log file.");
+    }
+    log << "[DELETE] " << filePath <<  "deleted because of user request.\n";
 
     if (associations.erase(fileName) > 0) {
         WriteAssociations(associations, associationsFile);
